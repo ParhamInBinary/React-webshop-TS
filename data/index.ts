@@ -20,7 +20,6 @@ export const generateId = () => {
   return newId;
 };
 
-// Remove the data inside this when starting working on project
 export const products: Product[] = [
   {
     image:
