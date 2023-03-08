@@ -1,6 +1,4 @@
-import { Center } from "@chakra-ui/react";
 import { Button, Card } from "react-bootstrap";
-import './index.css';
 
 export function ProductCard({ product }: any) {
   return (
