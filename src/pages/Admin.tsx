@@ -1,3 +1,4 @@
+import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -5,14 +6,19 @@ import styled from "styled-components";
 import { products } from "../data";
 
 export function Admin() {
+  localStorage.setItem('products', JSON.stringify(products))
+  
   return (
     <Container>
+      <AddBtnContainer>
+        <Button variant="primary">Add new item</Button>
+      </AddBtnContainer>
       <ListHeader>
         <Row>
           <Col xs={3}>Title</Col>
           <Col xs={4}>Description</Col>
           <Col>Price</Col>
-          <Col>Id</Col>
+          <Col>Delete/Edit</Col>
         </Row>
       </ListHeader>
       <Row>
@@ -24,15 +30,16 @@ export function Admin() {
             </Col>
 
             <Col xs={4}>
-              <DescContainer>{product.description}</DescContainer>
+              {product.description}
             </Col>
 
             <Col>
-              <Price>{product.price + " :-"}</Price>
+              <Price>{product.price + ' :-'}</Price>
             </Col>
 
             <Col>
-            {product.id}
+              <Button variant="danger">Delete</Button>{' '}
+              <Button variant="outline-secondary">Edit</Button>
             </Col>
           </ProductItem>
         ))}
@@ -40,6 +47,14 @@ export function Admin() {
     </Container>
   );
 }
+
+const AddBtnContainer = styled.div `
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+`
 
 const ListHeader = styled.div `
   font-weight: bold;
@@ -58,11 +73,6 @@ const ProductItem = styled.div`
     margin: 1rem;
   }
 
-`;
-
-const DescContainer = styled.div`
-    max-height; 1rem;
-    overflow: scroll;
 `;
 
 const Price = styled.span`
