@@ -49,7 +49,6 @@ const ProductItem = styled.div`
   display: flex;
   border-bottom: 1px solid orange;
   font-size: 14px;
-  margin-top: 1rem;
   padding: 1rem 0;
 
   & img {
