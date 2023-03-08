@@ -15,11 +15,13 @@ export function Home() {
         </ProductContainer>
       </>
     );
-    
   }
 
   
   const ProductContainer = styled.div`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 2rem;
   `
