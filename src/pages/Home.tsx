@@ -5,6 +5,7 @@ import styled from "styled-components";
 export function Home() {
     return (
       <>
+      <main>
         <div>
           <h1>Produkt Lista</h1>
         </div>
@@ -13,6 +14,7 @@ export function Home() {
           <ProductCard product={product}/>
         ))}
         </ProductContainer>
+      </main>
       </>
     );
   }

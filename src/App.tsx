@@ -1,10 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import { Route, Routes } from "react-router-dom";
+import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
-import { Home } from "./pages/Home";
-import { Products } from "./pages/Products";
 import { Admin } from "./pages/Admin";
 import { Contact } from "./pages/Contact";
-import { Container } from "react-bootstrap";
+import { Home } from "./pages/Home";
+import { Products } from "./pages/Products";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </Container>
+        <Footer />
     </>
   );
 }
