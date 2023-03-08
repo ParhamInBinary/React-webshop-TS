@@ -11,7 +11,7 @@ export function Home() {
         </div>
         <ProductContainer>
         {products.map((product) => (
-          <ProductCard product={product}/>
+          <ProductCard key={product.id} product={product}/>
         ))}
         </ProductContainer>
       </main>
