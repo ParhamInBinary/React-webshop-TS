@@ -23,83 +23,56 @@ export const generateId = () => {
 export const products: Product[] = [
   {
     image:
-      'https://cdn.intersport.se/productimages/220x200/152552201000_10.jpg',
-    title: 'Adidas Galaxy 6 M',
+      'https://assets.ellosgroup.com/i/ellos/b?$eg$&$em$&$ep$&$ed$&n=ell_1032228-02_Fm_M0013527&mw=1500&fmt=webp',
+    title: 'Jolly',
     description:
-      'Dessa löparinspirerade sneakers från adidas har en ventilerande ovandel i syntet som låter foten andas och känns bekväm redan från första användning. Mellansulan i Cloudfoam tillsammans med Ortholite-inlägg ger en mjuk och härlig känsla hela dagen lång. Yttersulan i gummi ger utmärkt grepp och hållbarhet.',
-    price: 599,
+      'Stool with comfortable, shaped seat. Made of solid wood, in the Toon Wood type. Height 61 cm. Seat 40x32 cm. Seat height: 61 cm Width at the bottom 47 cm. Mounted.',
+    price: 1599,
     id: 'e1',
   },
   {
     image:
-      'https://cdn.intersport.se/productimages/220x200/153879201000_10.jpg',
-    title: 'Adidas ALPHABOOST V1 BOOST',
+      'https://assets.ellosgroup.com/i/ellos/b?$eg$&$em$&$ep$&$ed$&n=ell_1595558-01_Fm_M0037129&mw=1500&fmt=webp',
+    title: 'Chardonne',
     description:
-      'Ett par tuffa sneakers med löparinspirerad design från adidas. Ovandelen i mesh låter fötterna andas, med snörning som ger bekväm passform. Mellansulan är utrustad med Boost, Adiprene+ och Bounce som ger utmärkt stötdämpning och fjädrande energiåtergivning. Yttersulan är gjord i slittålig Adiwear™ som klarar av daglig användning.',
+      'Armchair with pine and plywood frame with nozag suspension and foam filling. Brushed metal legs. Dimensions: Width 89 cm, height 77 cm, depth 83 cm. Seat height 43 cm, seat depth 62 cm, seat width 54 cm.',
+    price: 3919,
+    id: 'd2',
+  },
+  {
+    image:
+      'https://assets.ellosgroup.com/i/ellos/b?$eg$&$em$&$ep$&$ed$&n=hom_1663846-02_Fs&mw=1500&fmt=webp',
+    title: 'Xander',
+    description:
+      'Lounge armchair with upholstery in bouquet fabric and passpoalk edge along the top edge. Legs and frame in powder-coated metal. Foam filling. Easier installation.',
+    price: 2299,
+    id: 'c1',
+  },
+  {
+    image:
+      'https://assets.ellosgroup.com/i/ellos/b?$eg$&$em$&$ep$&$ed$&n=ell_1615855-02_Fm_M0044073&mw=1500&fmt=webp',
+    title: 'Magnolia',
+    description:
+      'Rattan bedside table with shelf underneath. The top is reinforced with a plywood board under the rattan. Dimensions: Width 41 cm, height 71 cm, depth 31 cm. Leg height 22 cm. Height to the upper edge of the lower shelf 25 cm. Dimensions between the shelves 42.5 cm.',
     price: 1299,
-    id: 'e2',
+    id: 'f4',
   },
   {
     image:
-      'https://cdn.intersport.se/productimages/220x200/154127401000_10.jpg',
-    title: 'New Balance',
+      'https://assets.ellosgroup.com/i/ellos/b?$eg$&$em$&$ep$&$ed$&n=ell_1503126-03_Fm_M0037108&mw=1500&fmt=webp',
+    title: 'Bella',
     description:
-      'New Balance CT574 är den osannolika ikonen bland sneakers. Den har en pålitlig konstruktion med innovativa tekniker och framtagen med premiummaterial. Ovandelen är gjord i en stilsäker kombination av mocka och ventilerande mesh med den klassiska loggan längs sidan. Den sömlösa mellansulan ger bekväm dämpning och hög komfort hela dagen. Tålig yttersula i gummi med bra markgrepp.',
+      'Upholstered headboard attached to the wall (two hooks on the back). Wooden frame (pine). Upholstery in velvet of polyester and filling of polyether. Width 95 cm. Height 61.5 cm. Depth 7.5 cm.',
     price: 999,
-    id: 'e3',
-  },
-  {
-    image:
-      'https://cdn.intersport.se/productimages/220x200/154533801000_10.jpg',
-    title: 'VANS Filmore Decon',
-    description:
-      'Ett par snygga sneakers från Vans som passar perfekt till vardags. Skorna har ovandel i canvas och yttersula i gummi. En tidlös design som funkar till alla typer av vardagsoutfits!',
-    price: 699,
-    id: 'e4',
-  },
-  {
-    image:
-      'https://cdn.intersport.se/productimages/220x200/154756402000_10.jpg',
-    title: 'HOKA Bondi L GTX',
-    description:
-      'Bondi L GTX från Hoka One One är den nya medlemmen i den populära Bondi-familjen. Skorna har en tidlös design med en ovandel i vattentätt läder och ett GORE-TEX-membran som stänger ute väta och håller fötterna torra. Mellansula i EVA ger en lätt dämpning för ett mjukare steg. Yttersulan i slitstarkt gummi som tål blöta underlag.',
-    price: 2599,
-    id: 'e5',
-  },
-  {
-    image:
-      'https://cdn.intersport.se/productimages/220x200/140319501000_10.jpg',
-    title: 'McKinley Tirano NB',
-    description:
-      'Klassisk känga i nubuck. Varmfodrad. Vadderad krage för bekväm passform. Gummisula.',
-    price: 699,
     id: 'e6',
   },
   {
     image:
-      'https://cdn.intersport.se/productimages/220x200/150856801000_10.jpg',
-    title: 'TIMBERLAND Sprint Trekker',
+      'https://assets.ellosgroup.com/i/ellos/b?$eg$&$em$&$ep$&$ed$&n=ell_1664039-01_Fm_M0059479&mw=1500&fmt=webp',
+    title: 'Essentials',
     description:
-      'Kängor från Timberland som passar utmärkt för långvandrare som vill ha en bekväm och funktionell sko. Kängorna är tillverkade med en ovandel i ReBOTL™-material som innehåller 50 % återvunnen plast och premium nubuckläder. För en ökad komfort är kängorna utrustade med OrthoLite®-fotbädd som ger dig maximal dämpning när du är ute på dina friluftsaktiviteter.',
-    price: 1299,
-    id: 'e7',
+      'Side table / cabinet in solid mango wood with wax-treated surface. Two doors with wooden handles and soft closing. The cabinet is divided inside and has a fixed shelf. Dimensions between shelves approx. 27 cm. Clear height under furniture 14 cm. Delivered assembled.',
+    price: 5499,
+    id: 'a3',
   },
-  {
-    image:
-      'https://cdn.intersport.se/productimages/220x200/154527301000_10.jpg',
-    title: 'NIKE Air Max Impact 4',
-    description:
-      'Air Max Impact 4 är ett par lätta och smidiga basketskor från Nike med gummi som omsluter sidorna för extra slitstyrka och stabilitet. Max Air-dämpningen i hälen ger utmärkt stötdämpning i landningen. Yttersulan i gummi med fiskbensmönster ger utmärkt grepp vid snabba rörelser upp och ned för basketplan. Diamantformade utskärningar exponerar skummaterialet och ger en mindre vikt.',
-    price: 1149,
-    id: 'e8',
-  },
-  {
-    image:
-      'https://cdn.intersport.se/productimages/220x200/154875501000_10.jpg',
-    title: 'SALMING Rebel M',
-    description:
-      'Rebel är en stabil padelsko för kvinnor från Salming med en låg vikt så att du kan röra dig snabbt över banan och följa spelets snabba vändningar. RebelSKINN är ett tunt syntetlager som täcker hela ovandelen och håller foten på plats och ger ökad stabilitet. Mellansulan med D30-material ger stötdämpning i hälisättningen och ökad komfort. Den slitstarka yttersulan har ett fiskbensmönster som ger utmärkt grepp på padelbanan så att du kan fokusera på ditt spel utan att riskera att tappa fotfästet. Fungerar även till tennis.',
-    price: 999,
-    id: 'e9',
-  }
 ];
