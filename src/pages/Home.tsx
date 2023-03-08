@@ -1,4 +1,4 @@
-import { products } from "../data/index";
+import { Product, products } from "../data/index";
 import { ProductCard } from "../components/ProductCard";
 import styled from "styled-components";
 
@@ -11,7 +11,9 @@ export function Home() {
         </div>
         <ProductContainer>
         {products.map((product) => (
-          <ProductCard product={product}/>
+          <ProductCard product={product} addToCart={function (product: Product): void {
+            throw new Error("Function not implemented.");
+          } }/>
         ))}
         </ProductContainer>
       </main>

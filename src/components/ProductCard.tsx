@@ -6,18 +6,21 @@ import { Product } from "../data";
 
 interface ProductCardProps {
   product: Product;
+  addToCart: (product: Product) => void;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, addToCart }: ProductCardProps) {
 
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 
   const handleCardClick = () => {
     navigate(`/products/${product.id}`, { state: { product } });
-    console.log(product.title)
   };
 
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
 
   return (
     <Card style={{ width: "22rem", marginTop: "2rem" }} onClick={handleCardClick}
@@ -31,7 +34,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <Card.Body className="card-body">
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>{hovered ? product.description : null}</Card.Text>
-        <Button variant="primary">Add to cart</Button>
+        <Button variant="primary" onClick={handleAddToCart}>Add to cart</Button>
       </Card.Body>
     </Card>
   );
