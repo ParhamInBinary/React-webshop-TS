@@ -1,14 +1,16 @@
-import { Col, Row } from "react-bootstrap";
+import { products } from "../data/index";
+import { ProductCard } from "../ProductCard";
+
 
 export function Home() {
     return (
       <>
-      <div >
+        <div>
           <h1>Produkt Lista</h1>
-      </div>
-      <Row md={2} xs={1} lg={3} className="g-3">
-        <Col></Col>
-      </Row>
+        </div>
+        {products.map((product) => (
+          <ProductCard product={product}/>
+        ))}
       </>
     );
   }
