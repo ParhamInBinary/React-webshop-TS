@@ -3,6 +3,7 @@ import { Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { AdminButton } from "./AdminButton";
 import { CartButton } from "./CartButton";
+import { HomeLogo } from "./HomeLogo";
 
 export function Navbar() {
   return (
@@ -11,7 +12,7 @@ export function Navbar() {
         <Container>
           <Nav className="me-auto">
             <Nav.Link to="/" as={NavLink}>
-              Home
+              <HomeLogo />
             </Nav.Link>
             <Nav.Link to="/Contact" as={NavLink}>
               Contact
