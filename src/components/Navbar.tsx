@@ -6,7 +6,7 @@ import { CartButton } from "./CartButton";
 
 export function Navbar() {
   return (
-    <NavbarBs sticky="top" className="hbg-white shadow-sm mb-3">
+    <NavbarBs sticky="top" className="hbg-white shadow-lg mb-3">
       <Container>
         <Nav className="me-auto">
           <Nav.Link to="/" as={NavLink}>
@@ -18,7 +18,7 @@ export function Navbar() {
         </Nav>
         <Nav.Link to="/Admin" as={NavLink}>
         <AdminButton />
-          </Nav.Link>
+        </Nav.Link>
           <CartButton />    
       </Container>
     </NavbarBs>
