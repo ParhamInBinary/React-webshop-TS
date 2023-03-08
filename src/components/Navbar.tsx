@@ -12,14 +12,13 @@ export function Navbar() {
           <Nav.Link to="/" as={NavLink}>
             Home
           </Nav.Link>
-          <Nav.Link to="/Admin" as={NavLink}>
-            Admin
-          </Nav.Link>
           <Nav.Link to="/Contact" as={NavLink}>
             Contact
           </Nav.Link>
         </Nav>
-          <AdminButton />
+        <Nav.Link to="/Admin" as={NavLink}>
+        <AdminButton />
+          </Nav.Link>
           <CartButton />    
       </Container>
     </NavbarBs>
