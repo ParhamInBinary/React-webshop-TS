@@ -3,15 +3,16 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import styled from "styled-components";
+import { AddNewItem } from '../components/AddNewItem';
 import { products } from "../data";
 
 export function Admin() {
   localStorage.setItem('products', JSON.stringify(products))
-  
+
   return (
     <Container>
       <AddBtnContainer>
-        <Button variant="primary">Add new item</Button>
+        <AddNewItem />
       </AddBtnContainer>
       <ListHeader>
         <Row>
