@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ProductCard } from "../components/ProductCard";
-import { products } from "../data/index";
+import { Product } from "../data/index";
 
 export function Home() {
-    const [items, setItems] = useState(products)
+    const [items, setItems] = useState<Product[]>([])
 
     useEffect(() => {
     const storedProducts = localStorage.getItem('products')
