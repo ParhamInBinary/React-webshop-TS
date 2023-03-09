@@ -1,5 +1,5 @@
 import { products } from "../data/index";
-import { ProductCard } from "../ProductCard";
+import { ProductCard } from "../components/ProductCard";
 import styled from "styled-components";
 
 export function Home() {
