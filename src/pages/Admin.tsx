@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import styled from "styled-components";
-import { AddNewItemBtn } from '../components/AddNewItem';
+import { AddNewItemBtn } from '../components/AddNewItemBtn';
 import { products } from "../data";
 
 export function Admin() {
