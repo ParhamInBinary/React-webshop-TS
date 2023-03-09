@@ -11,6 +11,7 @@ export function Admin() {
   const [items, setItems] = useState(products)
 
   useEffect(() => {
+    localStorage.setItem('products', JSON.stringify(products))
     const storedProducts = localStorage.getItem('products')
     if (storedProducts) {
       setItems(JSON.parse(storedProducts))
