@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { NewProductForm } from "./NewProductForm";
 
-export function AddNewItem() {
+export function AddNewItemBtn() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

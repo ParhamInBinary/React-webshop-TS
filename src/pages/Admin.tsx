@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import styled from "styled-components";
-import { AddNewItem } from '../components/AddNewItem';
+import { AddNewItemBtn } from '../components/AddNewItem';
 import { products } from "../data";
 
 export function Admin() {
@@ -26,7 +26,7 @@ export function Admin() {
   return (
     <Container>
       <AddBtnContainer>
-        <AddNewItem />
+        <AddNewItemBtn />
       </AddBtnContainer>
       <ListHeader>
         <Row>
