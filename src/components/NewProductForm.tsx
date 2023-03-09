@@ -1,35 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { generateId, Product } from "../data";
+import { generateId } from "../data";
 
 export function NewProductForm() {
   const [validated, setValidated] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const storedProducts = JSON.parse(localStorage.getItem("products"));
-    if (storedProducts) {
-      setProducts(storedProducts);
-    }
-  }, []);
 
   const handleSubmit = (event: any) => {
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        } else {
-        console.log("asd")
-      const imageUrl = form.elements["floatingInput1"].value;
-      const title = form.elements["floatingInput2"].value;
-      const description = form.elements["floatingTextarea2"].value;
-      const price = form.elements["floatingInput3"].value;
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      const imageUrl = form.elements.namedItem("floatingInput1").value;
+      const title = form.elements.namedItem("floatingInput2").value;
+      const description = form.elements.namedItem("floatingTextarea1").value;
+      const price = form.elements.namedItem("floatingInput3").value;
       const id = generateId();
 
       const newProduct = { id, image: imageUrl, title, description, price };
-      setProducts(prevProducts => [...prevProducts, newProduct]);
-      localStorage.setItem("products", JSON.stringify(products));
+
+      const storedProducts = localStorage.getItem("products");
+      const parsedProducts = storedProducts ? JSON.parse(storedProducts) : [];
+      
+      const updatedProducts = [...parsedProducts, newProduct];
+      localStorage.setItem("products", JSON.stringify(updatedProducts));
+
+      form.reset();
+      
     }
     setValidated(true);
   };
@@ -38,7 +36,7 @@ export function NewProductForm() {
     <>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <FloatingLabel
-          controlId="floatingInput"
+          controlId="floatingInput1"
           label="Image URL"
           className="mb-3"
         >
@@ -50,7 +48,7 @@ export function NewProductForm() {
         </FloatingLabel>
 
         <FloatingLabel
-          controlId="floatingInput"
+          controlId="floatingInput2"
           label="Product title"
           className="mb-3"
         >
@@ -58,7 +56,7 @@ export function NewProductForm() {
         </FloatingLabel>
 
         <FloatingLabel
-          controlId="floatingTextarea2"
+          controlId="floatingTextarea1"
           label="Product description"
         >
           <Form.Control
@@ -70,7 +68,7 @@ export function NewProductForm() {
         </FloatingLabel>
 
         <FloatingLabel
-          controlId="floatingInput"
+          controlId="floatingInput3"
           label="Product price"
           className="mb-3"
         >
