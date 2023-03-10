@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Product, products } from "../data/index";
-import { ProductCard } from "../components/ProductCard";
 import styled from "styled-components";
+import { ProductCard } from "../components/ProductCard";
+import { Product } from "../data/index";
 
 export function Home() {
     const [items, setItems] = useState<Product[]>([])
