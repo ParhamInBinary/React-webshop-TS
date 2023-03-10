@@ -4,11 +4,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import styled from "styled-components";
 import { AddNewItemBtn } from "../components/AddNewItemBtn";
+import { EditForm } from "../components/EditForm";
 import { ProductListedItem } from "../components/ProductListedItem";
 import { products } from "../data";
 
 export function Admin() {
   const [items, setItems] = useState(products);
+  const [editingItem, setEditingItem] = useState(null);
 
   useEffect(() => {
     const storedProducts = localStorage.getItem("products");
@@ -23,7 +25,23 @@ export function Admin() {
     localStorage.setItem("products", JSON.stringify(updatedItems));
   };
 
-  const handleEdit = (id: string) => {};
+  const handleEdit = (id: string) => {
+    const itemToEdit = items.find((item) => item.id === id);
+    if (itemToEdit) {
+      setEditingItem(itemToEdit);
+    } else {
+      setEditingItem(null);
+    }
+  };
+
+  const handleSave = (editedItem) => {
+    const updatedItems = items.map((item) =>
+      item.id === editedItem.id ? editedItem : item
+    );
+    setItems(updatedItems);
+    setEditingItem(null);
+    localStorage.setItem("products", JSON.stringify(updatedItems));
+  };
 
   return (
     <Container>
@@ -38,17 +56,25 @@ export function Admin() {
           <Col>Delete/Edit</Col>
         </Row>
       </ListHeader>
-      <Row>
-        {items.map((product) => (
-          <ProductItem key={product.id}>
-            <ProductListedItem
-              product={product}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-            />
-          </ProductItem>
-        ))}
-      </Row>
+      {editingItem ? (
+        <EditForm
+          item={editingItem}
+          onSave={handleSave}
+          onCancel={() => setEditingItem(null)}
+        />
+      ) : (
+        <Row>
+          {items.map((product) => (
+            <ProductItem key={product.id}>
+              <ProductListedItem
+                product={product}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+              />
+            </ProductItem>
+          ))}
+        </Row>
+      )}
     </Container>
   );
 }
