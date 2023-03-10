@@ -19,7 +19,7 @@ export function ProductListedItem({ product, onDelete, onEdit }: Props) {
       <Col xs={4}>{product.description}</Col>
 
       <Col>
-        <Price>{product.price + " :-"}</Price>
+        <Price>{product.price + " SEK"}</Price>
       </Col>
 
       <Col>
