@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ProductCard } from "../components/ProductCard";
-import { Product } from "../data/index";
+import { Product, products } from "../data/index";
 
 export function Home() {
     const [items, setItems] = useState<Product[]>([])
 
     useEffect(() => {
-    const storedProducts = localStorage.getItem('products')
-    if (storedProducts) {
-      setItems(JSON.parse(storedProducts))
-    }
+    const storedProducts = JSON.parse(localStorage.getItem('products') ?? "[]")
+      setItems(storedProducts.length > 0 ? storedProducts : products)
   }, [])
   
     return (
