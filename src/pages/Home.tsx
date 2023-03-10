@@ -1,8 +1,18 @@
+import { useEffect, useState } from "react";
 import { Product, products } from "../data/index";
 import { ProductCard } from "../components/ProductCard";
 import styled from "styled-components";
 
 export function Home() {
+    const [items, setItems] = useState<Product[]>([])
+
+    useEffect(() => {
+    const storedProducts = localStorage.getItem('products')
+    if (storedProducts) {
+      setItems(JSON.parse(storedProducts))
+    }
+  }, [])
+  
     return (
       <>
       <main>
@@ -10,8 +20,8 @@ export function Home() {
           <h1>Produkt Lista</h1>
         </div>
         <ProductContainer>
-        {products.map((product) => (
-          <ProductCard product={product} addToCart={function (product: Product): void {
+        {items.map((product) => (
+          <ProductCard key={product.id} product={product} addToCart={function (product: Product): void {
             throw new Error("Function not implemented.");
           } }/>
         ))}
