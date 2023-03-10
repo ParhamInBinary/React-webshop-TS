@@ -12,11 +12,18 @@ export function ProductListedItem({ product, onDelete, onEdit }: Props) {
   return (
     <>
       <Col xs={3}>
-        <img src={product.image} />
-        {product.title}
+        <TitleContainer>
+          <img src={product.image} />
+          {product.title}
+        </TitleContainer>
       </Col>
 
-      <Col xs={4}>{product.description}</Col>
+      <Col xs={4}>
+        <DescContainer>
+
+        {product.description}
+        </DescContainer>
+        </Col>
 
       <Col>
         <Price>{product.price + " SEK"}</Price>
@@ -38,3 +45,13 @@ const Price = styled.span`
   margin-left: 1rem;
   font-weight: bold;
 `;
+
+const TitleContainer = styled.div`
+  overflow-x: scroll;
+  align-items: center;
+  `;
+  
+  const DescContainer = styled.div `
+  height: 8rem;
+  overflow-y: scroll;
+`
