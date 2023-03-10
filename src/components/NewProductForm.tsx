@@ -3,7 +3,7 @@ import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { generateId } from "../data";
 interface FormFields {
-  imageUrl: string;
+  image: string;
   title: string;
   description: string;
   price: string;
@@ -12,7 +12,7 @@ interface FormFields {
 export function NewProductForm() {
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
-    imageUrl: "",
+    image: "",
     title: "",
     description: "",
     price: "",
@@ -34,7 +34,7 @@ export function NewProductForm() {
       const id = generateId();
       const newProduct = { id, ...formFields };
       updateLocalStorage(newProduct);
-      setFormFields({ imageUrl: "", title: "", description: "", price: "" });
+      setFormFields({ image: "", title: "", description: "", price: "" });
     }
     setValidated(true);
   };
@@ -49,13 +49,13 @@ export function NewProductForm() {
   return (
     <>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <FloatingLabel controlId="imageUrl" label="Image URL" className="mb-3">
+        <FloatingLabel controlId="image" label="Image URL" className="mb-3">
           <Form.Control
             type="text"
             placeholder="https://example.jpg"
             required
-            name="imageUrl"
-            value={formFields.imageUrl}
+            name="image"
+            value={formFields.image}
             onChange={handleInputChange}
           />
         </FloatingLabel>
