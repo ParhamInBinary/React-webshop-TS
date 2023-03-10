@@ -33,6 +33,7 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
       />
       <Card.Body className="card-body">
         <Card.Title>{product.title}</Card.Title>
+        <Card.Text>{product.price + ' SEK'}</Card.Text>
         <Card.Text>{hovered ? product.description : null}</Card.Text>
         <Button variant="primary" onClick={handleAddToCart}>Add to cart</Button>
       </Card.Body>
