@@ -53,7 +53,7 @@ export function Admin() {
           <Col xs={3}>Title</Col>
           <Col xs={4}>Description</Col>
           <Col>Price</Col>
-          <Col>Delete/Edit</Col>
+          <Col></Col>
         </Row>
       </ListHeader>
       {editingItem ? (
