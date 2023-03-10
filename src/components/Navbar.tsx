@@ -13,8 +13,8 @@ export function Navbar() {
             <Nav.Link to="/" as={NavLink}>
               Home
             </Nav.Link>
-            <Nav.Link to="/Contact" as={NavLink}>
-              Contact
+            <Nav.Link to="/FAQ" as={NavLink}>
+              FAQ
             </Nav.Link>
           </Nav>
           <Nav.Link to="/Admin" as={NavLink}>
