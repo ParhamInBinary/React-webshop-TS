@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { generateId } from "../data";
+import { generateId, Product } from "../data";
 interface FormFields {
   image: string;
   title: string;
@@ -9,7 +9,12 @@ interface FormFields {
   price: string;
 }
 
-export function NewProductForm() {
+interface NewProductFormProps {
+  setItems: React.Dispatch<React.SetStateAction<Product[]>>,
+  items: Product[],
+}
+
+export function NewProductForm({setItems, items}: NewProductFormProps) {
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
     image: "",
@@ -39,11 +44,10 @@ export function NewProductForm() {
     setValidated(true);
   };
 
-  const updateLocalStorage = (newProduct: { [key: string]: any }) => {
-    const storedProducts = localStorage.getItem("products");
-    const parsedProducts = storedProducts ? JSON.parse(storedProducts) : [];
-    const updatedProducts = [...parsedProducts, newProduct];
+  const updateLocalStorage = (newProduct: Product) => {
+    const updatedProducts = [...items, newProduct];
     localStorage.setItem("products", JSON.stringify(updatedProducts));
+    setItems(updatedProducts);
   };
 
   return (

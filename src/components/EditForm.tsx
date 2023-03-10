@@ -1,17 +1,10 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Product } from "../data";
 
 interface EditFormProps {
-  item: {
-    title: string;
-    description: string;
-    price: number;
-  };
-  onSave: (updatedItem: {
-    title: string;
-    description: string;
-    price: number;
-  }) => void;
+  item: Product;
+  onSave: (updatedItem: Product) => void;
   onCancel: () => void;
 }
 
@@ -53,7 +46,7 @@ export function EditForm({ item, onSave, onCancel }: EditFormProps) {
         <Form.Control
           type="number"
           value={price}
-          onChange={(event) => setPrice(+event.target.value)}
+          onChange={(event) => setPrice(event.target.value)}
         />
       </Form.Group>
       <Button variant="primary" type="submit">

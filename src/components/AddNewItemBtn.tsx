@@ -1,9 +1,15 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { Product } from "../data";
 import { NewProductForm } from "./NewProductForm";
 
-export function AddNewItemBtn() {
+interface AddNewItemBtnProps {
+  setItems: React.Dispatch<React.SetStateAction<Product[]>>,
+  items: Product[],
+}
+
+export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -20,7 +26,7 @@ export function AddNewItemBtn() {
           <Modal.Title>Product info</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewProductForm />
+          <NewProductForm setItems={setItems} items={items}/>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

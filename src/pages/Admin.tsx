@@ -6,11 +6,11 @@ import styled from "styled-components";
 import { AddNewItemBtn } from "../components/AddNewItemBtn";
 import { EditForm } from "../components/EditForm";
 import { ProductListedItem } from "../components/ProductListedItem";
-import { products } from "../data";
+import { Product, products } from "../data";
 
 export function Admin() {
   const [items, setItems] = useState(products);
-  const [editingItem, setEditingItem] = useState(null);
+  const [editingItem, setEditingItem] = useState<Product | null>(null);
 
   useEffect(() => {
     const storedProducts = localStorage.getItem("products");
@@ -34,7 +34,7 @@ export function Admin() {
     }
   };
 
-  const handleSave = (editedItem) => {
+  const handleSave = (editedItem: Product) => {
     const updatedItems = items.map((item) =>
       item.id === editedItem.id ? editedItem : item
     );
@@ -46,7 +46,7 @@ export function Admin() {
   return (
     <Container>
       <AddBtnContainer>
-        <AddNewItemBtn />
+        <AddNewItemBtn setItems={setItems} items={items}/>
       </AddBtnContainer>
       <ListHeader>
         <Row>
