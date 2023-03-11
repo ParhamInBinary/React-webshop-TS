@@ -29,7 +29,7 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
       <Card.Img
         variant="top"
         src={product.image}
-        style={{ width: "18rem", marginLeft: "2rem" }}
+        style={{ width: "18rem", marginLeft: "2rem", cursor: 'pointer' }}
       />
       <Card.Body className="card-body">
         <Card.Title>{product.title}</Card.Title>
