@@ -3,6 +3,19 @@ import { Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { AdminButton } from "./AdminButton";
 import { CartButton } from "./CartButton";
+import styled from "styled-components";
+
+const StyledNavLink = styled(NavLink)`
+padding: 0px 10px;
+color: black;
+text-decoration:none;
+font-size: 1.2rem;
+transition: all 0.3s ease;
+  &.active {
+    color: #fff;
+    text-decoration: underline 3px;
+  }
+`;
 
 export function Navbar() {
   return (
@@ -10,17 +23,17 @@ export function Navbar() {
       <NavbarBs sticky="top" className="header shadow-lg mb-4">
         <Container>
           <Nav className="me-auto">
-            <Nav.Link to="/" as={NavLink}>
+            <StyledNavLink to="/" as={NavLink}>
               Home
-            </Nav.Link>
-            <Nav.Link to="/FAQ" as={NavLink}>
+            </StyledNavLink>
+            <StyledNavLink to="/FAQ" as={NavLink} >
               FAQ
-            </Nav.Link>
+            </StyledNavLink>
           </Nav>
-          <Nav.Link to="/Admin" as={NavLink}>
-          <AdminButton />
-          </Nav.Link>
-            <CartButton />    
+          <StyledNavLink to="/Admin" as={NavLink}>
+            <AdminButton />
+          </StyledNavLink>
+          <CartButton />
         </Container>
       </NavbarBs>
     </header>
