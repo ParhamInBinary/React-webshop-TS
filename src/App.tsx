@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
+import { ProductDetails } from "./components/ProductDetails";
 import { Admin } from "./pages/Admin";
 import { FAQ } from "./pages/FAQ";
 import { Home } from "./pages/Home";
@@ -13,9 +14,9 @@ export default function App() {
         <Container className="mb-4">
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/products" element={<Products />} /> */}
             <Route path="/admin" element={<Admin />} />
             <Route path="/FAQ" element={<FAQ />} />
+            <Route path="/products/:productid" element={<ProductDetails />} />
           </Routes>
         </Container>
         <Footer />
