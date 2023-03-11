@@ -1,12 +1,15 @@
-import Faq from 'react-faq-component';
-import { Data } from '../data/dataContent'
+import Faq from "react-faq-component";
+import { Data } from "../data/dataContent";
 
 export function FAQ() {
-  const styles = { rowContentPaddingLeft: '20px', bgColor: '#f8f9fa' };
+  const styles = {
+    rowContentPaddingLeft: "20px",
+    bgColor: "#f8f9fa"
+  };
 
   return (
     <div>
-        <Faq data={Data} styles={styles} />
+      <Faq data={Data} styles={styles} />
     </div>
   );
 }
