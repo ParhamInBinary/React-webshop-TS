@@ -14,7 +14,7 @@ export function CartButton() {
             width: "3rem",
             height: "3rem",
             position: "relative",
-            color: "blue",
+            color: "white",
           }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
