@@ -17,6 +17,10 @@ transition: all 0.3s ease;
   }
 `;
 
+const Link = styled(NavLink)`
+padding: 0px 10px;
+`;
+
 export function Navbar() {
   return (
     <header>
@@ -30,9 +34,9 @@ export function Navbar() {
               FAQ
             </StyledNavLink>
           </Nav>
-          <StyledNavLink to="/Admin" as={NavLink}>
+          <Link to="/Admin" as={NavLink}>
             <AdminButton />
-          </StyledNavLink>
+          </Link>
           <CartButton />
         </Container>
       </NavbarBs>
