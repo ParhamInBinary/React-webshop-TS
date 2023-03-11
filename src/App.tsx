@@ -4,7 +4,7 @@ import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { products } from "./data";
 import { Admin } from "./pages/Admin";
-import { Contact } from "./pages/Contact";
+import { FAQ } from "./pages/FAQ";
 import { Home } from "./pages/Home";
 import { Products } from "./pages/Products";
 
@@ -18,7 +18,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/FAQ" element={<FAQ />} />
           </Routes>
         </Container>
         <Footer />
