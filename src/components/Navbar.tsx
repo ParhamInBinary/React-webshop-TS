@@ -5,22 +5,6 @@ import { AdminButton } from "./AdminButton";
 import { CartButton } from "./CartButton";
 import styled from "styled-components";
 
-const StyledNavLink = styled(NavLink)`
-padding: 0px 10px;
-color: black;
-text-decoration:none;
-font-size: 1.2rem;
-transition: all 0.3s ease;
-  &.active {
-    color: #fff;
-    text-decoration: underline 3px;
-  }
-`;
-
-const Link = styled(NavLink)`
-padding: 0px 10px;
-`;
-
 export function Navbar() {
   return (
     <header>
@@ -43,3 +27,19 @@ export function Navbar() {
     </header>
   );
 }
+
+const StyledNavLink = styled(NavLink)`
+padding: 0px 10px;
+color: black;
+text-decoration:none;
+font-size: 1.2rem;
+transition: all 0.3s ease;
+  &.active {
+    color: #fff;
+    text-decoration: underline 3px;
+  }
+`;
+
+const Link = styled(NavLink)`
+padding: 0px 10px;
+`;
