@@ -2,7 +2,7 @@ import { Card } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-export function ProductDetails() {
+export function ProductPage() {
     const location = useLocation();
     const { product } = location.state;
 
