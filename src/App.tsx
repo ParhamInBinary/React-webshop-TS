@@ -3,8 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { Admin } from "./pages/Admin";
+import { FAQ } from "./pages/FAQ";
+
 import { Home } from "./pages/Home";
-import { Products } from "./pages/Products";
 
 export default function App() {
   return (
@@ -13,8 +14,9 @@ export default function App() {
         <Container className="mb-4">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
+            {/* <Route path="/products" element={<Products />} /> */}
             <Route path="/admin" element={<Admin />} />
+            <Route path="/FAQ" element={<FAQ />} />
           </Routes>
         </Container>
         <Footer />

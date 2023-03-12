@@ -9,7 +9,7 @@ export function AdminButton() {
           width: "3rem",
           height: "3rem",
           position: "relative",
-          color: "blue",
+          color: "white",
         }}
         variant="outline-primary"
         className="rounded-circle"
