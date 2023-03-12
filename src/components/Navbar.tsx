@@ -3,6 +3,7 @@ import { Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { AdminButton } from "./AdminButton";
 import { CartButton } from "./CartButton";
+import { HomeLogo } from "./HomeLogo";
 import styled from "styled-components";
 
 export function Navbar() {
