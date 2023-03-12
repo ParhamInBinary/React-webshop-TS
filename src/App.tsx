@@ -12,7 +12,7 @@ export default function App() {
   return (
     <>
         <Navbar />
-        <Container style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '10px' }} className="mb-4" >
+        <Container style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '5px' }} className="mb-4" >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<Admin />} />
