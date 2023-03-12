@@ -7,14 +7,16 @@ export function ProductDetails() {
     const { product } = location.state;
 
     return (
-        <Card>
+        <ContentDiv>
+            <Card>
             <Container>
             <Image src={product.image} alt={product.title} />
-            <h1>{ product.title }</h1>
-            <p>{ product.description }</p>
+            <Title>{ product.title }</Title>
+            <Description>{ product.description }</Description>
             <Styledp>Price: { product.price } SEK</Styledp>
             </Container>
-        </Card>
+            </Card>
+        </ContentDiv>
     );
 }
 
@@ -34,4 +36,17 @@ const Image = styled.img `
     width: 100%;
     max-width: 490px;
     object-fit: cover;
+`
+
+const Title = styled.h1 `
+    font-size: 20px;
+`
+
+const ContentDiv = styled.div `
+    margin-bottom: 6rem;
+    margin-top: 6rem;
+`
+
+const Description = styled.p `
+    font-size: 12px;
 `
