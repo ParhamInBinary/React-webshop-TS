@@ -74,21 +74,21 @@ export function OrderForm() {
             <Form.Group data-cy="customer-address" as={Col} md="4" controlId="validationFormik03">
               <Form.Label>Address</Form.Label>
               <InputGroup hasValidation>
-                <Form.Control
+                <Form.Control data-cy="customer-name-error"
                   type="text"
                   name="adress"
                   value={values.address}
                   onChange={handleChange}
                   isValid={touched.address && !errors.address}
                 />
-                <Form.Control.Feedback type="invalid">
+                <Form.Control.Feedback data-cy="customer-address-error" type="invalid">
                   {errors.address}
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Row>
           <Row className="mb-3">
-            <Form.Group as={Col} md="6" controlId="validationFormik04">
+            <Form.Group data-cy="customer-city" as={Col} md="6" controlId="validationFormik04">
               <Form.Label>City</Form.Label>
               <Form.Control
                 type="text"
@@ -103,7 +103,7 @@ export function OrderForm() {
                 {errors.city}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="3" controlId="validationFormik07">
+            <Form.Group data-cy="customer-zipcode" as={Col} md="3" controlId="validationFormik07">
               <Form.Label>Zip</Form.Label>
               <Form.Control
                 type="text"
@@ -118,7 +118,7 @@ export function OrderForm() {
                 {errors.zip}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="3" controlId="validationFormik05">
+            <Form.Group data-cy="customer-email" as={Col} md="3" controlId="validationFormik05">
               <Form.Label>email</Form.Label>
               <Form.Control
                 type="text"
@@ -128,11 +128,11 @@ export function OrderForm() {
                 onChange={handleChange}
                 isInvalid={!!errors.email}
               />
-              <Form.Control.Feedback type="invalid">
+              <Form.Control.Feedback data-cy="customer-email-error" type="invalid">
                 {errors.email}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="3" controlId="validationFormik06">
+            <Form.Group data-cy="customer-phone" as={Col} md="3" controlId="validationFormik06">
               <Form.Label>Phone</Form.Label>
               <Form.Control
                 type="text"
@@ -143,7 +143,7 @@ export function OrderForm() {
                 isInvalid={!!errors.phone}
               />
 
-              <Form.Control.Feedback type="invalid">
+              <Form.Control.Feedback data-cy="customer-phone-error" type="invalid">
                 {errors.phone}
               </Form.Control.Feedback>
             </Form.Group>
