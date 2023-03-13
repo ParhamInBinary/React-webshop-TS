@@ -11,7 +11,6 @@ export function FAQ() {
   return (
     <div>
       <Faq data={Data} styles={styles} />
-      <OrderForm />
     </div>
   );
 }
