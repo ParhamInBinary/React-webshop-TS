@@ -30,9 +30,9 @@ export function ProductPage() {
                 ))}
               </SizeSelect>
             </div>
-            <Button variant="primary">
+            <AddToCartButton variant="primary">
                 Add to cart
-            </Button>
+            </AddToCartButton>
           </ContentDetails>
         </Container>
       </Card>
@@ -83,4 +83,8 @@ const SizeSelect = styled.select`
 
 const SizeLabel = styled.label`
   margin-right: 10px;
+`;
+
+const AddToCartButton = styled(Button) `
+    margin-top: 20px;
 `;
