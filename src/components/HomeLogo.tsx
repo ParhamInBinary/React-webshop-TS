@@ -1,25 +1,22 @@
 import { Button } from "react-bootstrap";
-import { Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
-import logo1 from "./public/logo1.png"
+import svglogonew from "/svglogonew.svg";
 
 export function HomeLogo() {
   return (
-    <>
-      <Button
-        style={{
-          width: "3rem",
-          height: "3rem",
-          position: "relative",
-          color: "blue",
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundSize: 'contain'
+    <Button
+      style={{
+        width: "4.5rem",
+        height: "4.5rem",
+        position: "relative",
+        color: "blue",
+        backgroundImage: `url(${svglogonew})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "contain",
+        border: "none",
       }}
       variant="outline-primary"
-      className="rounded-circle"
-    >
-    
-      </Button>
-    </>
+      // className="rounded-circle"
+    ></Button>
   );
 }
