@@ -12,6 +12,9 @@ export function Navbar() {
       <NavbarBs sticky="top" className="header shadow-lg mb-4">
         <Container>
           <Nav className="me-auto">
+          <StyledNavLink to="/" as={NavLink}>
+              <HomeLogo />
+            </StyledNavLink>
             <StyledNavLink to="/" as={NavLink}>
               Home
             </StyledNavLink>
