@@ -64,7 +64,7 @@ const ContentDetails = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 20px;
+  font-size: 24px;
 `;
 
 const ContentDiv = styled.div`
@@ -73,7 +73,7 @@ const ContentDiv = styled.div`
 `;
 
 const Description = styled.p`
-  font-size: 12px;
+  font-size: 16px;
 `;
 
 const SizeSelect = styled.select`
