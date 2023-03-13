@@ -12,8 +12,11 @@ const schema = Yup.object().shape({
   lastName: Yup.string().required(),
   address: Yup.string().required(),
   city: Yup.string().required(),
+  zip: Yup.string().required(),
   email: Yup.string().email('Invalid email address').required(),
-  phone: Yup.string().matches(/^[0-9]+$/, 'Must be only digits').required().test('len', 'Phone number must be exactly 10 digits', val => val && val.toString().length === 10),
+  phone: Yup.string()
+  .required()
+  .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),  
   terms: Yup.bool().required().oneOf([true], 'You must click it '),
 });
 
@@ -28,6 +31,7 @@ export function OrderForm() {
         lastName: '',
         address: '',
         city: '',
+        zip: '',
         email: '',
         phone: '',
         terms: false,
@@ -42,9 +46,9 @@ export function OrderForm() {
         isValid,
         errors,
       }) => (
-        <Form  noValidate onSubmit={handleSubmit} >
+        <Form data-cy="customer-form" noValidate onSubmit={handleSubmit} >
           <Row className="mb-3">
-            <Form.Group as={Col} md="4" controlId="validationFormik01">
+            <Form.Group data-cy="customer-name" as={Col} md="4" controlId="validationFormik01">
               <Form.Label>First name</Form.Label>
               <Form.Control
                 type="text"
@@ -67,7 +71,7 @@ export function OrderForm() {
 
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationFormik03">
+            <Form.Group data-cy="customer-address" as={Col} md="4" controlId="validationFormik03">
               <Form.Label>Address</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
@@ -97,6 +101,21 @@ export function OrderForm() {
 
               <Form.Control.Feedback type="invalid">
                 {errors.city}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="3" controlId="validationFormik07">
+              <Form.Label>Zip</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Zip"
+                name="zip"
+                value={values.zip}
+                onChange={handleChange}
+                isInvalid={!!errors.zip}
+              />
+
+              <Form.Control.Feedback type="invalid">
+                {errors.zip}
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationFormik05">
