@@ -6,7 +6,7 @@ import { Data } from "../data/dataContent";
 export function FAQ() {
   const styles = {
     rowContentPaddingLeft: "20px",
-    bgColor: "#f8f9fa"
+    bgColor: "#fff"
   };
 
   return (
