@@ -12,10 +12,11 @@ const schema = Yup.object().shape({
   lastName: Yup.string().required(),
   address: Yup.string().required(),
   city: Yup.string().required(),
-  email: Yup.string().required(),
-  phone: Yup.number().required(),
+  email: Yup.string().email('Invalid email address').required(),
+  phone: Yup.string().matches(/^[0-9]+$/, 'Must be only digits').required().test('len', 'Phone number must be exactly 10 digits', val => val && val.toString().length === 10),
   terms: Yup.bool().required().oneOf([true], 'You must click it '),
 });
+
 
 export function OrderForm() {
   return (
