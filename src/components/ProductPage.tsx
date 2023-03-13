@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -30,6 +30,9 @@ export function ProductPage() {
                 ))}
               </SizeSelect>
             </div>
+            <Button variant="primary">
+                Add to cart
+            </Button>
           </ContentDetails>
         </Container>
       </Card>
