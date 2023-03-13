@@ -5,17 +5,17 @@ export function HomeLogo() {
   return (
     <Button
       style={{
-        width: "4.5rem",
-        height: "4.5rem",
+        width: "3rem",
+        height: "3rem",
         position: "relative",
-        color: "blue",
+        color: "white",
         backgroundImage: `url(${svglogonew})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "contain",
         border: "none",
       }}
-      variant="outline-primary"
+      variant="outline-secondary"
       // className="rounded-circle"
     ></Button>
   );
