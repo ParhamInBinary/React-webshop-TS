@@ -30,9 +30,7 @@ export function ProductPage() {
                 ))}
               </SizeSelect>
             </div>
-            <AddToCartButton variant="primary">
-                Add to cart
-            </AddToCartButton>
+            <AddToCartButton variant="primary">Add to cart</AddToCartButton>
           </ContentDetails>
         </Container>
       </Card>
@@ -67,8 +65,6 @@ const Title = styled.h1`
   font-size: 24px;
 `;
 
-
-
 const Description = styled.p`
   font-size: 16px;
 `;
@@ -82,6 +78,6 @@ const SizeLabel = styled.label`
   margin-right: 10px;
 `;
 
-const AddToCartButton = styled(Button) `
-    margin-top: 20px;
+const AddToCartButton = styled(Button)`
+  margin-top: 20px;
 `;
