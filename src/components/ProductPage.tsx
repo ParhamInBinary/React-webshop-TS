@@ -10,9 +10,9 @@ export function ProductPage() {
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
   return (
-    <ContentDiv>
+    <div>
       <Card>
-        <Container>
+        <Container className="mb-5 mt-5">
           <Image src={product.image} alt={product.title} />
           <ContentDetails>
             <Title>{product.title}</Title>
@@ -36,7 +36,7 @@ export function ProductPage() {
           </ContentDetails>
         </Container>
       </Card>
-    </ContentDiv>
+    </div>
   );
 }
 
@@ -67,10 +67,7 @@ const Title = styled.h1`
   font-size: 24px;
 `;
 
-const ContentDiv = styled.div`
-  margin-bottom: 6rem;
-  margin-top: 6rem;
-`;
+
 
 const Description = styled.p`
   font-size: 16px;
