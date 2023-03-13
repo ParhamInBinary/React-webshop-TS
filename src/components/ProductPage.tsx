@@ -1,5 +1,5 @@
-import { Card } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 
 export function ProductPage() {
@@ -8,14 +8,16 @@ export function ProductPage() {
 
     return (
         <ContentDiv>
-            <Card>
+        <Card>
             <Container>
-            <Image src={product.image} alt={product.title} />
-            <Title>{ product.title }</Title>
-            <Description>{ product.description }</Description>
-            <Styledp>Price: { product.price } SEK</Styledp>
+                <Image src={product.image} alt={product.title} />
+                <ContentDetails>
+                    <Title>{ product.title }</Title>
+                    <Description>{ product.description }</Description>
+                    <Styledp>Price: { product.price } SEK</Styledp>
+                </ContentDetails>
             </Container>
-            </Card>
+        </Card>
         </ContentDiv>
     );
 }
@@ -36,17 +38,22 @@ const Image = styled.img `
     width: 100%;
     max-width: 490px;
     object-fit: cover;
-`
+`;
+
+const ContentDetails = styled.div `
+    flex: 1;
+    margin-left: 10px;
+`;
 
 const Title = styled.h1 `
     font-size: 20px;
-`
+`;
 
 const ContentDiv = styled.div `
     margin-bottom: 6rem;
     margin-top: 6rem;
-`
+`;
 
 const Description = styled.p `
     font-size: 12px;
-`
+`;
