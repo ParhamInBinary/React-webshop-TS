@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AdminButton } from "./AdminButton";
 import { CartButton } from "./CartButton";
 import { HomeLogo } from "./HomeLogo";
+import styled from "styled-components";
 
 export function Navbar() {
   return (
@@ -11,19 +12,35 @@ export function Navbar() {
       <NavbarBs sticky="top" className="header shadow-lg mb-4">
         <Container>
           <Nav className="me-auto">
-            <Nav.Link to="/" as={NavLink}>
-              <HomeLogo />
-            </Nav.Link>
-            <Nav.Link to="/Contact" as={NavLink}>
-              Contact
-            </Nav.Link>
+            <StyledNavLink to="/" as={NavLink}>
+              Home
+            </StyledNavLink>
+            <StyledNavLink to="/FAQ" as={NavLink} >
+              FAQ
+            </StyledNavLink>
           </Nav>
-          <Nav.Link to="/Admin" as={NavLink}>
-          <AdminButton />
-          </Nav.Link>
-            <CartButton />    
+          <Link to="/Admin" as={NavLink}>
+            <AdminButton />
+          </Link>
+          <CartButton />
         </Container>
       </NavbarBs>
     </header>
   );
 }
+
+const StyledNavLink = styled(NavLink)`
+padding: 0px 10px;
+color: black;
+text-decoration:none;
+font-size: 1.2rem;
+transition: all 0.3s ease;
+  &.active {
+    color: #fff;
+    text-decoration: underline 3px;
+  }
+`;
+
+const Link = styled(NavLink)`
+padding: 0px 10px;
+`;
