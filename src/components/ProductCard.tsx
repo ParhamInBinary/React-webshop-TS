@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Button, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { Product } from "../data";
+import { AddtoCartFunction } from "./AddToCartFunction";
+
+
 
 interface ProductCardProps {
   product: Product;
@@ -10,7 +12,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, addToCart }: ProductCardProps) {
-
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -18,12 +19,8 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
     navigate(`/products/${product.id}`, { state: { product } });
   };
 
-  const handleAddToCart = () => {
-    addToCart(product);
-  };
-
   return (
-    <Card style={{ width: "22rem", marginTop: "2rem" }} onClick={handleCardClick}
+    <Card style={{ width: "22rem", marginTop: "2rem" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}>
       <Card.Img
@@ -35,7 +32,7 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>{product.price + ' SEK'}</Card.Text>
         <Card.Text>{hovered ? product.description : null}</Card.Text>
-        <Button variant="primary" onClick={handleAddToCart}>Add to cart</Button>
+        <AddtoCartFunction product={product} addToCart={addToCart} />
       </Card.Body>
     </Card>
   );
