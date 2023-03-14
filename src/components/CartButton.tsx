@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFillBasket3Fill } from "react-icons/bs";
 
-import { products, Product } from "../data";
+import { Product, products } from "../../data";
 
 export function CartButton() {
   const [show, setShow] = useState(false);

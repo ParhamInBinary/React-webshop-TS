@@ -1,6 +1,6 @@
 import { Button, Col } from "react-bootstrap";
 import styled from "styled-components";
-import { Product } from "../data";
+import { Product } from "../../data";
 
 interface Props {
   product: Product;

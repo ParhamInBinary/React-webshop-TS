@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { generateId, Product } from "../data";
+import { generateId, Product } from "../../data";
 interface FormFields {
   image: string;
   title: string;
@@ -35,13 +35,13 @@ export function NewProductForm({setItems, items}: NewProductFormProps) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
+      setValidated(true);
     } else {
       const id = generateId();
       const newProduct = { id, ...formFields };
       updateLocalStorage(newProduct);
       setFormFields({ image: "", title: "", description: "", price: "" });
     }
-    setValidated(true);
   };
 
   const updateLocalStorage = (newProduct: Product) => {

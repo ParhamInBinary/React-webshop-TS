@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Product } from "../data";
+import { Product } from "../../data";
 
 interface EditFormProps {
   item: Product;
