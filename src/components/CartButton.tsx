@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFillBasket3Fill } from "react-icons/bs";
 
-import { Product, products } from "../../data";
+import { Product, products } from "../data";
 
 export function CartButton() {
   const [show, setShow] = useState(false);

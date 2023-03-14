@@ -3,10 +3,10 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import styled from "styled-components";
-import { Product, products } from "../../data";
 import { AddNewItemBtn } from "../components/AddNewItemBtn";
 import { EditForm } from "../components/EditForm";
 import { ProductListedItem } from "../components/ProductListedItem";
+import { Product, products } from "../data";
 
 export function Admin() {
   const [items, setItems] = useState(products);

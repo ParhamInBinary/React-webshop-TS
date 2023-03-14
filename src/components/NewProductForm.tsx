@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { generateId, Product } from "../../data";
+import { generateId, Product } from "../data";
 interface FormFields {
   image: string;
   title: string;

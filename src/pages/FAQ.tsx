@@ -1,5 +1,5 @@
 import Faq from "react-faq-component";
-import { Data } from "../../data/dataContent";
+import { Data } from "../data/dataContent";
 
 
 export function FAQ() {
