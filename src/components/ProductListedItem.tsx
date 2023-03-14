@@ -12,28 +12,35 @@ export function ProductListedItem({ product, onDelete, onEdit }: Props) {
   return (
     <>
       <Col xs={3}>
-        <TitleContainer>
+        <TitleContainer data-cy="product-title">
           <img src={product.image} />
           {product.title}
         </TitleContainer>
       </Col>
 
       <Col xs={4}>
-        <DescContainer>
-
-        {product.description}
+        <DescContainer data-cy="product-description">
+          {product.description}
         </DescContainer>
-        </Col>
-
-      <Col>
-        <Price>{product.price + " SEK"}</Price>
       </Col>
 
       <Col>
-        <Button variant="danger" onClick={() => onDelete(product.id)} data-cy="admin-remove-product">
+        <Price data-cy="product-price">{product.price + " SEK"}</Price>
+      </Col>
+
+      <Col>
+        <Button
+          variant="danger"
+          onClick={() => onDelete(product.id)}
+          data-cy="admin-remove-product"
+        >
           Delete
         </Button>{" "}
-        <Button variant="outline-secondary" onClick={() => onEdit(product.id)} data-cy="admin-edit-product">
+        <Button
+          variant="outline-secondary"
+          onClick={() => onEdit(product.id)}
+          data-cy="admin-edit-product"
+        >
           Edit
         </Button>
       </Col>
@@ -49,9 +56,9 @@ const Price = styled.span`
 const TitleContainer = styled.div`
   overflow-x: scroll;
   align-items: center;
-  `;
-  
-  const DescContainer = styled.div `
+`;
+
+const DescContainer = styled.div`
   height: 8rem;
   overflow-y: scroll;
-`
+`;

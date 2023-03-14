@@ -12,8 +12,16 @@ import { Home } from "./pages/Home";
 export default function App() {
   return (
     <>
-        <Navbar />
-        <Container style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '5px' }} className="mb-4" >
+      <Navbar />
+      <main>
+        <Container
+          style={{
+            backgroundColor: "#fff",
+            padding: "20px",
+            borderRadius: "5px",
+          }}
+          className="mb-4"
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<Admin />} />
@@ -21,7 +29,8 @@ export default function App() {
             <Route path="/products/:productid" element={<ProductPage />} />
           </Routes>
         </Container>
-        <Footer />
+      </main>
+      <Footer />
     </>
   );
 }
