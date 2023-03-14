@@ -20,11 +20,12 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
   };
 
   return (
-    <Card style={{ width: "22rem", marginTop: "2rem" }} onClick={handleCardClick}>
+    <Card style={{ width: "22rem", marginTop: "2rem" }}>
       <Card.Img
         variant="top"
         src={product.image}
         style={{ width: "18rem", marginLeft: "2rem", cursor: 'pointer' }}
+        onClick={handleCardClick}
       />
       <Card.Body className="card-body">
         <Card.Title>{product.title}</Card.Title>
