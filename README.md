@@ -97,7 +97,7 @@ Ni ska vid presentationstillfället hålla i en muntlig presentation för klasse
 + `data-cy="admin-add-product"` edit-knappen för admin som ska editera en produkt.
 + `data-cy="admin-edit-product"` edit-knappen för admin som ska editera en produkt.
 + `data-cy="admin-remove-product"` den knapp som ska kunna radera en produkt.
-- `data-cy="confirm-delete-button"` konfirmera att man vill radera en produkt.
++ `data-cy="confirm-delete-button"` konfirmera att man vill radera en produkt.
 
 + `data-cy="product-form"` formuläret för att lägga till eller editera en produkt.
 + `data-cy="product-title-error"` felmeddelande vid felaktigt angiven titel.

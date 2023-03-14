@@ -1,14 +1,19 @@
 import { Button, Col } from "react-bootstrap";
 import styled from "styled-components";
 import { Product } from "../../data";
+import { DeleteButton } from "./DeleteButton";
 
-interface Props {
+interface ProductListedItemProps {
   product: Product;
   onDelete: (id: string) => void;
   onEdit: (id: string) => void;
 }
 
-export function ProductListedItem({ product, onDelete, onEdit }: Props) {
+export function ProductListedItem({
+  product,
+  onDelete,
+  onEdit,
+}: ProductListedItemProps) {
   return (
     <>
       <Col xs={3}>
@@ -29,13 +34,7 @@ export function ProductListedItem({ product, onDelete, onEdit }: Props) {
       </Col>
 
       <Col>
-        <Button
-          variant="danger"
-          onClick={() => onDelete(product.id)}
-          data-cy="admin-remove-product"
-        >
-          Delete
-        </Button>{" "}
+        <DeleteButton product={product} onDelete={onDelete} />{" "}
         <Button
           variant="outline-secondary"
           onClick={() => onEdit(product.id)}
