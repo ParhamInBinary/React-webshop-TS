@@ -46,7 +46,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 1.5rem;
+  padding: 10px 1.3rem;
   margin-bottom: 1rem;
 `;
 
