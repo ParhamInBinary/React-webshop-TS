@@ -92,13 +92,13 @@ export function NewProductForm({ setItems, items, handleClose }: NewProductFormP
           <Form.Control
             as="textarea"
             placeholder="Write a description of the product"
-            style={{ height: "100px", resize: "none", marginBottom: "1rem" }}
+            style={{ height: "100px", resize: "none" }}
             required
             name="description"
             value={formFields.description}
             onChange={handleInputChange}
           />
-          <Form.Control.Feedback type="invalid" style={{ marginBottom: "1rem" }} data-cy="product-description-error">
+          <Form.Control.Feedback type="invalid" data-cy="product-description-error">
             Please provide a description.
           </Form.Control.Feedback>
         </FloatingLabel>
@@ -111,6 +111,7 @@ export function NewProductForm({ setItems, items, handleClose }: NewProductFormP
             name="price"
             value={formFields.price}
             onChange={handleInputChange}
+            style={{ marginTop: "1rem"}}
           />
           <Form.Control.Feedback type="invalid" data-cy="product-price-error">
             Please set a price to the item.
