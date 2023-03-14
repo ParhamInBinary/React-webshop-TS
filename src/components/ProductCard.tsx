@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -10,8 +9,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, addToCart }: ProductCardProps) {
-
-  const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -23,9 +20,7 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
   };
 
   return (
-    <Card style={{ width: "22rem", marginTop: "2rem" }} onClick={handleCardClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}>
+    <Card style={{ width: "22rem", marginTop: "2rem" }} onClick={handleCardClick}>
       <Card.Img
         variant="top"
         src={product.image}
@@ -34,7 +29,6 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
       <Card.Body className="card-body">
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>{product.price + ' SEK'}</Card.Text>
-        <Card.Text>{hovered ? product.description : null}</Card.Text>
         <Button variant="primary" onClick={handleAddToCart}>Add to cart</Button>
       </Card.Body>
     </Card>
