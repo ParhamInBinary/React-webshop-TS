@@ -52,7 +52,7 @@ const Container = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  max-width: 490px;
+  max-width: 430px;
   object-fit: cover;
 `;
 
