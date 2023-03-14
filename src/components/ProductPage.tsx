@@ -52,14 +52,19 @@ const Container = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  max-width: 430px;
+  max-width: 490px;
   object-fit: cover;
 `;
 
 const ContentDetails = styled.div`
   flex: 1;
-  margin-left: 10px;
+  margin-left: 20px;
+
+  @media (max-width: 420px) {
+    margin-left: 5px;
+  }
 `;
+
 
 const Title = styled.h1`
   font-size: 24px;
