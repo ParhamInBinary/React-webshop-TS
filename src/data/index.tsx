@@ -71,7 +71,7 @@ export const products: Product[] = [
       "https://cdn.intersport.se/productimages/690x600/140319501000_10.jpg",
     title: "McKinley Tirano NB",
     description:
-      "Klassisk känga i nubuck. Varmfodrad. Vadderad krage för bekväm passform. Gummisula.",
+      "Den klassiska kängan i nubuck är en stilren och robust sko som är idealisk för kallare väderförhållanden. Nubuck är en mjukare variant av läder som ger en smidig och bekväm passform. Skon är varmfodrad för att hålla dina fötter varma under kyliga dagar och vintermånader. Vadderad krage för bekväm passform. Gummisula.",
     price: "699",
     id: "e6",
   },
