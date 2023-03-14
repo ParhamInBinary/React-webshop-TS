@@ -1,5 +1,6 @@
 import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
+// import { AddNewItemBtn } from "./components/AddNewItemBtn";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { ProductPage } from "./components/ProductPage";
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/admin" element={<Admin />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/products/:productid" element={<ProductPage />} />
+            {/* <Route path="/admin/create-new-item" element={<AddNewItemBtn />} /> */}
           </Routes>
         </Container>
       </main>

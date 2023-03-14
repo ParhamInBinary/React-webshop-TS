@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Product } from "../../data";
 import { NewProductForm } from "./NewProductForm";
+// import { useNavigate } from "react-router-dom";
 
 interface AddNewItemBtnProps {
   setItems: React.Dispatch<React.SetStateAction<Product[]>>,
@@ -11,9 +12,13 @@ interface AddNewItemBtnProps {
 
 export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
   const [show, setShow] = useState(false);
+  // const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    // navigate(`/admin/create&new&item`)
+    setShow(true)
+  };
 
   return (
     <>
