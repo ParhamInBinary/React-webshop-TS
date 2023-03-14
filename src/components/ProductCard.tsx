@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -10,8 +9,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, addToCart }: ProductCardProps) {
-
-  const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -23,20 +20,33 @@ export function ProductCard({ product, addToCart }: ProductCardProps) {
   };
 
   return (
-    <Card style={{ width: "22rem", marginTop: "2rem" }} onClick={handleCardClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}>
-      <Card.Img
+    <StyledCard>
+      <StyledCardImg
         variant="top"
         src={product.image}
-        style={{ width: "18rem", marginLeft: "2rem", cursor: 'pointer' }}
+        onClick={handleCardClick}
       />
       <Card.Body className="card-body">
         <Card.Title>{product.title}</Card.Title>
-        <Card.Text>{product.price + ' SEK'}</Card.Text>
-        <Card.Text>{hovered ? product.description : null}</Card.Text>
+        <Card.Text>Price: {product.price + ' SEK'}</Card.Text>
         <Button variant="primary" onClick={handleAddToCart}>Add to cart</Button>
       </Card.Body>
-    </Card>
+    </StyledCard>
   );
 }
+
+
+const StyledCard = styled(Card)`
+  width: 22rem;
+  margin-top: 2rem;
+`;
+
+const StyledCardImg = styled(Card.Img)`
+  width: 18rem;
+  margin-left: 2rem;
+  cursor: pointer;
+
+  @media only screen and (max-width: 420px) {
+    margin-left: 7px;
+  }
+`;

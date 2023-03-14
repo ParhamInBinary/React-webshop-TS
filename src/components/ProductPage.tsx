@@ -46,7 +46,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 1.5rem;
+  padding: 10px 1.3rem;
   margin-bottom: 1rem;
 `;
 
@@ -58,8 +58,13 @@ const Image = styled.img`
 
 const ContentDetails = styled.div`
   flex: 1;
-  margin-left: 10px;
+  margin-left: 20px;
+
+  @media (max-width: 420px) {
+    margin-left: 5px;
+  }
 `;
+
 
 const Title = styled.h1`
   font-size: 24px;
