@@ -1,8 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFillBasket3Fill } from "react-icons/bs";
+
+import { products, Product } from "../data";
 
 export function CartButton() {
   const [show, setShow] = useState(false);
@@ -10,10 +11,26 @@ export function CartButton() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const cartItems = products.length > 0 ? (
+    products.map((product: Product) => (
+      <div key={product.id} style={{display: "flex", alignItems: "center", margin: "1rem", width: "300px", borderBottom: "1px solid black"}}>
+        <img src={product.image} alt={product.title} style={{width: "120px", height: "100px", objectFit: "cover", marginRight: "1rem"}} />
+        <div>
+          <div>{product.title}</div>
+          <div>{product.price} kr</div>
+        </div>
+      </div>
+    ))
+  ) : (
+    <div>Your cart is empty</div>
+  );
+
+  const totalCost = products.reduce((total, product) => total + Number(product.price), 0);
+
   return (
     <>
       <Button
-        variant="outline-primary"
+        variant="outline-primary" 
         onClick={handleShow}
         style={{
           width: "3rem",
@@ -44,11 +61,13 @@ export function CartButton() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              marginTop: "2rem",
+              justifyContent: "center",
+              marginTop: "1rem",
             }}
           >
-            {/* Map over cart items and display them here */}
+            {cartItems}
           </div>
+          <div>Total cost: {totalCost} kr</div>
           <Button variant="primary" style={{ marginTop: "2rem" }}>
             Checkout
           </Button>
