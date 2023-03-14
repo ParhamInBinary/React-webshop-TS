@@ -26,7 +26,7 @@ export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
           <Modal.Title>Product info</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewProductForm setItems={setItems} items={items}/>
+          <NewProductForm handleClose={handleClose} setItems={setItems} items={items}/>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

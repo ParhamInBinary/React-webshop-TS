@@ -51,7 +51,6 @@ export function CartButton() {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             padding: "2rem",
             backgroundColor: "#f8f9fa",
           }}

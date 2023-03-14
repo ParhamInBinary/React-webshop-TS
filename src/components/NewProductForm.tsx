@@ -12,9 +12,10 @@ interface FormFields {
 interface NewProductFormProps {
   setItems: React.Dispatch<React.SetStateAction<Product[]>>;
   items: Product[];
+  handleClose: () => void;
 }
 
-export function NewProductForm({ setItems, items }: NewProductFormProps) {
+export function NewProductForm({ setItems, items, handleClose }: NewProductFormProps) {
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
     image: "",
@@ -33,7 +34,7 @@ export function NewProductForm({ setItems, items }: NewProductFormProps) {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    if (!form.checkValidity()) {
       event.stopPropagation();
       setValidated(true);
     } else {
@@ -41,6 +42,7 @@ export function NewProductForm({ setItems, items }: NewProductFormProps) {
       const newProduct = { id, ...formFields };
       updateLocalStorage(newProduct);
       setFormFields({ image: "", title: "", description: "", price: "" });
+      handleClose();
     }
   };
 

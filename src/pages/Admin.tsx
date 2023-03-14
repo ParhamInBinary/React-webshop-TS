@@ -70,6 +70,7 @@ export function Admin() {
                 product={product}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
+                // data-cy="product-id"
               />
             </ProductItem>
           ))}
