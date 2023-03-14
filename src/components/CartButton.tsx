@@ -28,7 +28,7 @@ export function CartButton() {
 
       <Offcanvas show={show} onHide={handleClose} placement="end">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Cart</Offcanvas.Title>
+          <Offcanvas.Title>Your cart</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body
           style={{
@@ -39,7 +39,6 @@ export function CartButton() {
             backgroundColor: "#f8f9fa",
           }}
         >
-          <h3>Your Cart</h3>
           <div
             style={{
               display: "flex",
