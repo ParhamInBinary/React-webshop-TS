@@ -15,7 +15,7 @@ export function Home() {
       <>
       <main>
         <div>
-          <h1>Produkt Lista</h1>
+          <Heading>PALIMEDA Shoes</Heading>
         </div>
         <ProductContainer>
         {items.map((product) => (
@@ -36,6 +36,14 @@ export function Home() {
     flex-wrap: wrap;
     justify-content: space-evenly;
   `
+
+  const Heading = styled.h1`
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  text-align: center;
+  color: #333;
+  -webkit-text-stroke: 1px #fff;
+`;
 
 
 // **Home**
