@@ -1,6 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { Product } from "../data";
 
 interface ProductCardProps {

@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Product } from "../data";
 import { NewProductForm } from "./NewProductForm";
+// import { useNavigate } from "react-router-dom";
 
 interface AddNewItemBtnProps {
   setItems: React.Dispatch<React.SetStateAction<Product[]>>,
@@ -11,13 +12,17 @@ interface AddNewItemBtnProps {
 
 export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
   const [show, setShow] = useState(false);
+  // const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    // navigate(`/admin/create&new&item`)
+    setShow(true)
+  };
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow} data-cy="admin-add-product">
         Add new item
       </Button>
 
@@ -26,7 +31,7 @@ export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
           <Modal.Title>Product info</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewProductForm setItems={setItems} items={items}/>
+          <NewProductForm handleClose={handleClose} setItems={setItems} items={items}/>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

@@ -65,11 +65,12 @@ export function Admin() {
       ) : (
         <Row>
           {items.map((product) => (
-            <ProductItem key={product.id}>
+            <ProductItem key={product.id} data-cy="product">
               <ProductListedItem
                 product={product}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
+                // data-cy="product-id"
               />
             </ProductItem>
           ))}
