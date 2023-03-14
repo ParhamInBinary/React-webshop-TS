@@ -17,7 +17,7 @@ export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow} data-cy="admin-add-product">
         Add new item
       </Button>
 

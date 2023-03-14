@@ -10,11 +10,11 @@ interface FormFields {
 }
 
 interface NewProductFormProps {
-  setItems: React.Dispatch<React.SetStateAction<Product[]>>,
-  items: Product[],
+  setItems: React.Dispatch<React.SetStateAction<Product[]>>;
+  items: Product[];
 }
 
-export function NewProductForm({setItems, items}: NewProductFormProps) {
+export function NewProductForm({ setItems, items }: NewProductFormProps) {
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
     image: "",
@@ -52,7 +52,12 @@ export function NewProductForm({setItems, items}: NewProductFormProps) {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleFormSubmit}
+        data-cy="product-form"
+      >
         <FloatingLabel controlId="image" label="Image URL" className="mb-3">
           <Form.Control
             type="text"
@@ -62,6 +67,9 @@ export function NewProductForm({setItems, items}: NewProductFormProps) {
             value={formFields.image}
             onChange={handleInputChange}
           />
+          <Form.Control.Feedback type="invalid" data-cy="product-image-error">
+            Please provide a valid URL-link.
+          </Form.Control.Feedback>
         </FloatingLabel>
 
         <FloatingLabel controlId="title" label="Product title" className="mb-3">
@@ -73,6 +81,9 @@ export function NewProductForm({setItems, items}: NewProductFormProps) {
             value={formFields.title}
             onChange={handleInputChange}
           />
+          <Form.Control.Feedback type="invalid" data-cy="product-title-error">
+            Please provide a valid title.
+          </Form.Control.Feedback>
         </FloatingLabel>
 
         <FloatingLabel controlId="description" label="Product description">
@@ -85,6 +96,9 @@ export function NewProductForm({setItems, items}: NewProductFormProps) {
             value={formFields.description}
             onChange={handleInputChange}
           />
+          <Form.Control.Feedback type="invalid" style={{ marginBottom: "1rem" }} data-cy="product-description-error">
+            Please provide a valid description.
+          </Form.Control.Feedback>
         </FloatingLabel>
 
         <FloatingLabel controlId="price" label="Product price" className="mb-3">
@@ -96,6 +110,9 @@ export function NewProductForm({setItems, items}: NewProductFormProps) {
             value={formFields.price}
             onChange={handleInputChange}
           />
+          <Form.Control.Feedback type="invalid" data-cy="product-price-error">
+            Please provide a valid price.
+          </Form.Control.Feedback>
         </FloatingLabel>
 
         <Button type="submit">Create product</Button>

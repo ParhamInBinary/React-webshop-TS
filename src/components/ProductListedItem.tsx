@@ -30,10 +30,10 @@ export function ProductListedItem({ product, onDelete, onEdit }: Props) {
       </Col>
 
       <Col>
-        <Button variant="danger" onClick={() => onDelete(product.id)}>
+        <Button variant="danger" onClick={() => onDelete(product.id)} data-cy="admin-remove-product">
           Delete
         </Button>{" "}
-        <Button variant="outline-secondary" onClick={() => onEdit(product.id)}>
+        <Button variant="outline-secondary" onClick={() => onEdit(product.id)} data-cy="admin-edit-product">
           Edit
         </Button>
       </Col>

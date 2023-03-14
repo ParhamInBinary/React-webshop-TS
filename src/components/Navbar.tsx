@@ -22,7 +22,7 @@ export function Navbar() {
               FAQ
             </StyledNavLink>
           </Nav>
-          <Link data-cy="admin-link" to="/Admin" as={NavLink}>
+          <Link data-cy="admin-link" to="/admin" as={NavLink}>
             <AdminButton />
           </Link>
           <CartButton />

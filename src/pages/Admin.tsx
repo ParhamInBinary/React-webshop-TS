@@ -20,9 +20,12 @@ export function Admin() {
   }, []);
 
   const handleDelete = (id: string) => {
-    const updatedItems = items.filter((item) => item.id !== id);
-    setItems(updatedItems);
-    localStorage.setItem("products", JSON.stringify(updatedItems));
+    const confirmed = window.confirm("Are you sure you want to delete this item?");
+    if (confirmed) {
+      const updatedItems = items.filter((item) => item.id !== id);
+      setItems(updatedItems);
+      localStorage.setItem("products", JSON.stringify(updatedItems));
+    }
   };
 
   const handleEdit = (id: string) => {
@@ -65,7 +68,7 @@ export function Admin() {
       ) : (
         <Row>
           {items.map((product) => (
-            <ProductItem key={product.id}>
+            <ProductItem key={product.id} data-cy="product">
               <ProductListedItem
                 product={product}
                 onDelete={handleDelete}
