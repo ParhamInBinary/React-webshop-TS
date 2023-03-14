@@ -68,7 +68,7 @@ export function NewProductForm({ setItems, items }: NewProductFormProps) {
             onChange={handleInputChange}
           />
           <Form.Control.Feedback type="invalid" data-cy="product-image-error">
-            Please provide a valid URL-link.
+            Please include a URL-link.
           </Form.Control.Feedback>
         </FloatingLabel>
 
@@ -82,7 +82,7 @@ export function NewProductForm({ setItems, items }: NewProductFormProps) {
             onChange={handleInputChange}
           />
           <Form.Control.Feedback type="invalid" data-cy="product-title-error">
-            Please provide a valid title.
+            Please add a product title.
           </Form.Control.Feedback>
         </FloatingLabel>
 
@@ -97,7 +97,7 @@ export function NewProductForm({ setItems, items }: NewProductFormProps) {
             onChange={handleInputChange}
           />
           <Form.Control.Feedback type="invalid" style={{ marginBottom: "1rem" }} data-cy="product-description-error">
-            Please provide a valid description.
+            Please provide a description.
           </Form.Control.Feedback>
         </FloatingLabel>
 
@@ -111,7 +111,7 @@ export function NewProductForm({ setItems, items }: NewProductFormProps) {
             onChange={handleInputChange}
           />
           <Form.Control.Feedback type="invalid" data-cy="product-price-error">
-            Please provide a valid price.
+            Please set a price to the item.
           </Form.Control.Feedback>
         </FloatingLabel>
 
