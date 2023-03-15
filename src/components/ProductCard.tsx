@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product } from "../../data";
 import { useState } from "react";
+import { SizeSelect } from "./SizeSelect";
 
 interface ProductCardProps {
   product: Product;
@@ -17,11 +18,11 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   const handleAddToCart = () => {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
     for (let i = 0; i < quantity; i++) {
       cartItems.push(product);
     }
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   };
 
   return (
@@ -32,8 +33,32 @@ export function ProductCard({ product }: ProductCardProps) {
         onClick={handleCardClick}
       />
       <Card.Body className="card-body">
-        <Card.Title data-cy="product-title">{product.title}</Card.Title>
-        <Card.Text data-cy="product-price">Price: {product.price + ' SEK'}</Card.Text>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <div>
+              <Card.Title data-cy="product-title">{product.title}</Card.Title>
+              <Card.Text data-cy="product-price">
+                Price: {product.price + " SEK"}
+              </Card.Text>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center'}}>
+              <SizeSelect />
+            </div>
+          </div>
+        </div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button
             data-cy="decrease-quantity-button"
