@@ -32,20 +32,23 @@ export function ProductCard({ product }: ProductCardProps) {
         src={product.image}
         onClick={handleCardClick}
       />
-      <Card.Body className="card-body">
+      <Card.Body
+        className="card-body"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
             marginBottom: "1rem",
           }}
         >
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               justifyContent: "space-between",
-              width: "100%",
             }}
           >
             <div>
@@ -54,7 +57,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 Price: {product.price + " SEK"}
               </Card.Text>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center'}}>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <SizeSelect />
             </div>
           </div>
