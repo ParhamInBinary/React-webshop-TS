@@ -16,7 +16,7 @@ export function ProductPage() {
           <Image src={product.image} alt={product.title} />
           <ContentDetails>
             <Title>{product.title}</Title>
-            <Description>{product.description}</Description>
+            <Description data-cy="product-description">{product.description}</Description>
             <Styledp>Price: {product.price} SEK</Styledp>
             <div>
               <SizeLabel htmlFor="size">Size:</SizeLabel>
@@ -30,7 +30,7 @@ export function ProductPage() {
                 ))}
               </SizeSelect>
             </div>
-            <AddToCartButton variant="primary">Add to cart</AddToCartButton>
+            <AddToCartButton data-cy="product-buy-button" variant="primary">Add to cart</AddToCartButton>
           </ContentDetails>
         </Container>
       </Card>

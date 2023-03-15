@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 // import { AddNewItemBtn } from "./components/AddNewItemBtn";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
-import { ProductPage } from "./components/ProductPage";
+import { ProductPage } from "./pages/ProductPage";
 
 import { Admin } from "./pages/Admin";
 import { FAQ } from "./pages/FAQ";

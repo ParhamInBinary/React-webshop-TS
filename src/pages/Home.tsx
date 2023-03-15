@@ -4,47 +4,41 @@ import { Product, products } from "../../data/index";
 import { ProductCard } from "../components/ProductCard";
 
 export function Home() {
-    const [items, setItems] = useState<Product[]>([])
+  const [items, setItems] = useState<Product[]>([]);
 
-    useEffect(() => {
-    const storedProducts = JSON.parse(localStorage.getItem('products') ?? "[]")
-      setItems(storedProducts.length > 0 ? storedProducts : products)
-  }, [])
-  
-    return (
-      <>
-      <main>
-        <div>
-          <Heading>PALIMEDA Shoes</Heading>
-        </div>
-        <ProductContainer>
+  useEffect(() => {
+    const storedProducts = JSON.parse(localStorage.getItem("products") ?? "[]");
+    setItems(storedProducts.length > 0 ? storedProducts : products);
+  }, []);
+
+  return (
+    <main>
+      <div>
+        <Heading>PALIMEDA Shoes</Heading>
+      </div>
+      <ProductContainer>
         {items.map((product) => (
-          <ProductCard key={product.id} product={product} addToCart={function (product: Product): void {
-            throw new Error("Function not implemented.");
-          } }/>
+          <ProductCard key={product.id} product={product} />
         ))}
-        </ProductContainer>
-      </main>
-      </>
-    );
-  }
+      </ProductContainer>
+    </main>
+  );
+}
 
-  
-  const ProductContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  `
+const ProductContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+`;
 
-  const Heading = styled.h1`
+const Heading = styled.h1`
   font-family: "Montserrat", sans-serif;
   font-size: 3rem;
   text-align: center;
   color: #333;
   -webkit-text-stroke: 1px #fff;
 `;
-
 
 // **Home**
 

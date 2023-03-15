@@ -25,7 +25,7 @@ export function Navbar() {
           <Link data-cy="admin-link" to="/admin" as={NavLink}>
             <AdminButton />
           </Link>
-          <CartButton />
+          <CartButton data-cy="cart-link" />
         </Container>
       </NavbarBs>
     </header>

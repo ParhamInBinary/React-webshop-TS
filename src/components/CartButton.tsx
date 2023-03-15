@@ -1,36 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFillBasket3Fill } from "react-icons/bs";
-
-import { Product, products } from "../../data";
+import { Product } from "../../data";
 
 export function CartButton() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [cartItems, setCartItems] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
 
-  const cartItems = products.length > 0 ? (
-    products.map((product: Product) => (
-      <div key={product.id} style={{display: "flex", alignItems: "center", margin: "1rem", width: "300px", borderBottom: "1px solid black"}}>
-        <img src={product.image} alt={product.title} style={{width: "120px", height: "100px", objectFit: "cover", marginRight: "1rem"}} />
-        <div>
-          <div>{product.title}</div>
-          <div>{product.price} kr</div>
-        </div>
-      </div>
-    ))
-  ) : (
-    <div>Your cart is empty</div>
-  );
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    setCartItems(items);
+    setTotalCost(
+      items.reduce((total: number, product: Product) => total + Number(product.price), 0)
+    );
+  }, []);
 
-  const totalCost = products.reduce((total, product) => total + Number(product.price), 0);
+  const clearLocalStorage = () => {
+    localStorage.clear();
+    setCartItems([]);
+    setTotalCost(0);
+  };
 
   return (
     <>
       <Button
-        variant="outline-primary" 
+        variant="outline-primary"
         onClick={handleShow}
         style={{
           width: "3rem",
@@ -40,7 +38,7 @@ export function CartButton() {
         }}
         className="rounded-circle"
       >
-        <BsFillBasket3Fill></BsFillBasket3Fill>
+        <BsFillBasket3Fill />
       </Button>
 
       <Offcanvas show={show} onHide={handleClose} placement="end">
@@ -55,6 +53,11 @@ export function CartButton() {
             backgroundColor: "#f8f9fa",
           }}
         >
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button style={{ right: "0px", width: "80px" }} onClick={clearLocalStorage}>
+              Clear
+            </Button>
+          </div>
           <div
             style={{
               display: "flex",
@@ -64,9 +67,39 @@ export function CartButton() {
               marginTop: "1rem",
             }}
           >
-            {cartItems}
+            {cartItems.length > 0 ? (
+              cartItems.map((product: Product) => (
+                <div
+                  key={product.id}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "1rem",
+                    width: "300px",
+                    borderBottom: "1px solid black",
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    style={{
+                      width: "120px",
+                      height: "100px",
+                      objectFit: "cover",
+                      marginRight: "1rem",
+                    }}
+                  />
+                  <div>
+                    <div>{product.title}</div>
+                    <div>{product.price} kr</div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>Your cart is empty</div>
+            )}
           </div>
-          <div>Total cost: {totalCost} kr</div>
+          <div data-cy="total-price">Total cost: {totalCost} kr</div>
           <Button variant="primary" style={{ marginTop: "2rem" }}>
             Checkout
           </Button>
