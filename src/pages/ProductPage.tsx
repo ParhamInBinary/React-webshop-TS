@@ -15,9 +15,9 @@ export function ProductPage() {
         <Container className="mb-5 mt-5">
           <Image src={product.image} alt={product.title} />
           <ContentDetails>
-            <Title>{product.title}</Title>
+            <Title data-cy="product-title">{product.title}</Title>
             <Description data-cy="product-description">{product.description}</Description>
-            <Styledp>Price: {product.price} SEK</Styledp>
+            <Styledp data-cy="product-price">Price: {product.price} SEK</Styledp>
             <div>
               <SizeLabel htmlFor="size">Size:</SizeLabel>
               <SizeSelect

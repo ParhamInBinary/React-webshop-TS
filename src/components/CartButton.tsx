@@ -42,7 +42,6 @@ export function CartButton() {
         className="rounded-circle"
       >
         <BsFillBasket3Fill />
-        {cartItems.length > 0 && (
           <div
             data-cy="cart-items-count-badge"
             style={{
@@ -62,7 +61,6 @@ export function CartButton() {
           >
             {cartItems.length}
           </div>
-        )}
       </Button>
 
       <Offcanvas show={show} onHide={handleClose} placement="end">
