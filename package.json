@@ -18,11 +18,8 @@
     "test:vg": "plugga test --run .vg."
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@fortawesome/fontawesome-svg-core": "^6.3.0",
-    "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "bootstrap": "^5.2.3",
     "formik": "^2.2.9",
