@@ -36,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <Card.Text data-cy="product-price">Price: {product.price + ' SEK'}</Card.Text>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button
-            data-cy="decrement-button"
+            data-cy="decrease-quantity-button"
             variant="outline-secondary"
             onClick={() => setQuantity(Math.max(quantity - 1, 1))}
             style={{ marginRight: "1rem" }}
@@ -45,7 +45,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </Button>
           <div>{quantity}</div>
           <Button
-            data-cy="increment-button"
+            data-cy="increase-quantity-button"
             variant="outline-secondary"
             onClick={() => setQuantity(quantity + 1)}
             style={{ marginLeft: "1rem" }}

@@ -15,7 +15,10 @@ export function CartButton() {
     const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
     setCartItems(items);
     setTotalCost(
-      items.reduce((total: number, product: Product) => total + Number(product.price), 0)
+      items.reduce(
+        (total: number, product: Product) => total + Number(product.price),
+        0
+      )
     );
   }, []);
 
@@ -39,6 +42,27 @@ export function CartButton() {
         className="rounded-circle"
       >
         <BsFillBasket3Fill />
+        {cartItems.length > 0 && (
+          <div
+            data-cy="cart-items-count-badge"
+            style={{
+              position: "absolute",
+              bottom: "-5px",
+              right: "-5px",
+              backgroundColor: "red",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontWeight: "bold",
+              fontSize: "12px",
+            }}
+          >
+            {cartItems.length}
+          </div>
+        )}
       </Button>
 
       <Offcanvas show={show} onHide={handleClose} placement="end">
@@ -54,7 +78,10 @@ export function CartButton() {
           }}
         >
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button style={{ right: "0px", width: "80px" }} onClick={clearLocalStorage}>
+            <Button
+              style={{ right: "0px", width: "80px" }}
+              onClick={clearLocalStorage}
+            >
               Clear
             </Button>
           </div>
