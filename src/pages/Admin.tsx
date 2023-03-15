@@ -56,6 +56,9 @@ export function Admin() {
           <Col></Col>
         </Row>
       </ListHeader>
+      <ListHeaderMediaQ>
+        <Col>Listed products</Col>
+      </ListHeaderMediaQ>
       {editingItem ? (
         <EditForm
           item={editingItem}
@@ -92,6 +95,21 @@ const ListHeader = styled.div`
   font-weight: bold;
   padding: 1rem;
   border: 1px solid orange;
+  
+  @media (max-width: 768px) {
+    display: none
+  }
+  `;
+  
+  const ListHeaderMediaQ = styled.div `
+    display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    font-weight: bold;
+    padding: 1rem;
+    border: 1px solid orange;
+  }
 `;
 
 const ProductItem = styled.div`
@@ -103,5 +121,9 @@ const ProductItem = styled.div`
   & img {
     width: 3rem;
     margin: 1rem;
+    
+    @media (max-width: 768px) {
+      width: 10rem;
+    }
   }
 `;

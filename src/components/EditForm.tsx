@@ -39,6 +39,7 @@ export function EditForm({ item, onSave, onCancel }: EditFormProps) {
           as="textarea"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
+          style={{ resize: "none" }}
         />
       </Form.Group>
       <Form.Group controlId="price">
@@ -49,10 +50,10 @@ export function EditForm({ item, onSave, onCancel }: EditFormProps) {
           onChange={(event) => setPrice(event.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" style={{ margin: "1rem" }}>
         Save
       </Button>
-      <Button variant="secondary" onClick={onCancel}>
+      <Button variant="outline-danger" onClick={onCancel}>
         Cancel
       </Button>
     </Form>
