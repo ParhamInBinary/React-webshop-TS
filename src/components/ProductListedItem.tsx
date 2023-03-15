@@ -16,14 +16,16 @@ export function ProductListedItem({
 }: ProductListedItemProps) {
   return (
     <>
-      <Col xs={3}>
+    <Container>
+
+      <Col xs={12} md={3}>
         <TitleContainer data-cy="product-title">
           <img src={product.image} />
-          {product.title}
+          <p>{product.title}</p>
         </TitleContainer>
       </Col>
 
-      <Col xs={4}>
+      <Col xs={12} md={4}>
         <DescContainer data-cy="product-description">
           {product.description}
         </DescContainer>
@@ -34,30 +36,71 @@ export function ProductListedItem({
       </Col>
 
       <Col>
-        <DeleteButton product={product} onDelete={onDelete} />{" "}
-        <Button
-          variant="outline-secondary"
-          onClick={() => onEdit(product.id)}
-          data-cy="admin-edit-product"
-        >
-          Edit
-        </Button>
+        <BtnContainer>
+          <DeleteButton product={product} onDelete={onDelete} />{" "}
+          <Button
+            variant="outline-secondary"
+            onClick={() => onEdit(product.id)}
+            data-cy="admin-edit-product"
+          >
+            Edit
+          </Button>
+        </BtnContainer>
       </Col>
+    </Container>
     </>
   );
 }
 
-const Price = styled.span`
-  margin-left: 1rem;
-  font-weight: bold;
+const Container = styled.div `
+  display: flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const TitleContainer = styled.div`
-  overflow-x: scroll;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const DescContainer = styled.div`
   height: 8rem;
   overflow-y: scroll;
+  
+  @media (max-width: 768px) {
+    height: auto;
+  }
+`;
+
+const Price = styled.span`
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: row;
+  }
 `;
