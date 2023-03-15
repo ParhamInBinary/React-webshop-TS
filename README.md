@@ -79,17 +79,17 @@ Ni ska vid presentationstillfället hålla i en muntlig presentation för klasse
 - `data-cy="product-quantity"` antalet valda produkter av samma typ på kassasida.
 - `data-cy="total-price"` totala priset för alla produkter i kundvagnen.
 
-- `data-cy="customer-form"` formulär för att fylla i kunduppgifter på checkout-sidan.
-- `data-cy="customer-name"` kundens namn (som fylls i på checkout-sidan).
-- `data-cy="customer-address"` kundens gatuadress (som fylls i på checkout-sidan).
-- `data-cy="customer-zipcode"` kundens postnummer (som fylls i på checkout-sidan).
-- `data-cy="customer-city"` kundens stad (som fylls i på checkout-sidan).
-- `data-cy="customer-email"` kundens emailadress (som fylls i på checkout-sidan).
-- `data-cy="customer-phone"` kundens telefonnummer (som fylls i på checkout-sidan).
-- `data-cy="customer-name-error"` felmeddelande vid felaktigt angivet namn.
-- `data-cy="customer-address-error"` felmeddelande vid felaktigt angiven adress.
-- `data-cy="customer-email-error"` felmeddelande vid felaktigt angiven emailadress.
-- `data-cy="customer-phone-error"` felmeddelande vid felaktigt angivet telefonnummer.
+x `data-cy="customer-form"` formulär för att fylla i kunduppgifter på checkout-sidan.
+x `data-cy="customer-name"` kundens namn (som fylls i på checkout-sidan).
+x `data-cy="customer-address"` kundens gatuadress (som fylls i på checkout-sidan).
+x `data-cy="customer-zipcode"` kundens postnummer (som fylls i på checkout-sidan).
+x `data-cy="customer-city"` kundens stad (som fylls i på checkout-sidan).
+x `data-cy="customer-email"` kundens emailadress (som fylls i på checkout-sidan).
+x `data-cy="customer-phone"` kundens telefonnummer (som fylls i på checkout-sidan).
+x `data-cy="customer-name-error"` felmeddelande vid felaktigt angivet namn.
+x `data-cy="customer-address-error"` felmeddelande vid felaktigt angiven adress.
+x `data-cy="customer-email-error"` felmeddelande vid felaktigt angiven emailadress.
+x `data-cy="customer-phone-error"` felmeddelande vid felaktigt angivet telefonnummer.
 
 ### Lista på data-cy som ska finnas i koden för Väl Godkänt
 
