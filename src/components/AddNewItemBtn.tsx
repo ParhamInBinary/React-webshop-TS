@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Product } from "../../data";
 import { NewProductForm } from "./NewProductForm";
+import { ToastCart } from "./ToastCart";
 // import { useNavigate } from "react-router-dom";
 
 interface AddNewItemBtnProps {
@@ -39,6 +40,7 @@ export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
           </Button>
         </Modal.Footer>
       </Modal>
+
     </>
   );
 }
