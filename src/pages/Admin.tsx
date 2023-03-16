@@ -53,7 +53,7 @@ export function Admin() {
           <Col xs={3}>Title</Col>
           <Col xs={4}>Description</Col>
           <Col>Price</Col>
-          <Col></Col>
+          <Col>Id</Col>
         </Row>
       </ListHeader>
       <ListHeaderMediaQ>
@@ -73,7 +73,6 @@ export function Admin() {
                 product={product}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
-                // data-cy="product-id"
               />
             </ProductItem>
           ))}
