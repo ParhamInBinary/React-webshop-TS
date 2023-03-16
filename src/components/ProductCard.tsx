@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product } from "../../data";
-import { useState } from "react";
+import { SizeSelect } from "./SizeSelect";
 
 interface ProductCardProps {
   product: Product;
@@ -11,17 +12,21 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
+  const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
   const handleCardClick = () => {
     navigate(`/products/${product.id}`, { state: { product } });
   };
 
   const handleAddToCart = () => {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
     for (let i = 0; i < quantity; i++) {
-      cartItems.push(product);
+      cartItems.push({ ...product, size: selectedSize });
     }
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    setQuantity(1);
+    setSelectedSize(sizes[0]);
   };
 
   return (
@@ -31,9 +36,36 @@ export function ProductCard({ product }: ProductCardProps) {
         src={product.image}
         onClick={handleCardClick}
       />
-      <Card.Body className="card-body">
-        <Card.Title data-cy="product-title">{product.title}</Card.Title>
-        <Card.Text data-cy="product-price">Price: {product.price + ' SEK'}</Card.Text>
+      <Card.Body
+        className="card-body"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            marginBottom: "1rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <Card.Title data-cy="product-title">{product.title}</Card.Title>
+              <Card.Text data-cy="product-price">
+                Price: {product.price + " SEK"}
+              </Card.Text>
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <SizeSelect sizes={sizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
+            </div>
+          </div>
+        </div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button
             data-cy="decrease-quantity-button"

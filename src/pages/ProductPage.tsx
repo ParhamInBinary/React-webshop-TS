@@ -1,13 +1,21 @@
-import { useLocation } from "react-router-dom";
-import { Button, Card } from "react-bootstrap";
-import styled from "styled-components";
 import { useState } from "react";
+import { Button, Card } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { SizeSelect } from "../components/SizeSelect";
 
 export function ProductPage() {
   const location = useLocation();
   const { product } = location.state;
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
+
+  const handleAddToCart = () => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+      cartItems.push({ ...product, size: selectedSize });
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    setSelectedSize(sizes[0]);
+  };
 
   return (
     <div>
@@ -16,21 +24,18 @@ export function ProductPage() {
           <Image src={product.image} alt={product.title} />
           <ContentDetails>
             <Title data-cy="product-title">{product.title}</Title>
-            <Description data-cy="product-description">{product.description}</Description>
-            <Styledp data-cy="product-price">Price: {product.price} SEK</Styledp>
+            <Description data-cy="product-description">
+              {product.description}
+            </Description>
+            <Styledp data-cy="product-price">
+              Price: {product.price} SEK
+            </Styledp>
             <div>
-              <SizeLabel htmlFor="size">Size:</SizeLabel>
-              <SizeSelect
-                id="size"
-                value={selectedSize}
-                onChange={(event) => setSelectedSize(event.target.value)}
-              >
-                {sizes.map((size) => (
-                  <option key={size}>{size}</option>
-                ))}
-              </SizeSelect>
+            <SizeSelect sizes={sizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
             </div>
-            <AddToCartButton data-cy="product-buy-button" variant="primary">Add to cart</AddToCartButton>
+            <AddToCartButton data-cy="product-buy-button" variant="primary" onClick={handleAddToCart}>
+              Add to cart
+            </AddToCartButton>
           </ContentDetails>
         </Container>
       </Card>
@@ -65,22 +70,12 @@ const ContentDetails = styled.div`
   }
 `;
 
-
 const Title = styled.h1`
   font-size: 24px;
 `;
 
 const Description = styled.p`
   font-size: 16px;
-`;
-
-const SizeSelect = styled.select`
-  margin-top: 10px;
-  padding: 10px;
-`;
-
-const SizeLabel = styled.label`
-  margin-right: 10px;
 `;
 
 const AddToCartButton = styled(Button)`
