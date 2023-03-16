@@ -27,7 +27,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/FAQ" element={<FAQ />} />
-            <Route path="/products/:productid" element={<ProductPage />} />
+            <Route path="/product/:productid" element={<ProductPage />} />
             {/* <Route path="/admin/create-new-item" element={<AddNewItemBtn />} /> */}
           </Routes>
         </Container>

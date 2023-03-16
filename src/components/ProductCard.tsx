@@ -16,7 +16,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
   const handleCardClick = () => {
-    navigate(`/products/${product.id}`, { state: { product } });
+    navigate(`/product/${product.id}`, { state: { product } });
   };
 
   const handleAddToCart = () => {
