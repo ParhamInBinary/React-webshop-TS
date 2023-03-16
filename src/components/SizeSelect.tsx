@@ -1,9 +1,13 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-export function SizeSelect() {
-  const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
-  const [selectedSize, setSelectedSize] = useState(sizes[0]);
+interface SizeSelectProps {
+  sizes: string[];
+  selectedSize: string;
+  setSelectedSize: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export function SizeSelect({ sizes, selectedSize, setSelectedSize }: SizeSelectProps) {
+
 
   return (
     <>
