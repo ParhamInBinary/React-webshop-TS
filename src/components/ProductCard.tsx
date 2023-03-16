@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product } from "../../data";
-import { useState } from "react";
 import { SizeSelect } from "./SizeSelect";
 
 interface ProductCardProps {
@@ -12,6 +12,8 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
+  const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
   const handleCardClick = () => {
     navigate(`/products/${product.id}`, { state: { product } });
@@ -20,7 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const handleAddToCart = () => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
     for (let i = 0; i < quantity; i++) {
-      cartItems.push(product);
+      cartItems.push({ ...product, size: selectedSize });
     }
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setQuantity(1);
@@ -59,7 +61,7 @@ export function ProductCard({ product }: ProductCardProps) {
               </Card.Text>
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <SizeSelect />
+              <SizeSelect sizes={sizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
             </div>
           </div>
         </div>
