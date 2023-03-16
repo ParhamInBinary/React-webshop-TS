@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { Product } from "../../data";
 import { useCart } from "../contexts/cartContext";
