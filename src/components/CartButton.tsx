@@ -8,7 +8,7 @@ export function CartButton() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<[]>([]);
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export function CartButton() {
           </div>
       </Button>
 
-      <CartBody show={show} onHide={handleClose} clear={clearLocalStorage}/>
+      <CartBody cartItems={cartItems} show={show} onHide={handleClose} clear={clearLocalStorage} totalCost={totalCost}/>
     </>
   );
 }
