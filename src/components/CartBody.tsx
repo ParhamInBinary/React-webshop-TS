@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { Product } from "../../data";
 
@@ -10,6 +11,9 @@ interface CartBodyProps {
 }
 
 export function CartBody({ cartItems, show, onHide, clear, totalCost }: CartBodyProps) {
+  const cart = useCart();
+  console.log(cart.cartItems)
+
   return (
     <>
       <Offcanvas show={show} onHide={onHide} placement="end">
