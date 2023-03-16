@@ -26,6 +26,7 @@ export function ProductCard({ product }: ProductCardProps) {
     }
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setQuantity(1);
+    setSelectedSize(sizes[0]);
   };
 
   return (

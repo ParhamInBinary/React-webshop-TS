@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -6,6 +7,15 @@ import { SizeSelect } from "../components/SizeSelect";
 export function ProductPage() {
   const location = useLocation();
   const { product } = location.state;
+  const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
+  const [selectedSize, setSelectedSize] = useState(sizes[0]);
+
+  const handleAddToCart = () => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+      cartItems.push({ ...product, size: selectedSize });
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    setSelectedSize(sizes[0]);
+  };
 
   return (
     <div>
@@ -21,9 +31,9 @@ export function ProductPage() {
               Price: {product.price} SEK
             </Styledp>
             <div>
-              <SizeSelect />
+            <SizeSelect sizes={sizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
             </div>
-            <AddToCartButton data-cy="product-buy-button" variant="primary">
+            <AddToCartButton data-cy="product-buy-button" variant="primary" onClick={handleAddToCart}>
               Add to cart
             </AddToCartButton>
           </ContentDetails>
