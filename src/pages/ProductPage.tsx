@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { SizeSelect } from "../components/SizeSelect";
+import Carousel from "react-bootstrap/Carousel";
 
 export function ProductPage() {
   const location = useLocation();
@@ -12,7 +13,7 @@ export function ProductPage() {
 
   const handleAddToCart = () => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-      cartItems.push({ ...product, size: selectedSize });
+    cartItems.push({ ...product, size: selectedSize });
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setSelectedSize(sizes[0]);
   };
@@ -21,7 +22,42 @@ export function ProductPage() {
     <div>
       <Card>
         <Container className="mb-5 mt-5">
-          <Image src={product.image} alt={product.title} />
+          <Carousel
+            variant="dark"
+            interval={null}
+            className="w-50 d-flex justify-content-center"
+          >
+            <Carousel.Item>
+              <img
+                style={{
+                  marginLeft: "25%",
+                }}
+                className="w-50"
+                src={product.image}
+                alt={product.title}
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                style={{
+                  marginLeft: "25%",
+                }}
+                className="w-50"
+                src={product.image}
+                alt={product.title}
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                style={{
+                  marginLeft: "25%",
+                }}
+                className="w-50"
+                src={product.image}
+                alt={product.title}
+              />
+            </Carousel.Item>
+          </Carousel>{" "}
           <ContentDetails>
             <Title data-cy="product-title">{product.title}</Title>
             <Description data-cy="product-description">
@@ -31,9 +67,17 @@ export function ProductPage() {
               Price: {product.price} SEK
             </Styledp>
             <div>
-            <SizeSelect sizes={sizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
+              <SizeSelect
+                sizes={sizes}
+                selectedSize={selectedSize}
+                setSelectedSize={setSelectedSize}
+              />
             </div>
-            <AddToCartButton data-cy="product-buy-button" variant="primary" onClick={handleAddToCart}>
+            <AddToCartButton
+              data-cy="product-buy-button"
+              variant="primary"
+              onClick={handleAddToCart}
+            >
               Add to cart
             </AddToCartButton>
           </ContentDetails>
