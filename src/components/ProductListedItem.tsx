@@ -16,43 +16,46 @@ export function ProductListedItem({
 }: ProductListedItemProps) {
   return (
     <>
-    <Container>
+      <Container>
+        <Col xs={12} md={3}>
+          <TitleContainer data-cy="product-title">
+            <img src={product.image} />
+            <p>{product.title}</p>
+          </TitleContainer>
+        </Col>
 
-      <Col xs={12} md={3}>
-        <TitleContainer data-cy="product-title">
-          <img src={product.image} />
-          <p>{product.title}</p>
-        </TitleContainer>
-      </Col>
+        <Col xs={12} md={4}>
+          <DescContainer data-cy="product-description">
+            {product.description}
+          </DescContainer>
+        </Col>
 
-      <Col xs={12} md={4}>
-        <DescContainer data-cy="product-description">
-          {product.description}
-        </DescContainer>
-      </Col>
+        <Col>
+          <Price data-cy="product-price">{product.price + " SEK"}</Price>
+        </Col>
 
-      <Col>
-        <Price data-cy="product-price">{product.price + " SEK"}</Price>
-      </Col>
+        <Col>
+          <ProductID data-cy="product-id" >{product.id}</ProductID>
+        </Col>
 
-      <Col>
-        <BtnContainer>
-          <DeleteButton product={product} onDelete={onDelete} />{" "}
-          <Button
-            variant="outline-secondary"
-            onClick={() => onEdit(product.id)}
-            data-cy="admin-edit-product"
-          >
-            Edit
-          </Button>
-        </BtnContainer>
-      </Col>
-    </Container>
+        <Col>
+          <BtnContainer>
+            <DeleteButton product={product} onDelete={onDelete} />{" "}
+            <Button
+              variant="outline-secondary"
+              onClick={() => onEdit(product.id)}
+              data-cy="admin-edit-product"
+            >
+              Edit
+            </Button>
+          </BtnContainer>
+        </Col>
+      </Container>
     </>
   );
 }
 
-const Container = styled.div `
+const Container = styled.div`
   display: flex;
 
   @media (max-width: 768px) {
@@ -63,7 +66,7 @@ const Container = styled.div `
 
 const TitleContainer = styled.div`
   align-items: center;
-  
+
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
@@ -74,7 +77,7 @@ const TitleContainer = styled.div`
 const DescContainer = styled.div`
   height: 8rem;
   overflow-y: scroll;
-  
+
   @media (max-width: 768px) {
     height: auto;
   }
@@ -93,13 +96,19 @@ const Price = styled.span`
   }
 `;
 
+const ProductID = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+`;
+
 const BtnContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   gap: 1rem;
-  
+
   @media (max-width: 768px) {
     flex-direction: row;
   }
