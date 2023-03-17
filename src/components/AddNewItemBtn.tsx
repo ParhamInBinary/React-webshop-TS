@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate, useParams } from "react-router-dom";
 import { Product } from "../../data";
 import { NewProductForm } from "./NewProductForm";
-// import { useNavigate } from "react-router-dom";
 
 interface AddNewItemBtnProps {
   setItems: React.Dispatch<React.SetStateAction<Product[]>>,
