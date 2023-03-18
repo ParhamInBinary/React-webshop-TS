@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { Product } from "../../data";
-import { useCart } from "../contexts/cartContext";
 
 interface CartBodyProps {
   show: boolean;

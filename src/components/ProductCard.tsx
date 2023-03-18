@@ -112,6 +112,13 @@ export function ProductCard({ product }: ProductCardProps) {
 const StyledCard = styled(Card)`
   width: 22rem;
   margin-top: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+  }
 `;
 
 const StyledCardImg = styled(Card.Img)`
