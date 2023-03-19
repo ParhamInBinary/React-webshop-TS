@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { SizeSelect } from "../components/SizeSelect";
@@ -20,44 +20,39 @@ export function ProductPage() {
 
   return (
     <div>
-      <Card>
-        <Container className="mb-5 mt-5">
+  <Card>
+    <Container className="mb-5 mt-5">
+      <Row>
+        <Col lg={6}>
           <Carousel
             variant="dark"
             interval={null}
-            className="w-50 d-flex justify-content-center"
+            className="d-flex justify-content-center"
           >
             <Carousel.Item>
               <img
-                style={{
-                  marginLeft: "25%",
-                }}
-                className="w-50"
+                className="w-100"
                 src={product.image}
                 alt={product.title}
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                style={{
-                  marginLeft: "25%",
-                }}
-                className="w-50"
+                className="w-100"
                 src={product.image}
                 alt={product.title}
               />
             </Carousel.Item>
             <Carousel.Item>
               <img
-                style={{
-                  marginLeft: "25%",
-                }}
-                className="w-50"
+                className="w-100"
                 src={product.image}
                 alt={product.title}
               />
             </Carousel.Item>
           </Carousel>{" "}
+        </Col>
+        <Col lg={6}>
           <ContentDetails>
             <Title data-cy="product-title">{product.title}</Title>
             <Description data-cy="product-description">
@@ -81,9 +76,11 @@ export function ProductPage() {
               Add to cart
             </AddToCartButton>
           </ContentDetails>
-        </Container>
-      </Card>
-    </div>
+        </Col>
+      </Row>
+    </Container>
+  </Card>
+</div>
   );
 }
 

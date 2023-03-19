@@ -1,10 +1,9 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useNavigate, useParams } from "react-router-dom";
 import { Product } from "../../data";
 import { NewProductForm } from "./NewProductForm";
-import { ToastCart } from "./ToastCart";
-// import { useNavigate } from "react-router-dom";
 
 interface AddNewItemBtnProps {
   setItems: React.Dispatch<React.SetStateAction<Product[]>>,
@@ -12,12 +11,17 @@ interface AddNewItemBtnProps {
 }
 
 export function AddNewItemBtn( {setItems, items}: AddNewItemBtnProps) {
-  const [show, setShow] = useState(false);
-  // const navigate = useNavigate();
+  const params = useParams()
+  
+  const [show, setShow] = useState(params.createNewItem ? true : false);
+  const navigate = useNavigate();
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    navigate("/admin")
+    setShow(false)
+  };
   const handleShow = () => {
-    // navigate(`/admin/create&new&item`)
+    navigate(`/admin/createNewItem`)
     setShow(true)
   };
 

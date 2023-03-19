@@ -22,9 +22,10 @@ export default function App() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/:createNewItem?/product?/:productid?/editItem?" element={<Admin />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/products/:productid" element={<ProductPage />} />
+            <Route path="/product/:productid" element={<ProductPage />} />
           </Routes>
         </Container>
       </main>

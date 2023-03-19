@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product, products } from "../../data";
 import { AddNewItemBtn } from "../components/AddNewItemBtn";
@@ -11,6 +12,8 @@ import { ProductListedItem } from "../components/ProductListedItem";
 export function Admin() {
   const [items, setItems] = useState(products);
   const [editingItem, setEditingItem] = useState<Product | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedProducts = localStorage.getItem("products");
@@ -28,6 +31,7 @@ export function Admin() {
   const handleEdit = (id: string) => {
     const itemToEdit = items.find((item) => item.id === id);
     if (itemToEdit) {
+      navigate(`/admin/product/${itemToEdit.id}/editItem`)
       setEditingItem(itemToEdit);
     } else {
       setEditingItem(null);
@@ -38,6 +42,7 @@ export function Admin() {
     const updatedItems = items.map((item) =>
       item.id === editedItem.id ? editedItem : item
     );
+    navigate("/admin");
     setItems(updatedItems);
     setEditingItem(null);
     localStorage.setItem("products", JSON.stringify(updatedItems));
@@ -53,7 +58,7 @@ export function Admin() {
           <Col xs={3}>Title</Col>
           <Col xs={4}>Description</Col>
           <Col>Price</Col>
-          <Col></Col>
+          <Col>Id</Col>
         </Row>
       </ListHeader>
       <ListHeaderMediaQ>
@@ -63,7 +68,10 @@ export function Admin() {
         <EditForm
           item={editingItem}
           onSave={handleSave}
-          onCancel={() => setEditingItem(null)}
+          onCancel={() => {
+            navigate("/admin");
+            setEditingItem(null)
+          }}
         />
       ) : (
         <Row>
@@ -73,7 +81,6 @@ export function Admin() {
                 product={product}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
-                // data-cy="product-id"
               />
             </ProductItem>
           ))}

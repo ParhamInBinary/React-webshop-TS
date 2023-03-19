@@ -23,7 +23,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
 
   const handleCardClick = () => {
-    navigate(`/products/${product.id}`, { state: { product } });
+    navigate(`/product/${product.id}`, { state: { product } });
   };
 
   const addToCart = () => {
