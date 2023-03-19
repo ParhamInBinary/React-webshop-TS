@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product } from "../../data";
 import { SizeSelect } from "./SizeSelect";
+import { ToastCart } from "../components/ToastCart"
 
 interface ProductCardProps {
   product: Product;
@@ -14,12 +15,19 @@ export function ProductCard({ product }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  const [cartItemCount, setCartItemCount] = useState(
+    JSON.parse(localStorage.getItem("cartItems") || "[]").length
+  )
+  const [showToast, setShowToast] = useState(false);
+  ;
+
 
   const handleCardClick = () => {
     navigate(`/product/${product.id}`, { state: { product } });
   };
 
-  const handleAddToCart = () => {
+  const addToCart = () => {
+    console.log('Adding product to cart:', product);
     const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
     for (let i = 0; i < quantity; i++) {
       cartItems.push({ ...product, size: selectedSize });
@@ -27,6 +35,9 @@ export function ProductCard({ product }: ProductCardProps) {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setQuantity(1);
     setSelectedSize(sizes[0]);
+    setCartItemCount(JSON.parse(localStorage.getItem("cartItems") || "[]").length);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 5000);
   };
 
   return (
@@ -87,7 +98,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button
             data-cy="product-buy-button"
             variant="primary"
-            onClick={handleAddToCart}
+            onClick={addToCart}
             style={{ marginLeft: "auto" }}
           >
             Add to cart

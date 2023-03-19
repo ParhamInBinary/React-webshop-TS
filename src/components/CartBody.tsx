@@ -1,18 +1,29 @@
+import { useEffect, useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { Product } from "../../data";
-import { useCart } from "../contexts/cartContext";
 
 interface CartBodyProps {
-  cartItems: [];
   show: boolean;
   onHide: () => void;
   clear: () => void;
-  totalCost: number
+  totalCost: number;
+  cartItems: Product[];
 }
 
-export function CartBody({ cartItems, show, onHide, clear, totalCost }: CartBodyProps) {
-  const cart = useCart();
-  console.log(cart.cartItems)
+export function CartBody({ show, onHide, clear, totalCost }: CartBodyProps) {
+  const [cartItems, setCartItems] = useState<Product[]>(() => {
+    const cartItemsString = localStorage.getItem("cartItems");
+    return cartItemsString ? JSON.parse(cartItemsString) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  const handleClear = () => {
+    setCartItems([]);
+    clear();
+  };
 
   return (
     <>
@@ -28,11 +39,6 @@ export function CartBody({ cartItems, show, onHide, clear, totalCost }: CartBody
             backgroundColor: "#f8f9fa",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button style={{ right: "0px", width: "80px" }} onClick={clear}>
-              Clear
-            </Button>
-          </div>
           <div
             style={{
               display: "flex",
@@ -67,7 +73,9 @@ export function CartBody({ cartItems, show, onHide, clear, totalCost }: CartBody
                   <div>
                     <div>{product.title}</div>
                     <div>Size: {product.size}</div>
-                    <div style={{ marginTop: '1rem'}}>{product.price} kr</div>
+                    <div style={{ marginTop: "1rem" }}>
+                      {product.price} kr
+                    </div>
                   </div>
                 </div>
               ))
@@ -75,8 +83,19 @@ export function CartBody({ cartItems, show, onHide, clear, totalCost }: CartBody
               <div>Your cart is empty</div>
             )}
           </div>
+
           <div data-cy="total-price">Total cost: {totalCost} kr</div>
-          <Button variant="primary" style={{ marginTop: "2rem" }}>
+          <Button
+            variant="primary"
+            style={{ marginTop: "2rem" }}
+            onClick={handleClear}
+          >
+            Clear Cart
+          </Button>
+          <Button
+            variant="primary"
+            style={{ marginTop: "2rem", marginLeft: "1rem" }}
+          >
             Checkout
           </Button>
         </Offcanvas.Body>
