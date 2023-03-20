@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { Admin } from "./pages/Admin";
+import { CartPage } from "./pages/CartPage";
 import { FAQ } from "./pages/FAQ";
 import { Home } from "./pages/Home";
 import { ProductPage } from "./pages/ProductPage";
@@ -24,8 +25,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/admin/:createNewItem?/product?/:productid?/editItem?" element={<Admin />} />
             <Route path="/FAQ" element={<FAQ />} />
-            <Route path="/products/:productid" element={<ProductPage />} />
             <Route path="/product/:productid" element={<ProductPage />} />
+            <Route path="/cart/cartitem" element={<CartPage/>}/>
           </Routes>
         </Container>
       </main>

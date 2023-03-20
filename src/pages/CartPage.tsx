@@ -1,50 +1,51 @@
-import { useEffect, useState } from "react";
-import { Button, Offcanvas } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
 import { Product } from "../../data";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+export function CartPage() {
 
-interface CartBodyProps {
-  show: boolean;
-  onHide: () => void;
-  clear: () => void;
-  totalCost: number;
-  cartItems: Product[];
-}
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const navigate = useNavigate();
+    const [cartItems, setCartItems] = useState<[]>([]);
+    const [totalCost, setTotalCost] = useState(0);
+  
+    useEffect(() => {
+      const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
+      setCartItems(items);
+      setTotalCost(
+        items.reduce(
+          (total: number, product: Product) => total + Number(product.price),
+          0
+        )
+      );
+    }, []);
 
-export function CartBody({ show, onHide, clear, totalCost }: CartBodyProps) {
-  const [cartItems, setCartItems] = useState<Product[]>(() => {
-    const cartItemsString = localStorage.getItem("cartItems");
-    return cartItemsString ? JSON.parse(cartItemsString) : [];
-  });
+    const clearLocalStorage = () => {
+        localStorage.clear();
+      };
 
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  const handleClear = () => {
-    setCartItems([]);
-    clear();
-  };
-
+    
   return (
-    <>
-       <Offcanvas show={show} onHide={onHide} placement="start">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Your cart</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            padding: "2rem",
-            backgroundColor: "#f8f9fa",
-          }}
+    <body
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "2rem",
+        backgroundColor: "#f8f9fa",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button
+          style={{ right: "0px", width: "80px" }}
+          onClick={clearLocalStorage}
         >
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button style={{ right: "0px", width: "80px" }} onClick={handleClear}>
-              Clear
-            </Button>
-          </div>
-          <div
+          Clear
+        </Button>
+      </div>
+      <div
             style={{
               display: "flex",
               flexDirection: "column",
@@ -86,11 +87,9 @@ export function CartBody({ show, onHide, clear, totalCost }: CartBodyProps) {
             )}
           </div>
           <div data-cy="total-price">Total cost: {totalCost} kr</div>
-          <Button data-cy="cart-link" variant="primary" style={{ marginTop: "2rem" }}>
+          <Button variant="primary" style={{ marginTop: "2rem" }}>
             Checkout
           </Button>
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
+    </body>
   );
 }

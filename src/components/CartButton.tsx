@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFillBasket3Fill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { Product } from "../../data";
 import { useCart } from "../contexts/cartContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
@@ -11,6 +12,7 @@ export function CartButton() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<[]>([]);
   const [totalCost, setTotalCost] = useState(0);
 
@@ -25,6 +27,10 @@ export function CartButton() {
     );
   }, []);
 
+  function HandleRouteToCart(){
+    navigate(`/cart/cartitem`)
+  }
+
   console.log("cartItems", cartItems);
   const clearLocalStorage = () => {
     localStorage.clear();
@@ -35,7 +41,8 @@ export function CartButton() {
     <>
       <Button
         variant="outline-primary"
-        onClick={handleShow}
+        onMouseEnter={handleShow}
+        onClick={HandleRouteToCart}
         style={{
           width: "3rem",
           height: "3rem",
@@ -45,7 +52,7 @@ export function CartButton() {
         className="rounded-circle"
       >
         <BsFillBasket3Fill />
-        {cartItems.length > 0 && (
+
           <div
             data-cy="cart-items-count-badge"
             style={{
@@ -65,73 +72,10 @@ export function CartButton() {
           >
             {cartItems.length}
           </div>
-        )}
+        
       </Button>
       <CartBody cartItems={cartItems} show={show} onHide={handleClose} clear={clearLocalStorage} totalCost={totalCost}/>
-      <Offcanvas show={show} onHide={handleClose} placement="end">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Your cart</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            padding: "2rem",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button style={{ right: "0px", width: "80px" }} onClick={clearLocalStorage}>
-              Clear
-            </Button>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "1rem",
-            }}
-          >
-            {cartItems.length > 0 ? (
-              cartItems.map((product: Product) => (
-                <div
-                  key={product.id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    margin: "1rem",
-                    width: "300px",
-                    borderBottom: "1px solid black",
-                  }}
-                >
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    style={{
-                      width: "120px",
-                      height: "100px",
-                      objectFit: "cover",
-                      marginRight: "1rem",
-                    }}
-                  />
-                  <div>
-                    <div>{product.title}</div>
-                    <div>{product.price} kr</div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div>Your cart is empty</div>
-            )}
-          </div>
-          <div data-cy="total-price">Total cost: {totalCost} kr</div>
-          <Button variant="primary" style={{ marginTop: "2rem" }}>
-            Checkout
-          </Button>
-        </Offcanvas.Body>
-      </Offcanvas>
+     
     </>
   );
 }
