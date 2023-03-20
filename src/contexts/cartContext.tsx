@@ -7,9 +7,10 @@ type CartContextType = {
   cartItems: Product[];
   addToCart: (product: Product) => void;
   clearCart: () => void;
-  setCartItems: (items: Product[]) => void; 
+  setCartItems: (items: Product[]) => void;
+  cart: Product[]; // add this property to the CartContextType
   showToast: boolean;
-  
+  setShowToast: React.Dispatch<React.SetStateAction<boolean>>; // add this property to the CartContextType
 };
 
 export const CartContext = createContext<CartContextType>({
@@ -17,7 +18,9 @@ export const CartContext = createContext<CartContextType>({
   addToCart: () => {},
   clearCart: () => {},
   setCartItems: () => {},
+  cart: [], // initialize cart property to empty array
   showToast: false,
+  setShowToast: () => {}, // initialize setShowToast property to an empty function
 });
 
 export function useCart() {
@@ -55,15 +58,14 @@ export default function CartProvider(props: React.PropsWithChildren<{}>) {
     cartItems,
     addToCart,
     clearCart,
-    setCartItems, 
-    cart: cartItems,
+    setCartItems,
+    cart: cartItems, // set the value of the cart property to cartItems
     showToast,
     setShowToast,
   };
 
   return (
-    <CartContext.Provider value={
-      contextValue}>
+    <CartContext.Provider value={contextValue}>
       {props.children}
     </CartContext.Provider>
   );
