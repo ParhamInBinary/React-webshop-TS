@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsFillBasket3Fill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../data";
-import { useCart } from "../contexts/cartContext";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { CartContext } from "../contexts/cartContext";
 import { CartBody } from "./CartBody";
 
 export function CartButton() {
@@ -13,7 +11,7 @@ export function CartButton() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState<[]>([]);
+  const {cartItems, setCartItems} = useContext(CartContext);//changed here to make the number update
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {

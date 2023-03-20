@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product } from "../../data";
 import { SizeSelect } from "./SizeSelect";
-import { ToastCart } from "../components/ToastCart"
+import { ToastCart } from "../components/ToastCart";
+import { CartContext } from "../contexts/cartContext";
 
 interface ProductCardProps {
   product: Product;
@@ -12,30 +13,25 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate();
+  const { cartItems, setCartItems } = useContext(CartContext);//here is where the context is beeing used//dv
   const [quantity, setQuantity] = useState(1);
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
-  const [cartItemCount, setCartItemCount] = useState(
-    JSON.parse(localStorage.getItem("cartItems") || "[]").length
-  )
   const [showToast, setShowToast] = useState(false);
-  ;
-
 
   const handleCardClick = () => {
     navigate(`/product/${product.id}`, { state: { product } });
   };
 
   const addToCart = () => {
-    console.log('Adding product to cart:', product);
-    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    console.log("Adding product to cart:", product);
+    const newCartItems = [...cartItems];
     for (let i = 0; i < quantity; i++) {
-      cartItems.push({ ...product, size: selectedSize });
+      newCartItems.push({ ...product, size: selectedSize });
     }
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    setCartItems(newCartItems);
     setQuantity(1);
     setSelectedSize(sizes[0]);
-    setCartItemCount(JSON.parse(localStorage.getItem("cartItems") || "[]").length);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 5000);
   };
@@ -73,7 +69,11 @@ export function ProductCard({ product }: ProductCardProps) {
               </Card.Text>
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <SizeSelect sizes={sizes} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
+              <SizeSelect
+                sizes={sizes}
+                selectedSize={selectedSize}
+                setSelectedSize={setSelectedSize}
+              />
             </div>
           </div>
         </div>
