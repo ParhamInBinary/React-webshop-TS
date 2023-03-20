@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
+import ToastContainer, { ToastPosition } from "react-bootstrap/ToastContainer";
+import { Product } from "../../data";
 import { useCart } from "../contexts/cartContext";
-import { CartItem, Product } from "../../data";
 
 interface ToastCartProps {
   product: Product;
@@ -11,9 +11,9 @@ interface ToastCartProps {
 }
 
 export function ToastCart(props: ToastCartProps) {
-    console.log("showToast:", props.showToast);
+    
     const { addToCart } = useCart();
-    const [position, setPosition] = useState('top-end');
+    const [position, setPosition] = useState<ToastPosition>('top-end');
   
     const AddToCart = () => {
       addToCart(props.product);
@@ -21,10 +21,10 @@ export function ToastCart(props: ToastCartProps) {
       setTimeout(() => props.setShowToast(false), 5000);
     };
   
-    console.log("Rendering ToastCart...");
+    
  
   return (
-    <ToastContainer position="top-end">
+    <ToastContainer position={position}>
       <Toast show={props.showToast} onClose={() => props.setShowToast(false)}>
         <Toast.Header closeButton={true}>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
