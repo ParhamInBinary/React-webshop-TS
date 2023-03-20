@@ -31,15 +31,16 @@ export function CartButton() {
     navigate(`/cart/cartitem`)
   }
 
-  console.log("cartItems", cartItems);
   const clearLocalStorage = () => {
     localStorage.clear();
     setCartItems([]);
     setTotalCost(0);
   };
+  
   return (
     <>
       <Button
+        data-cy="cart-link"
         variant="outline-primary"
         onMouseEnter={handleShow}
         onClick={HandleRouteToCart}
@@ -74,8 +75,7 @@ export function CartButton() {
           </div>
         
       </Button>
-      <CartBody cartItems={cartItems} show={show} onHide={handleClose} clear={clearLocalStorage} totalCost={totalCost}/>
-     
+      <CartBody cartItems={cartItems} clear={clearLocalStorage} totalCost={totalCost}/>
     </>
   );
 }

@@ -1,5 +1,6 @@
 // cartContext.tsx
 import { createContext, useContext, useState } from "react";
+import { string } from "yup";
 import { Product } from "../../data";
 import { ToastCart } from "../components/ToastCart";
 
@@ -46,6 +47,12 @@ export default function CartProvider(props: React.PropsWithChildren<{}>) {
     setTimeout(() => setShowToast(false), 5000);
   };
 
+  const removeFromCart = (productId: string) => {
+    const updatedCartItems = cartItems.filter(item => item.id !== productId);
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+  };
+
   const clearCart = () => {
     setCartItems([]);
   };
@@ -59,6 +66,7 @@ export default function CartProvider(props: React.PropsWithChildren<{}>) {
     cart: cartItems,
     showToast,
     setShowToast,
+    removeFromCart
   };
 
   return (
