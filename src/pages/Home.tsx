@@ -17,10 +17,25 @@ export function Home() {
   }, []);
 
   useEffect(() => {
-    if (cartItems.length > 0) {
-      setLastAddedProduct(cartItems[cartItems.length - 1]);
+    const newProduct = cartItems[cartItems.length - 1];
+    if (newProduct) {
+      setLastAddedProduct(newProduct);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 5000);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    const newCartItems = JSON.parse(localStorage.getItem("cartItems") ?? "[]");
+    if (newCartItems.length > cartItems.length) {
+      const newProduct = newCartItems[newCartItems.length - 1];
+      const productExists = cartItems.find((product) => product.id === newProduct.id);
+      if (!productExists) {
+        setLastAddedProduct(newProduct);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 5000);
+      }
     }
   }, [cartItems]);
 
@@ -29,22 +44,21 @@ export function Home() {
       <div>
         <Heading>PALIMEDA Shoes</Heading>
       </div>
-        {lastAddedProduct && (
-          <ToastCart
-            product={lastAddedProduct}
-            showToast={showToast}
-            setShowToast={setShowToast}
-          />
-        )}
+      {showToast && lastAddedProduct && (
+        <ToastCart
+          product={lastAddedProduct}
+          showToast={showToast}
+          setShowToast={setShowToast}
+        />
+      )}
       <ProductContainer>
         {items.map((product) => (
           <ProductCard key={product.id} product={product} />
-          ))}
+        ))}
       </ProductContainer>
     </main>
   );
 }
-
 
 const ProductContainer = styled.div`
   display: flex;
