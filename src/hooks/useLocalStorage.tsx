@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { CartItem } from "../../data";
 
-export function useLocalStorage(key: string, defaultValue: CartItem[] = []) {
-  const [value, setValue] = useState<CartItem[]>(() => {
+export function useLocalStorage<State>(key: string, defaultValue: State ) {
+  const [value, setValue] = useState<State>(() => {
     const jsonValue = localStorage.getItem(key);
     if (jsonValue != null) {
       return JSON.parse(jsonValue);
