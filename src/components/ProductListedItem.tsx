@@ -57,12 +57,19 @@ export function ProductListedItem({
 }
 
 const Container = styled.div`
-  display: flex;
+display: flex;
+border-bottom: 1px solid orange;
+font-size: 14px;
+padding: 1rem;
+
+& img {
+  width: 3rem;
+  margin: 1rem;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
+    width: 10rem;
   }
+}
 `;
 
 const TitleContainer = styled.div`

@@ -84,17 +84,17 @@ export function Admin({ items, setItems }: AdminProps) {
           }}
         />
       ) : (
-        <Row>
-          {items.map((product) => (
-            <ProductItem key={product.id} data-cy="product">
+          <Row>
+            {items.map((product) => (
               <ProductListedItem
+                key={product.id}
+                data-cy="product"
                 product={product}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
               />
-            </ProductItem>
-          ))}
-        </Row>
+            ))}
+          </Row>
       )}
     </Container>
   );
@@ -126,21 +126,5 @@ const ListHeaderMediaQ = styled.div`
     font-weight: bold;
     padding: 1rem;
     border: 1px solid orange;
-  }
-`;
-
-const ProductItem = styled.div`
-  display: flex;
-  border-bottom: 1px solid orange;
-  font-size: 14px;
-  padding: 1rem;
-
-  & img {
-    width: 3rem;
-    margin: 1rem;
-
-    @media (max-width: 768px) {
-      width: 10rem;
-    }
   }
 `;
