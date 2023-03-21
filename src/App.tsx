@@ -28,7 +28,7 @@ export default function App() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admin/:productid?/editItem?" element={<Admin items={items} setItems={setItems}/>} />
+            <Route path="/admin/product?/:productid?/:editItem?" element={<Admin items={items} setItems={setItems}/>} />
             <Route path="/admin/product/new" element={<NewProductForm items={items} setItems={setItems}/>} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/product/:productid" element={<ProductPage />} />
