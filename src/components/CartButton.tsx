@@ -11,7 +11,7 @@ export function CartButton() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
-  const {cartItems, setCartItems} = useContext(CartContext);//changed here to make the number update
+  const {cartItems, setCartItems, clearCart} = useContext(CartContext);//changed here to make the number update
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export function CartButton() {
           </div>
         
       </Button>
-      <CartBody cartItems={cartItems} show={show} onHide={handleClose} clear={clearLocalStorage} totalCost={totalCost}/>
+      <CartBody cartItems={cartItems} showCart={show} onHide={handleClose} clear={clearLocalStorage} totalCost={totalCost}/>
      
     </>
   );

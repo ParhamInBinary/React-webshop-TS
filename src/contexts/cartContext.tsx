@@ -2,6 +2,7 @@
 import { createContext, useContext, useState } from "react";
 import { Product } from "../../data";
 import { ToastCart } from "../components/ToastCart";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type CartContextType = {
   cartItems: Product[];
@@ -28,7 +29,7 @@ export function useCart() {
 }
 
 export default function CartProvider(props: React.PropsWithChildren<{}>) {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [cartItems, setCartItems] = useLocalStorage<Product[]>("cart", []);
   const [showToast, setShowToast] = useState(false);
 
   const addToCart = (product: Product) => {

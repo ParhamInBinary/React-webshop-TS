@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { Product } from "../../data";
+import { CartContext } from "../contexts/cartContext";
 
 interface CartBodyProps {
-  show: boolean;
+  showCart: boolean;
   onHide: () => void;
   clear: () => void;
   totalCost: number;
-  cartItems: Product[];
 }
 
-export function CartBody({ show, onHide, clear, totalCost }: CartBodyProps) {
-  const [cartItems, setCartItems] = useState<Product[]>(() => {
-    const cartItemsString = localStorage.getItem("cartItems");
-    return cartItemsString ? JSON.parse(cartItemsString) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+export function CartBody({ showCart, onHide, clear, totalCost }: CartBodyProps) {
+  const { cartItems, setCartItems } = useContext(CartContext);
 
   const handleClear = () => {
     setCartItems([]);
@@ -27,7 +20,7 @@ export function CartBody({ show, onHide, clear, totalCost }: CartBodyProps) {
 
   return (
     <>
-       <Offcanvas show={show} onHide={onHide} placement="start">
+      <Offcanvas showCart={showCart} onHide={onHide} placement="start">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Your cart</Offcanvas.Title>
         </Offcanvas.Header>
