@@ -45,7 +45,6 @@ export default function CartProvider(props: React.PropsWithChildren<{}>) {
       setCartItems([...cartItems, newCartItem]);
     }
     setShowToast(true);
-    console.log('showToast:', showToast);
     setTimeout(() => setShowToast(false), 5000);
   };
 
