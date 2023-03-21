@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Product, products } from "../../data";
-import { AddNewItemBtn } from "../components/AddNewItemBtn";
+import { Product } from "../../data";
 import { EditForm } from "../components/EditForm";
 import { ProductListedItem } from "../components/ProductListedItem";
 
-export function Admin() {
-  const [items, setItems] = useState(products);
+interface AdminProps {
+  items: Product[];
+  setItems: React.Dispatch<React.SetStateAction<Product[]>>;
+}
+
+export function Admin({ items, setItems }: AdminProps) {
   const [editingItem, setEditingItem] = useState<Product | null>(null);
 
   const navigate = useNavigate();
@@ -31,7 +35,7 @@ export function Admin() {
   const handleEdit = (id: string) => {
     const itemToEdit = items.find((item) => item.id === id);
     if (itemToEdit) {
-      navigate(`/admin/product/${itemToEdit.id}/editItem`)
+      navigate(`/admin/product/${itemToEdit.id}/editItem`);
       setEditingItem(itemToEdit);
     } else {
       setEditingItem(null);
@@ -51,7 +55,13 @@ export function Admin() {
   return (
     <Container>
       <AddBtnContainer>
-        <AddNewItemBtn setItems={setItems} items={items}/>
+        <Button
+          variant="primary"
+          onClick={() => navigate(`/admin/product/new`)}
+          data-cy="admin-add-product"
+        >
+          Add new item
+        </Button>
       </AddBtnContainer>
       <ListHeader>
         <Row>
@@ -70,7 +80,7 @@ export function Admin() {
           onSave={handleSave}
           onCancel={() => {
             navigate("/admin");
-            setEditingItem(null)
+            setEditingItem(null);
           }}
         />
       ) : (
@@ -102,14 +112,14 @@ const ListHeader = styled.div`
   font-weight: bold;
   padding: 1rem;
   border: 1px solid orange;
-  
+
   @media (max-width: 768px) {
-    display: none
-  }
-  `;
-  
-  const ListHeaderMediaQ = styled.div `
     display: none;
+  }
+`;
+
+const ListHeaderMediaQ = styled.div`
+  display: none;
 
   @media (max-width: 768px) {
     display: block;
@@ -128,7 +138,7 @@ const ProductItem = styled.div`
   & img {
     width: 3rem;
     margin: 1rem;
-    
+
     @media (max-width: 768px) {
       width: 10rem;
     }
