@@ -84,17 +84,18 @@ export function Admin({ items, setItems }: AdminProps) {
           }}
         />
       ) : (
-          <Row>
-            {items.map((product) => (
+        <div>
+          {items.map((product) => (
+            <Row data-cy="product">
               <ProductListedItem
                 key={product.id}
-                data-cy="product"
                 product={product}
                 onDelete={handleDelete}
                 onEdit={handleEdit}
               />
-            ))}
-          </Row>
+            </Row>
+          ))}
+        </div>
       )}
     </Container>
   );
