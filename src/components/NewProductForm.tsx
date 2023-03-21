@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 import { generateId, Product } from "../../data";
 interface FormFields {
   image: string;
@@ -14,7 +15,8 @@ interface NewProductFormProps {
   setItems: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-export function NewProductForm({ items, setItems}: NewProductFormProps) {
+export function NewProductForm({ items, setItems }: NewProductFormProps) {
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
     image: "",
@@ -38,15 +40,16 @@ export function NewProductForm({ items, setItems}: NewProductFormProps) {
       setValidated(true);
     } else {
       const id = generateId();
-      const newProduct = {...formFields, id };
+      const newProduct = { ...formFields, id };
       updateLocalStorage(newProduct);
       setFormFields({ image: "", title: "", description: "", price: "" });
+      navigate("/admin");
     }
   };
 
   const updateLocalStorage = (newProduct: Product) => {
-    const updatedProducts = structuredClone(items)
-    updatedProducts.push(newProduct)
+    const updatedProducts = structuredClone(items);
+    updatedProducts.push(newProduct);
     localStorage.setItem("products", JSON.stringify(updatedProducts));
     setItems(updatedProducts);
   };
@@ -67,6 +70,7 @@ export function NewProductForm({ items, setItems}: NewProductFormProps) {
             name="image"
             value={formFields.image}
             onChange={handleInputChange}
+            data-cy="product-image"
           />
           <Form.Control.Feedback type="invalid" data-cy="product-image-error">
             Please include a URL-link.
@@ -90,29 +94,32 @@ export function NewProductForm({ items, setItems}: NewProductFormProps) {
 
         <FloatingLabel controlId="description" label="Product description">
           <Form.Control
-            as="textarea"
+            type="text"
             placeholder="Write a description of the product"
-            style={{ height: "100px", resize: "none" }}
             required
             name="description"
             value={formFields.description}
             onChange={handleInputChange}
             data-cy="product-description"
           />
-          <Form.Control.Feedback type="invalid" data-cy="product-description-error">
+          <Form.Control.Feedback
+            type="invalid"
+            data-cy="product-description-error"
+          >
             Please provide a description.
           </Form.Control.Feedback>
         </FloatingLabel>
 
         <FloatingLabel controlId="price" label="Product price" className="mb-3">
           <Form.Control
-            type="number"
+            type="text"
             placeholder="Example"
             required
             name="price"
             value={formFields.price}
             onChange={handleInputChange}
-            style={{ marginTop: "1rem"}}
+            style={{ marginTop: "1rem" }}
+            data-cy="product-price"
           />
           <Form.Control.Feedback type="invalid" data-cy="product-price-error">
             Please set a price to the item.
