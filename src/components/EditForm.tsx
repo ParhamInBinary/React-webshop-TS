@@ -24,13 +24,14 @@ export function EditForm({ item, onSave, onCancel }: EditFormProps) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-cy="product-form">
       <Form.Group controlId="title">
         <Form.Label>Title</Form.Label>
         <Form.Control
           type="text"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
+          data-cy="product-title"
         />
       </Form.Group>
       <Form.Group controlId="description">
@@ -40,6 +41,7 @@ export function EditForm({ item, onSave, onCancel }: EditFormProps) {
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           style={{ resize: "none" }}
+          data-cy="product-description"
         />
       </Form.Group>
       <Form.Group controlId="price">
