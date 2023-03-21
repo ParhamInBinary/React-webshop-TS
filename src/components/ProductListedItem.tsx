@@ -14,9 +14,8 @@ export function ProductListedItem({
   onDelete,
   onEdit,
 }: ProductListedItemProps) {
-  console.log(product.title)
+
   return (
-    <>
       <Container>
         <Col xs={12} md={3}>
           <TitleContainer data-cy="product-title">
@@ -52,7 +51,6 @@ export function ProductListedItem({
           </BtnContainer>
         </Col>
       </Container>
-    </>
   );
 }
 
@@ -61,6 +59,10 @@ display: flex;
 border-bottom: 1px solid orange;
 font-size: 14px;
 padding: 1rem;
+
+@media (max-width: 768px) {
+  display: block;
+}
 
 & img {
   width: 3rem;
