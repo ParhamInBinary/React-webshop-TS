@@ -14,6 +14,7 @@ export function ProductListedItem({
   onDelete,
   onEdit,
 }: ProductListedItemProps) {
+  console.log(product.title)
   return (
     <>
       <Container>
