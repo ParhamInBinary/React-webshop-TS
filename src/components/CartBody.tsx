@@ -3,14 +3,14 @@ import { Button, Offcanvas } from "react-bootstrap";
 import { Product } from "../../data";
 
 interface CartBodyProps {
-  show: boolean;
+  showCart: boolean;
   onHide: () => void;
   clear: () => void;
   totalCost: number;
   cartItems: Product[];
 }
 
-export function CartBody({ show, onHide, clear, totalCost }: CartBodyProps) {
+export function CartBody({ showCart, onHide, clear, totalCost }: CartBodyProps) {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
     const cartItemsString = localStorage.getItem("cartItems");
     return cartItemsString ? JSON.parse(cartItemsString) : [];
@@ -27,7 +27,7 @@ export function CartBody({ show, onHide, clear, totalCost }: CartBodyProps) {
 
   return (
     <>
-       <Offcanvas show={show} onHide={onHide} placement="start">
+       <Offcanvas showCart={showCart} onHide={onHide} placement="start">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Your cart</Offcanvas.Title>
         </Offcanvas.Header>
