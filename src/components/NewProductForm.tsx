@@ -10,12 +10,11 @@ interface FormFields {
 }
 
 interface NewProductFormProps {
-  setItems: React.Dispatch<React.SetStateAction<Product[]>>;
   items: Product[];
-  handleClose: () => void;
+  setItems: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-export function NewProductForm({ setItems, items, handleClose }: NewProductFormProps) {
+export function NewProductForm({ items, setItems}: NewProductFormProps) {
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
     image: "",
@@ -39,15 +38,15 @@ export function NewProductForm({ setItems, items, handleClose }: NewProductFormP
       setValidated(true);
     } else {
       const id = generateId();
-      const newProduct = { id, ...formFields };
+      const newProduct = {...formFields, id };
       updateLocalStorage(newProduct);
       setFormFields({ image: "", title: "", description: "", price: "" });
-      handleClose();
     }
   };
 
   const updateLocalStorage = (newProduct: Product) => {
-    const updatedProducts = [...items, newProduct];
+    const updatedProducts = structuredClone(items)
+    updatedProducts.push(newProduct)
     localStorage.setItem("products", JSON.stringify(updatedProducts));
     setItems(updatedProducts);
   };
@@ -82,6 +81,7 @@ export function NewProductForm({ setItems, items, handleClose }: NewProductFormP
             name="title"
             value={formFields.title}
             onChange={handleInputChange}
+            data-cy="product-title"
           />
           <Form.Control.Feedback type="invalid" data-cy="product-title-error">
             Please add a product title.
@@ -97,6 +97,7 @@ export function NewProductForm({ setItems, items, handleClose }: NewProductFormP
             name="description"
             value={formFields.description}
             onChange={handleInputChange}
+            data-cy="product-description"
           />
           <Form.Control.Feedback type="invalid" data-cy="product-description-error">
             Please provide a description.
