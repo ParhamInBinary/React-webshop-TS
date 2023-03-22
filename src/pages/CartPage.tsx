@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/cartContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Product } from "../../data"; 
+import { useEffect, useState } from "react";
+
 
 export function CartPage() {
   const navigate = useNavigate();
@@ -87,6 +89,6 @@ export function CartPage() {
           <Button variant="primary" style={{ marginTop: "2rem" }}>
             Checkout
           </Button>
-    </body>
+    </main>
   );
 }
