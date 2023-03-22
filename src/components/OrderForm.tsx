@@ -6,6 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import styled from 'styled-components';
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required(),
@@ -27,7 +28,7 @@ export function OrderForm() {
     <>
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
     <h2 style={{textAlign: 'center'}}>Order Details</h2></div>
-    <div style={{borderRadius: '10px', border: '1px solid #000', backgroundColor: 'lightgray', padding: '1rem'}} className="d-flex justify-content-center align-items-center vh-100">
+    <StyledFormContainer className="d-flex justify-content-center align-items-center">
       <Formik
         validationSchema={schema}
         onSubmit={console.log}
@@ -180,10 +181,22 @@ export function OrderForm() {
         </Form>
       )}
     </Formik>
-    </div>
+    </StyledFormContainer>
     </>
   );
 }
+
+const StyledFormContainer = styled.div`
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: lightgray;
+  padding: 1rem;
+  height: 70vh;
+
+  @media (max-width: 768px) {
+    height: 110vh;
+  }
+`;
 
 /*x `data-cy="customer-form"` formulär för att fylla i kunduppgifter på checkout-sidan.
 --------- `data-cy="customer-name"` kundens namn (som fylls i på checkout-sidan).
