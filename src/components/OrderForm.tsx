@@ -24,6 +24,9 @@ const schema = Yup.object().shape({
 
 export function OrderForm() {
   return (
+    <>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <h2 style={{textAlign: 'center'}}>Order Details</h2></div>
     <div style={{backgroundColor: 'lightgray', padding: '1rem'}} className="d-flex justify-content-center align-items-center vh-100">
       <Formik
         validationSchema={schema}
@@ -51,12 +54,11 @@ export function OrderForm() {
           <Form data-cy="customer-form" noValidate onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group
-                data-cy="customer-name"
                 as={Col}
                 md="4"
                 controlId="validationFormik01"
-              >
-                <Form.Label>First name</Form.Label>
+                >
+                <Form.Label data-cy="customer-name">First name</Form.Label>
                 <Form.Control
                   type="text"
                   name="firstName"
@@ -84,7 +86,7 @@ export function OrderForm() {
                 md="4"
                 controlId="validationFormik03"
               >
-                <Form.Label>Address</Form.Label>
+                <Form.Label data-cy="customer-adress">Address</Form.Label>
                 <InputGroup hasValidation>
                   <Form.Control
                     data-cy="customer-name-error"
@@ -117,8 +119,8 @@ export function OrderForm() {
                 {errors.city}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group data-cy="customer-zipcode" as={Col} md="3" controlId="validationFormik07">
-              <Form.Label>Zip</Form.Label>
+            <Form.Group as={Col} md="3" controlId="validationFormik07">
+              <Form.Label data-cy="customer-zipcode">Zip</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Zip"
@@ -179,6 +181,18 @@ export function OrderForm() {
       )}
     </Formik>
     </div>
+    </>
   );
 }
 
+/*x `data-cy="customer-form"` formulär för att fylla i kunduppgifter på checkout-sidan.
+--------- `data-cy="customer-name"` kundens namn (som fylls i på checkout-sidan).
+---------`data-cy="customer-address"` kundens gatuadress (som fylls i på checkout-sidan).
+--------- `data-cy="customer-zipcode"` kundens postnummer (som fylls i på checkout-sidan).
+x `data-cy="customer-city"` kundens stad (som fylls i på checkout-sidan).
+x `data-cy="customer-email"` kundens emailadress (som fylls i på checkout-sidan).
+x `data-cy="customer-phone"` kundens telefonnummer (som fylls i på checkout-sidan).
+x `data-cy="customer-name-error"` felmeddelande vid felaktigt angivet namn.
+x `data-cy="customer-address-error"` felmeddelande vid felaktigt angiven adress.
+x `data-cy="customer-email-error"` felmeddelande vid felaktigt angiven emailadress.
+x `data-cy="customer-phone-error"` felmeddelande vid felaktigt angivet telefonnummer. */
