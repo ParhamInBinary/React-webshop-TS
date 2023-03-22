@@ -25,12 +25,13 @@ export function ProductProvider({ children }: PropsWithChildren) {
     setItems(updatedItems);
     localStorage.setItem("products", JSON.stringify(updatedItems));
   };
-
+  
   const handleEdit = (id: string) => {
     const itemToEdit = items.find((item) => item.id === id);
     if (itemToEdit) {
       navigate(`/admin/product/editItem/${itemToEdit.id}`);
       setEditingItem(itemToEdit);
+      localStorage.setItem("selectedItem", JSON.stringify(itemToEdit));
     } else {
       setEditingItem(null);
     }
