@@ -19,7 +19,6 @@ export function EditForm() {
       setPrice(storedObj.price);
     }
   }, []);
-  console.log(editingItem);
 
   const [image, setImage] = useState(editingItem?.image ?? "");
   const [title, setTitle] = useState(editingItem?.title ?? "");
