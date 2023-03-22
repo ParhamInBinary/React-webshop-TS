@@ -1,3 +1,4 @@
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -5,7 +6,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required(),
@@ -15,70 +15,84 @@ const schema = Yup.object().shape({
   zip: Yup.string().required(),
   email: Yup.string().email('Invalid email address').required(),
   phone: Yup.string()
-  .required()
-  .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),  
-  terms: Yup.bool().required().oneOf([true], 'You must click it '),
+    .required()
+    .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),
+  terms: Yup.bool()
+    .required()
+    .oneOf([true], 'You must click it '),
 });
-
 
 export function OrderForm() {
   return (
-    <Formik 
-      validationSchema={schema}
-      onSubmit={console.log}
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        address: '',
-        city: '',
-        zip: '',
-        email: '',
-        phone: '',
-        terms: false,
-      }}
-    >
-      {({
-        handleSubmit,
-        handleChange,
-        handleBlur,
-        values,
-        touched,
-        isValid,
-        errors,
-      }) => (
-        <Form data-cy="customer-form" noValidate onSubmit={handleSubmit} >
-          <Row className="mb-3">
-            <Form.Group data-cy="customer-name" as={Col} md="4" controlId="validationFormik01">
-              <Form.Label>First name</Form.Label>
-              <Form.Control
-                type="text"
-                name="firstName"
-                value={values.firstName}
-                onChange={handleChange}
-                isValid={touched.firstName && !errors.firstName}
-              />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationFormik02">
-              <Form.Label>Last name</Form.Label>
-              <Form.Control
-                type="text"
-                name="lastName"
-                value={values.lastName}
-                onChange={handleChange}
-                isValid={touched.lastName && !errors.lastName}
-              />
-
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group data-cy="customer-address" as={Col} md="4" controlId="validationFormik03">
-              <Form.Label>Address</Form.Label>
-              <InputGroup hasValidation>
-                <Form.Control data-cy="customer-name-error"
+    <div style={{backgroundColor: 'lightgray', padding: '1rem'}} className="d-flex justify-content-center align-items-center vh-100">
+      <Formik
+        validationSchema={schema}
+        onSubmit={console.log}
+        initialValues={{
+          firstName: '',
+          lastName: '',
+          address: '',
+          city: '',
+          zip: '',
+          email: '',
+          phone: '',
+          terms: false,
+        }}
+      >
+        {({
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          values,
+          touched,
+          isValid,
+          errors,
+        }) => (
+          <Form data-cy="customer-form" noValidate onSubmit={handleSubmit}>
+            <Row className="mb-3">
+              <Form.Group
+                data-cy="customer-name"
+                as={Col}
+                md="4"
+                controlId="validationFormik01"
+              >
+                <Form.Label>First name</Form.Label>
+                <Form.Control
                   type="text"
-                  name="adress"
-                  value={values.address}
+                  name="firstName"
+                  value={values.firstName}
                   onChange={handleChange}
+                  isValid={touched.firstName && !errors.firstName}
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} md="4" controlId="validationFormik02">
+                <Form.Label>Last name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="lastName"
+                  value={values.lastName}
+                  onChange={handleChange}
+                  isValid={touched.lastName && !errors.lastName}
+                />
+
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group
+                data-cy="customer-address"
+                as={Col}
+                md="4"
+                controlId="validationFormik03"
+              >
+                <Form.Label>Address</Form.Label>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    data-cy="customer-name-error"
+                    type="text"
+                    name="adress"
+                    value={values.address}
+                    onChange={handleChange}
+                   
                   isValid={touched.address && !errors.address}
                 />
                 <Form.Control.Feedback data-cy="customer-address-error" type="invalid">
@@ -160,10 +174,11 @@ export function OrderForm() {
               id="validationFormik0"
             />
           </Form.Group>
-          <Button type="submit">Submit order and pay</Button>
+          <Button style={{marginTop: '1rem'}} type="submit">Submit order and pay</Button>
         </Form>
       )}
     </Formik>
+    </div>
   );
 }
 
