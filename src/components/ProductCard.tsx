@@ -24,7 +24,6 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   const addToCart = () => {
-    console.log("Adding product to cart:", product);
     const newCartItems = [...cartItems];
     for (let i = 0; i < quantity; i++) {
       newCartItems.push({ ...product, size: selectedSize });

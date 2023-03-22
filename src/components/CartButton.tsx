@@ -30,7 +30,6 @@ export function CartButton() {
     navigate(`/cart/cartitem`)
   }
 
-  console.log("cartItems", cartItems);
   const clearLocalStorage = () => {
     localStorage.clear();
     setCartItems([]);
