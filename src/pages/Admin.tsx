@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Product } from "../../data";
-import { EditForm } from "../components/EditForm";
 import { ProductListedItem } from "../components/ProductListedItem";
+import { ProductContext } from "../contexts/ProductContext";
 
-interface AdminProps {
-  items: Product[];
-  setItems: React.Dispatch<React.SetStateAction<Product[]>>;
-}
-
-export function Admin({ items, setItems }: AdminProps) {
-  const [editingItem, setEditingItem] = useState<Product | null>(null);
-
+export function Admin() {
   const navigate = useNavigate();
+
+  const { items, setItems } = useContext(ProductContext);
 
   useEffect(() => {
     const storedProducts = localStorage.getItem("products");
@@ -25,32 +19,6 @@ export function Admin({ items, setItems }: AdminProps) {
       setItems(JSON.parse(storedProducts));
     }
   }, []);
-
-  const handleDelete = (id: string) => {
-    const updatedItems = items.filter((item) => item.id !== id);
-    setItems(updatedItems);
-    localStorage.setItem("products", JSON.stringify(updatedItems));
-  };
-
-  const handleEdit = (id: string) => {
-    const itemToEdit = items.find((item) => item.id === id);
-    if (itemToEdit) {
-      navigate(`/admin/product/${itemToEdit.id}/editItem`);
-      setEditingItem(itemToEdit);
-    } else {
-      setEditingItem(null);
-    }
-  };
-
-  const handleSave = (editedItem: Product) => {
-    const updatedItems = items.map((item) =>
-      item.id === editedItem.id ? editedItem : item
-    );
-    navigate("/admin");
-    setItems(updatedItems);
-    setEditingItem(null);
-    localStorage.setItem("products", JSON.stringify(updatedItems));
-  };
 
   return (
     <Container>
@@ -74,29 +42,15 @@ export function Admin({ items, setItems }: AdminProps) {
       <ListHeaderMediaQ>
         <Col>Listed products</Col>
       </ListHeaderMediaQ>
-      {editingItem ? (
-        <EditForm
-          item={editingItem}
-          onSave={handleSave}
-          onCancel={() => {
-            navigate("/admin");
-            setEditingItem(null);
-          }}
-        />
-      ) : (
         <div>
           {items.map((product) => (
-            <Row data-cy="product">
+            <Row key={product.id} data-cy="product">
               <ProductListedItem
-                key={product.id}
                 product={product}
-                onDelete={handleDelete}
-                onEdit={handleEdit}
               />
             </Row>
           ))}
         </div>
-      )}
     </Container>
   );
 }
