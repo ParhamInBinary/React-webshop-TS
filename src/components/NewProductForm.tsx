@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { generateId, Product } from "../../data";
+import { ProductContext } from "../contexts/ProductContext";
 interface FormFields {
   image: string;
   title: string;
@@ -10,13 +11,11 @@ interface FormFields {
   price: string;
 }
 
-interface NewProductFormProps {
-  items: Product[];
-  setItems: React.Dispatch<React.SetStateAction<Product[]>>;
-}
+export function NewProductForm() {
 
-export function NewProductForm({ items, setItems }: NewProductFormProps) {
   const navigate = useNavigate();
+  
+  const { items, setItems } = useContext(ProductContext);
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
     image: "",
