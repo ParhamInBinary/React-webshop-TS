@@ -7,7 +7,7 @@ import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { NewProductForm } from "./components/NewProductForm";
 import { Admin } from "./pages/Admin";
-import { CartPage } from "./pages/CartPage";
+import { CartPage } from "./pages/Checkout";
 import { FAQ } from "./pages/FAQ";
 import { Home } from "./pages/Home";
 import { ProductPage } from "./pages/ProductPage";
