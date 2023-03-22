@@ -27,7 +27,7 @@ export function OrderForm() {
     <>
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
     <h2 style={{textAlign: 'center'}}>Order Details</h2></div>
-    <div style={{backgroundColor: 'lightgray', padding: '1rem'}} className="d-flex justify-content-center align-items-center vh-100">
+    <div style={{borderRadius: '10px', border: '1px solid #000', backgroundColor: 'lightgray', padding: '1rem'}} className="d-flex justify-content-center align-items-center vh-100">
       <Formik
         validationSchema={schema}
         onSubmit={console.log}
