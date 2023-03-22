@@ -1,34 +1,32 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
-import { Product } from "../../data";
-import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OrderForm } from "../components/OrderForm";
+import { useCart } from "../contexts/cartContext";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { Product } from "../../data"; 
+import { useEffect, useState } from "react";
+
+
 export function CartPage() {
+  const navigate = useNavigate();
+  const { cartItems, clearCart, cart } = useCart();
+  const [totalCost, setTotalCost] = useState(0);
+  const [, setCartItems] = useLocalStorage<Product[]>("cart", []);
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const navigate = useNavigate();
-    const [cartItems, setCartItems] = useState<[]>([]);
-    const [totalCost, setTotalCost] = useState(0);
-  
-    useEffect(() => {
-      const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
-      setCartItems(items);
-      setTotalCost(
-        items.reduce(
-          (total: number, product: Product) => total + Number(product.price),
-          0
-        )
-      );
-    }, []);
+  useEffect(() => {
+    setCartItems(cartItems);
+    setTotalCost(
+      cartItems.reduce(
+        (total: number, product: Product) => total + Number(product.price),
+        0
+      )
+    );
+  }, [cartItems, setCartItems]);
 
-    const clearLocalStorage = () => {
-        localStorage.clear();
-      };
+  const handleCheckout = () => {
+    navigate("/checkout");
+  };
 
-    
   return (
     <main
       style={{
@@ -41,7 +39,7 @@ export function CartPage() {
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           style={{ right: "0px", width: "80px" }}
-          onClick={clearLocalStorage}
+          onClick={clearCart}
         >
           Clear
         </Button>
@@ -91,8 +89,6 @@ export function CartPage() {
           <Button variant="primary" style={{ marginTop: "2rem" }}>
             Checkout
           </Button>
-
-          <OrderForm></OrderForm>
     </main>
   );
 }
