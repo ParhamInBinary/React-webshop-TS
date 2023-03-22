@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Product } from "../../data";
 import { CartContext } from "../contexts/cartContext";
 import { CartBody } from "./CartBody";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 export function CartButton() {
   const [show, setShow] = useState(false);
@@ -29,7 +30,6 @@ export function CartButton() {
     navigate(`/cart/cartitem`)
   }
 
-  console.log("cartItems", cartItems);
   const clearLocalStorage = () => {
     localStorage.clear();
     setCartItems([]);
@@ -72,7 +72,7 @@ export function CartButton() {
           </div>
         
       </Button>
-      <CartBody cartItems={cartItems} showCart={show} onHide={handleClose} clear={clearLocalStorage} totalCost={totalCost}/>
+      <CartBody showCart={show} onHide={handleClose} clear={clearLocalStorage} totalCost={totalCost}/>
      
     </>
   );

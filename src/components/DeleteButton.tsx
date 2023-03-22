@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Product } from "../../data";
+import { ProductContext } from "../contexts/ProductContext";
 
 interface DeleteButtonProps {
   product: Product;
-  onDelete: (id: string) => void;
 }
 
-export function DeleteButton({ product, onDelete }: DeleteButtonProps) {
+export function DeleteButton({ product }: DeleteButtonProps) {
   const [show, setShow] = useState(false);
+
+  const { handleDelete } = useContext(ProductContext)
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -34,7 +36,10 @@ export function DeleteButton({ product, onDelete }: DeleteButtonProps) {
         <Modal.Footer>
           <Button
             variant="danger"
-            onClick={() => onDelete(product.id)}
+            onClick={() => {
+              handleClose();
+              handleDelete(product.id)
+            }}
             data-cy="confirm-delete-button"
           >
             Delete
