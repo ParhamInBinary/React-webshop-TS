@@ -1,16 +1,32 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Product } from "../../data";
 import { ProductContext } from "../contexts/ProductContext";
 
 export function EditForm() {
   const { handleSave, setEditingItem, editingItem } =
     useContext(ProductContext);
 
-  const [image, setImage] = useState(editingItem.image);
-  const [title, setTitle] = useState(editingItem.title);
-  const [description, setDescription] = useState(editingItem.description);
-  const [price, setPrice] = useState(editingItem.price);
+  useEffect(() => {
+    if (!editingItem) {
+      const storedItem = localStorage.getItem("selectedItem") ?? "{}";
+      const storedObj = JSON.parse(storedItem) as Product;
+      setEditingItem(storedObj);
+      setImage(storedObj.image);
+      setTitle(storedObj.title);
+      setDescription(storedObj.description);
+      setPrice(storedObj.price);
+    }
+  }, []);
+  console.log(editingItem);
+
+  const [image, setImage] = useState(editingItem?.image ?? "");
+  const [title, setTitle] = useState(editingItem?.title ?? "");
+  const [description, setDescription] = useState(
+    editingItem?.description ?? ""
+  );
+  const [price, setPrice] = useState(editingItem?.price ?? "");
 
   const [validated, setValidated] = useState(false);
 
@@ -23,6 +39,7 @@ export function EditForm() {
       event.stopPropagation();
       setValidated(true);
     } else {
+      if (!editingItem) return;
       handleSave({
         ...editingItem,
         image,
