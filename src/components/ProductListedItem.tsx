@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Button, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product } from "../../data";
 import { ProductContext } from "../contexts/ProductContext";
@@ -15,8 +14,6 @@ export function ProductListedItem({
 }: ProductListedItemProps) {
 
   const { handleEdit } = useContext(ProductContext)
-
-  const navigate = useNavigate();
 
   return (
       <Container>
