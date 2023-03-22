@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/cartContext";
@@ -27,7 +26,7 @@ export function CartPage() {
   };
 
   return (
-    <body
+    <main
       style={{
         display: "flex",
         flexDirection: "column",
@@ -44,54 +43,50 @@ export function CartPage() {
         </Button>
       </div>
       <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: "1rem",
-        }}
-      >
-        {cartItems.length > 0 ? (
-          cartItems.map((product: Product) => (
-            <div
-              key={product.id}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                margin: "1rem",
-                width: "300px",
-                borderBottom: "1px solid black",
-              }}
-            >
-              <img
-                src={product.image}
-                alt={product.title}
-                style={{
-                  width: "120px",
-                  height: "100px",
-                  objectFit: "cover",
-                  marginRight: "1rem",
-                }}
-              />
-              <div>
-                <div>{product.title}</div>
-                <div>{product.price} kr</div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div>Your cart is empty</div>
-        )}
-      </div>
-      <div data-cy="total-price">Total cost: {totalCost} kr</div>
-      <Button
-        variant="primary"
-        style={{ marginTop: "2rem" }}
-        onClick={handleCheckout}
-      >
-        Checkout
-      </Button>
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "1rem",
+            }}
+          >
+            {cartItems.length > 0 ? (
+              cartItems.map((product: Product) => (
+                <div
+                  key={product.id}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "1rem",
+                    width: "300px",
+                    borderBottom: "1px solid black",
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    style={{
+                      width: "120px",
+                      height: "100px",
+                      objectFit: "cover",
+                      marginRight: "1rem",
+                    }}
+                  />
+                  <div>
+                    <div>{product.title}</div>
+                    <div>{product.price} kr</div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>Your cart is empty</div>
+            )}
+          </div>
+          <div data-cy="total-price">Total cost: {totalCost} kr</div>
+          <Button variant="primary" style={{ marginTop: "2rem" }}>
+            Checkout
+          </Button>
     </body>
   );
 }
