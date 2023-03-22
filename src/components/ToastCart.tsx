@@ -31,7 +31,7 @@ export function ToastCart(props: ToastCartProps) {
           <strong className="me-auto">{props.product.title}</strong>
           <small className="text-muted">just now</small>
         </Toast.Header>
-        <Toast.Body>Added to cart!</Toast.Body>
+        <Toast.Body data-cy="added-to-cart-toast">Har lagts till</Toast.Body>
       </Toast>
     </ToastContainer>
   );
