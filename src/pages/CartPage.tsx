@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Product } from "../../data";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { OrderForm } from "../components/OrderForm";
 export function CartPage() {
 
     const [show, setShow] = useState(false);
@@ -29,7 +30,7 @@ export function CartPage() {
 
     
   return (
-    <body
+    <main
       style={{
         display: "flex",
         flexDirection: "column",
@@ -90,6 +91,8 @@ export function CartPage() {
           <Button variant="primary" style={{ marginTop: "2rem" }}>
             Checkout
           </Button>
-    </body>
+
+          <OrderForm></OrderForm>
+    </main>
   );
 }
