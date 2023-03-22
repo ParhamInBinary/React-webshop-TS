@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Product } from "../../data";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { OrderForm } from "../components/OrderForm";
 export function CartPage() {
 
     const [show, setShow] = useState(false);
@@ -29,7 +30,7 @@ export function CartPage() {
 
     
   return (
-    <body
+    <div
       style={{
         display: "flex",
         flexDirection: "column",
@@ -50,7 +51,7 @@ export function CartPage() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "start",
               marginTop: "1rem",
             }}
           >
@@ -86,10 +87,8 @@ export function CartPage() {
               <div>Your cart is empty</div>
             )}
           </div>
-          <div data-cy="total-price">Total cost: {totalCost} kr</div>
-          <Button variant="primary" style={{ marginTop: "2rem" }}>
-            Checkout
-          </Button>
-    </body>
+          <div style={{marginBottom: '4rem'}} data-cy="total-price">Total cost: {totalCost} kr</div>
+          <OrderForm />
+    </div>
   );
 }
