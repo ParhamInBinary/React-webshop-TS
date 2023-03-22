@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Product } from "../../data";
+import { useNavigate } from "react-router-dom";
+import { ProductContext } from "../contexts/ProductContext";
 
-interface EditFormProps {
-  item: Product;
-  onSave: (updatedItem: Product) => void;
-  onCancel: () => void;
-}
+export function EditForm() {
+  const { handleSave, setEditingItem, editingItem } =
+    useContext(ProductContext);
 
-export function EditForm({ item, onSave, onCancel }: EditFormProps) {
-  const [image, setImage] = useState(item.image);
-  const [title, setTitle] = useState(item.title);
-  const [description, setDescription] = useState(item.description);
-  const [price, setPrice] = useState(item.price);
+  const [image, setImage] = useState(editingItem.image);
+  const [title, setTitle] = useState(editingItem.title);
+  const [description, setDescription] = useState(editingItem.description);
+  const [price, setPrice] = useState(editingItem.price);
 
   const [validated, setValidated] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,8 +23,8 @@ export function EditForm({ item, onSave, onCancel }: EditFormProps) {
       event.stopPropagation();
       setValidated(true);
     } else {
-      onSave({
-        ...item,
+      handleSave({
+        ...editingItem,
         image,
         title,
         description,
@@ -98,7 +98,13 @@ export function EditForm({ item, onSave, onCancel }: EditFormProps) {
       <Button variant="primary" type="submit" style={{ margin: "1rem" }}>
         Save
       </Button>
-      <Button variant="outline-danger" onClick={onCancel}>
+      <Button
+        variant="outline-danger"
+        onClick={() => {
+          navigate("/admin");
+          setEditingItem(null);
+        }}
+      >
         Cancel
       </Button>
     </Form>
