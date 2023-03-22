@@ -25,7 +25,3 @@
 .header {
   background-color: rgba(13, 1, 1, 0.6);
 }
-
-body.noOverflow{
-  overflow: visible!important;
-}
