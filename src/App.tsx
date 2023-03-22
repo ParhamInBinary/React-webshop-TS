@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
 import { Product, products } from "../data";
+import { EditForm } from "./components/EditForm";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { NewProductForm } from "./components/NewProductForm";
@@ -12,7 +13,6 @@ import { Home } from "./pages/Home";
 import { ProductPage } from "./pages/ProductPage";
 
 export default function App() {
-  const [items, setItems] = useState<Product[]>(products);
 
   return (
     <>
@@ -28,8 +28,9 @@ export default function App() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admin/product?/:productid?/:editItem?" element={<Admin items={items} setItems={setItems}/>} />
-            <Route path="/admin/product/new" element={<NewProductForm items={items} setItems={setItems}/>} />
+            <Route path="/admin/product?/:productid?/:editItem?" element={<Admin/>} />
+            <Route path="/admin/product/new" element={<NewProductForm />} />
+            <Route path="/admin/product/editItem/:productid" element={<EditForm />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/product/:productid" element={<ProductPage />} />
             <Route path="/cart/cartitem" element={<CartPage/>}/>
