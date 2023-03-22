@@ -1,19 +1,22 @@
+import { useContext } from "react";
 import { Button, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Product } from "../../data";
+import { ProductContext } from "../contexts/ProductContext";
 import { DeleteButton } from "./DeleteButton";
 
 interface ProductListedItemProps {
   product: Product;
-  onDelete: (id: string) => void;
-  onEdit: (id: string) => void;
 }
 
 export function ProductListedItem({
   product,
-  onDelete,
-  onEdit,
 }: ProductListedItemProps) {
+
+  const { handleEdit } = useContext(ProductContext)
+
+  const navigate = useNavigate();
 
   return (
       <Container>
@@ -40,10 +43,12 @@ export function ProductListedItem({
 
         <Col>
           <BtnContainer>
-            <DeleteButton product={product} onDelete={onDelete} />{" "}
+            <DeleteButton product={product} />{" "}
             <Button
               variant="outline-secondary"
-              onClick={() => onEdit(product.id)}
+              onClick={() => {
+                handleEdit(product.id);
+              }}
               data-cy="admin-edit-product"
             >
               Edit
