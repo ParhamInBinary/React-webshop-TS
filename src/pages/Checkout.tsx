@@ -65,14 +65,21 @@ const CartContainer = styled.div`
   flex-direction: column;
   padding: 2rem;
   background-color: #f8f9fa;
-`;
 
+  @media (max-width: 520px) {
+    padding: 1rem;
+  }
+`;
 
 const ProductsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-top: 1rem;
+
+  @media (max-width: 520px) {
+    margin-top: 0.5rem;
+  }
 `;
 
 const ProductItem = styled.div`
@@ -81,6 +88,10 @@ const ProductItem = styled.div`
   margin: 1rem;
   width: 100%;
   border-bottom: 1px solid black;
+
+  @media (max-width: 520px) {
+    margin: 0.5rem;
+  }
 `;
 
 const ProductImage = styled.img`
@@ -88,6 +99,12 @@ const ProductImage = styled.img`
   height: 100px;
   object-fit: cover;
   margin-right: 1rem;
+
+  @media (max-width: 520px) {
+    width: 80px;
+    height: 60px;
+    margin-right: 0.5rem;
+  }
 `;
 
 const ProductDetails = styled.div`
@@ -98,13 +115,25 @@ const ProductDetails = styled.div`
 const ProductTitle = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
+
+  @media (max-width: 520px) {
+    font-size: .8rem;
+  }
 `;
 
 const ProductPrice = styled.div`
   font-size: 1.2rem;
   margin-top: 0.5rem;
+
+  @media (max-width: 520px) {
+    font-size: .8rem;
+  }
 `;
 
 const TotalPrice = styled.div`
   margin-bottom: 4rem;
+
+  @media (max-width: 520px) {
+    margin-bottom: 2rem;
+  }
 `;
