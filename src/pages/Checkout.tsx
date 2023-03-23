@@ -25,20 +25,9 @@ export function CartPage() {
     );
   }, []);
 
-  const clearLocalStorage = () => {
-    localStorage.clear();
-  };
 
   return (
     <CartContainer>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          style={{ right: "0px", width: "80px" }}
-          onClick={clearLocalStorage}
-        >
-          Clear
-        </Button>
-      </div>
       <ProductsContainer>
         {cartItems.length > 0 ? (
           cartItems.map((product: Product) => (
