@@ -6,6 +6,7 @@ import { EditForm } from "./components/EditForm";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { NewProductForm } from "./components/NewProductForm";
+import { ToastCart } from "./components/ToastCart";
 import { Admin } from "./pages/Admin";
 import { CartPage } from "./pages/Checkout";
 import { FAQ } from "./pages/FAQ";
@@ -13,7 +14,6 @@ import { Home } from "./pages/Home";
 import { ProductPage } from "./pages/ProductPage";
 
 export default function App() {
-
   return (
     <>
       <Navbar />
@@ -33,7 +33,7 @@ export default function App() {
             <Route path="/admin/product/editItem/:productid" element={<EditForm />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/product/:productid" element={<ProductPage />} />
-            <Route path="/cart/cartitem" element={<CartPage/>}/>
+            <Route path="/checkout" element={<CartPage/>}/>
           </Routes>
         </Container>
       </main>

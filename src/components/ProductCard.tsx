@@ -2,9 +2,8 @@ import { useContext, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Product } from "../../data";
+import { Product, CartItem } from "../../data";
 import { SizeSelect } from "./SizeSelect";
-import { ToastCart } from "../components/ToastCart";
 import { CartContext } from "../contexts/cartContext";
 
 interface ProductCardProps {
@@ -13,7 +12,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate();
-  const { cartItems, setCartItems } = useContext(CartContext);//here is where the context is beeing used//dv
+  const { cartItems, addToCart } = useContext(CartContext);//here is where the context is beeing used//dv
   const [quantity, setQuantity] = useState(1);
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
@@ -23,16 +22,11 @@ export function ProductCard({ product }: ProductCardProps) {
     navigate(`/product/${product.id}`, { state: { product } });
   };
 
-  const addToCart = () => {
-    const newCartItems = [...cartItems];
-    for (let i = 0; i < quantity; i++) {
-      newCartItems.push({ ...product, size: selectedSize });
-    }
-    setCartItems(newCartItems);
+  const handleAddToCart = () => {
+    const cartItem: CartItem = { ...product, size: selectedSize, quantity }
+    addToCart(cartItem);
     setQuantity(1);
     setSelectedSize(sizes[0]);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 5000);
   };
 
   return (
@@ -97,7 +91,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button
             data-cy="product-buy-button"
             variant="primary"
-            onClick={addToCart}
+            onClick={handleAddToCart}
             style={{ marginLeft: "auto" }}
           >
             Add to cart

@@ -1,72 +1,74 @@
 // cartContext.tsx
-import { createContext, useContext, useState } from "react";
-import { Product } from "../../data";
-import { ToastCart } from "../components/ToastCart";
+import React, { createContext, PropsWithChildren, useContext, useState } from "react";
+import { Product, CartItem } from "../../data";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-type CartContextType = {
+
+interface CartContextValue  {
   cartItems: Product[];
-  addToCart: (product: Product) => void;
-  clearCart: () => void;
-  setCartItems: (items: Product[]) => void;
-  cart: Product[]; // add this property to the CartContextType
+  addToCart: (cartItem: CartItem) => void;
+  removeFromCart: (product: Product) => void;
   showToast: boolean;
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>; // add this property to the CartContextType
+  totalCost: Number;
+  totalQuantity: number;
 };
 
-export const CartContext = createContext<CartContextType>({
-  cartItems: [],
-  addToCart: () => {},
-  clearCart: () => {},
-  setCartItems: () => {},
-  cart: [], // initialize cart property to empty array
-  showToast: false,
-  setShowToast: () => {}, // initialize setShowToast property to an empty function
-});
+export const CartContext = createContext({} as CartContextValue)
+
 
 export function useCart() {
   return useContext(CartContext);
 }
 
-export default function CartProvider(props: React.PropsWithChildren<{}>) {
-  const [cartItems, setCartItems] = useLocalStorage<Product[]>("cart", []);
+export default function CartProvider({ children }: PropsWithChildren) {
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cartItems", []);
   const [showToast, setShowToast] = useState(false);
+  const totalQuantity = 0 //ändra sen
 
-  const addToCart = (product: Product) => {
+  // totalkostnad uträknad från cartItems
+  const totalCost = cartItems.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+
+
+  const addToCart = (cartItem: CartItem) => {
     const existingProductIndex = cartItems.findIndex(
-      (item) => item.id === product.id
+      (item) => item.id === cartItem.id
     );
 
     if (existingProductIndex >= 0) {
       const updatedCartItems = [...cartItems];
-      updatedCartItems[existingProductIndex];
+      // increase the quantity of the existing product
+      updatedCartItems[existingProductIndex].quantity + cartItem.quantity;
       setCartItems(updatedCartItems);
     } else {
-      const newCartItem = { ...product, quantity: 1 };
-      setCartItems([...cartItems, newCartItem]);
+      setCartItems([...cartItems, cartItem]);
     }
     setShowToast(true);
-    setTimeout(() => setShowToast(false), 5000);
+    // setTimeout(() => setShowToast(false), 5000);
   };
 
   const clearCart = () => {
     setCartItems([]);
   };
-
-  // new function add here for value
-  const contextValue = {
-    cartItems,
-    addToCart,
-    clearCart,
-    setCartItems,
-    cart: cartItems, // set the value of the cart property to cartItems
-    showToast,
-    setShowToast,
+  const removeFromCart = () => {
+    console.log("Not implemented yet...")
+    // setCartItems([]);
   };
-
+  
   return (
-    <CartContext.Provider value={contextValue}>
-      {props.children}
+    <CartContext.Provider value={{ cartItems,
+      addToCart,
+      removeFromCart,
+      showToast,
+      setShowToast,
+      totalCost,
+      totalQuantity,
+       }}>
+      {children}
     </CartContext.Provider>
   );
 }
+
