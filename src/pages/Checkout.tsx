@@ -36,6 +36,7 @@ export function CartPage() {
               <ProductDetails>
                 <ProductTitle>{product.title}</ProductTitle>
                 <ProductPrice>{product.price} kr</ProductPrice>
+                <ProductPrice>{product.size} kr</ProductPrice>
               </ProductDetails>
             </ProductItem>
           ))
