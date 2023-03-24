@@ -11,7 +11,7 @@ import styled from 'styled-components';
 const schema = Yup.object().shape({
   firstName: Yup.string().required(),
   lastName: Yup.string().required(),
-  address: Yup.string().required(),
+  adress: Yup.string().required(),
   city: Yup.string().required(),
   zip: Yup.string().required(),
   email: Yup.string().email('Invalid email address').required(),
@@ -35,7 +35,7 @@ export function OrderForm() {
         initialValues={{
           firstName: '',
           lastName: '',
-          address: '',
+          adress: '',
           city: '',
           zip: '',
           email: '',
@@ -59,15 +59,16 @@ export function OrderForm() {
                 md="4"
                 controlId="validationFormik01"
                 >
-                <Form.Label data-cy="customer-name">First name</Form.Label>
+                <Form.Label>First name</Form.Label>
                 <Form.Control
+                  data-cy="customer-name"
                   type="text"
                   name="firstName"
                   value={values.firstName}
                   onChange={handleChange}
                   isValid={touched.firstName && !errors.firstName}
                 />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control.Feedback data-cy="customer-name-error">Looks good!</Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} md="4" controlId="validationFormik02">
                 <Form.Label>Last name</Form.Label>
@@ -82,32 +83,34 @@ export function OrderForm() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <Form.Group
-                data-cy="customer-address"
                 as={Col}
                 md="4"
                 controlId="validationFormik03"
               >
-                <Form.Label data-cy="customer-adress">Address</Form.Label>
+                <Form.Label>Adress</Form.Label>
                 <InputGroup hasValidation>
                   <Form.Control
-                    data-cy="customer-name-error"
+                    data-cy="customer-address"
                     type="text"
                     name="adress"
-                    value={values.address}
+                    value={values.adress}
                     onChange={handleChange}
+                    placeholder="Adress"
+
                    
-                  isValid={touched.address && !errors.address}
+                  isValid={touched.adress && !errors.adress}
                 />
                 <Form.Control.Feedback data-cy="customer-address-error" type="invalid">
-                  {errors.address}
+                  {errors.adress}
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Row>
           <Row className="mb-3">
-            <Form.Group data-cy="customer-city" as={Col} md="6" controlId="validationFormik04">
+            <Form.Group as={Col} md="6" controlId="validationFormik04">
               <Form.Label>City</Form.Label>
               <Form.Control
+                data-cy="customer-city"
                 type="text"
                 placeholder="City"
                 name="city"
@@ -121,8 +124,9 @@ export function OrderForm() {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="3" controlId="validationFormik07">
-              <Form.Label data-cy="customer-zipcode">Zip</Form.Label>
+              <Form.Label>Zip</Form.Label>
               <Form.Control
+                data-cy="customer-zipcode"
                 type="text"
                 placeholder="Zip"
                 name="zip"
@@ -135,9 +139,10 @@ export function OrderForm() {
                 {errors.zip}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group data-cy="customer-email" as={Col} md="3" controlId="validationFormik05">
+            <Form.Group as={Col} md="3" controlId="validationFormik05">
               <Form.Label>email</Form.Label>
               <Form.Control
+                data-cy="customer-email"
                 type="text"
                 placeholder="email"
                 name="email"
@@ -149,9 +154,10 @@ export function OrderForm() {
                 {errors.email}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group data-cy="customer-phone" as={Col} md="3" controlId="validationFormik06">
+            <Form.Group as={Col} md="3" controlId="validationFormik06">
               <Form.Label>Phone</Form.Label>
               <Form.Control
+                data-cy="customer-phone"
                 type="text"
                 placeholder="phone"
                 name="phone"

@@ -23,7 +23,7 @@ export function useCart() {
 }
 
 export default function CartProvider({ children }: PropsWithChildren) {
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cartItems", []);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cart", []);
   const [showToast, setShowToast] = useState(false);
   const totalQuantity = 0 //ändra sen
 

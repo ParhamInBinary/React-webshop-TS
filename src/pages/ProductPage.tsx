@@ -1,22 +1,30 @@
 import { useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { SizeSelect } from "../components/SizeSelect";
-import Carousel from "react-bootstrap/Carousel";
+import { useProducts } from "../contexts/ProductContext";
 
 export function ProductPage() {
-  const location = useLocation();
-  const { product } = location.state;
+  const params = useParams();
+  console.log(params.productid)
+  const { products } = useProducts();
+  const product = products.find((product) => product.id === params.productid)
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
+  // const {addToCart} = useContext(CartContext); vårt test
   const handleAddToCart = () => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
     cartItems.push({ ...product, size: selectedSize });
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setSelectedSize(sizes[0]);
   };
+  
+  if (!product) {
+    return <div>404 not found</div>
+  }
 
   return (
     <div>

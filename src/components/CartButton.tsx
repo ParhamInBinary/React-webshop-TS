@@ -110,6 +110,8 @@ export function CartButton() {
                   <div>
                     <div>{product.title}</div>
                     <div>{product.price} kr</div>
+                    <div>{product.size}</div>
+
                   </div>
                 </div>
               ))

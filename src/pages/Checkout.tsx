@@ -31,11 +31,12 @@ export function CartPage() {
       <ProductsContainer>
         {cartItems.length > 0 ? (
           cartItems.map((product: Product) => (
-            <ProductItem key={product.id}>
+            <ProductItem data-cy="cart-item" key={product.id}>
               <ProductImage src={product.image} alt={product.title} />
               <ProductDetails>
                 <ProductTitle>{product.title}</ProductTitle>
                 <ProductPrice>{product.price} kr</ProductPrice>
+                <ProductSize>{product.size}</ProductSize>
               </ProductDetails>
             </ProductItem>
           ))
@@ -119,6 +120,15 @@ const ProductPrice = styled.div`
   }
 `;
 
+const ProductSize = styled.div`
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+
+  @media (max-width: 520px) {
+    font-size: .8rem;
+  }
+`;
+
 const TotalPrice = styled.div`
   margin-bottom: 4rem;
 
@@ -126,3 +136,4 @@ const TotalPrice = styled.div`
     margin-bottom: 2rem;
   }
 `;
+
