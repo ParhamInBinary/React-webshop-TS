@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { BsFillBasket3Fill } from "react-icons/bs";
 import { Product } from "../../data";
-import { CartContext } from "../contexts/cartContext";
+import { CartContext, totalQuantity } from "../contexts/cartContext";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
 
@@ -60,7 +60,7 @@ export function CartButton() {
             fontSize: "12px",
           }}
         >
-          {cartItems.length}
+          {totalQuantity}
         </div>
       </Button>
       <Offcanvas show={show} onHide={handleClose} placement="start">

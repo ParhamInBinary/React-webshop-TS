@@ -1,24 +1,27 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Product, CartItem } from "../../data";
+import { CartContext } from "../contexts/cartContext";
 import { SizeSelect } from "../components/SizeSelect";
 import { useProducts } from "../contexts/ProductContext";
 
 export function ProductPage() {
   const params = useParams();
-  console.log(params.productid)
   const { products } = useProducts();
   const product = products.find((product) => product.id === params.productid)
+  const {addToCart } = useContext(CartContext);//here is where the context is beeing used//dv
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  const [quantity, setQuantity] = useState(1);
 
   // const {addToCart} = useContext(CartContext); vårt test
   const handleAddToCart = () => {
-    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-    cartItems.push({ ...product, size: selectedSize });
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    const cartItem: CartItem = { ...product, size: selectedSize, quantity }
+    addToCart(cartItem);
+    setQuantity(1);
     setSelectedSize(sizes[0]);
   };
   

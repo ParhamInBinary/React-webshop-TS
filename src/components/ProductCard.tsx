@@ -12,11 +12,10 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate();
-  const { cartItems, addToCart } = useContext(CartContext);//here is where the context is beeing used//dv
+  const {addToCart } = useContext(CartContext);//here is where the context is beeing used//dv
   const [quantity, setQuantity] = useState(1);
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
-  const [showToast, setShowToast] = useState(false);
 
   const handleCardClick = () => {
     navigate(`/product/${product.id}`, { state: { product } });
