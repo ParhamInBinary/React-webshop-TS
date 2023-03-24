@@ -11,7 +11,7 @@ import { ProductContext } from "../contexts/ProductContext";
 export function Admin() {
   const navigate = useNavigate();
 
-  const { items, setItems } = useContext(ProductContext);
+  const { products: items, setProducts: setItems } = useContext(ProductContext);
 
   useEffect(() => {
     const storedProducts = localStorage.getItem("products");

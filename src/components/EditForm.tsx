@@ -25,7 +25,7 @@ export function EditForm() {
   const [description, setDescription] = useState(
     editingItem?.description ?? ""
   );
-  const [price, setPrice] = useState(editingItem?.price ?? "");
+  const [price, setPrice] = useState(editingItem?.price ?? 0);
 
   const [validated, setValidated] = useState(false);
 
@@ -103,7 +103,7 @@ export function EditForm() {
         <Form.Control
           type="text"
           value={price}
-          onChange={(event) => setPrice(event.target.value)}
+          onChange={(event) => setPrice(Number(event.target.value))}
           required
           data-cy="product-price"
         />

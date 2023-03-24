@@ -15,7 +15,7 @@ export function NewProductForm() {
 
   const navigate = useNavigate();
   
-  const { items, setItems } = useContext(ProductContext);
+  const { products: items, setProducts: setItems } = useContext(ProductContext);
   const [validated, setValidated] = useState(false);
   const [formFields, setFormFields] = useState<FormFields>({
     image: "",
