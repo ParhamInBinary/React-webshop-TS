@@ -68,7 +68,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     updateTotalQuantity();
   };
 
-
   const removeFromCart = () => {
     updateTotalQuantity();
     // setCartItems([]);
