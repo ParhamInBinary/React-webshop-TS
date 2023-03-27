@@ -13,27 +13,13 @@ export function Home() {
   const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    const newProduct = cartItems[cartItems.length - 1];
-    if (newProduct) {
-      setLastAddedProduct(newProduct);
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 5000);
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    }
-  }, [cartItems]);
-
-  useEffect(() => {
-    const newCartItems = JSON.parse(localStorage.getItem("cartItems") ?? "[]");
-    if (newCartItems.length > cartItems.length) {
-      const newProduct = newCartItems[newCartItems.length - 1];
-      const productExists = cartItems.find((product) => product.id === newProduct.id);
-      if (!productExists) {
-        setLastAddedProduct(newProduct);
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 5000);
-      }
-    }
-  }, [cartItems]);
+  const newProduct = cartItems[cartItems.length - 1];
+     if (newProduct) {
+       setLastAddedProduct(newProduct);
+       setShowToast(true);
+       setTimeout(() => setShowToast(false), 5000);
+     }
+   }, [cartItems]);
 
   return (
     <main>
