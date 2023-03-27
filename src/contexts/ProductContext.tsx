@@ -39,15 +39,16 @@ export function ProductProvider({ children }: PropsWithChildren) {
       setEditingItem(null);
     }
   };
-
+  
   const handleSave = (editedItem: Product) => {
     const updatedItems = products.map((item) =>
-      item.id === editedItem.id ? editedItem : item
+    item.id === editedItem.id ? editedItem : item
     );
     navigate("/admin");
     setProducts(updatedItems);
     setEditingItem(null);
     localStorage.setItem("products", JSON.stringify(updatedItems));
+    localStorage.setItem("selectedItem", JSON.stringify([]));
   };
   
   return (
