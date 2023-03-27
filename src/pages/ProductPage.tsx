@@ -3,12 +3,15 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Product, CartItem } from "../../data";
+import { CartItem, Product } from "../../data";
 import { CartContext } from "../contexts/cartContext";
 import { SizeSelect } from "../components/SizeSelect";
 import { useProducts } from "../contexts/ProductContext";
 
-export function ProductPage() {
+interface ProductPageProps {
+  clickedOnProduct: Product;
+}
+export function ProductPage({ clickedOnProduct }: ProductPageProps) {
   const params = useParams();
   const { products } = useProducts();
   const product = products.find((product) => product.id === params.productid)
@@ -19,7 +22,7 @@ export function ProductPage() {
 
   // const {addToCart} = useContext(CartContext); vårt test
   const handleAddToCart = () => {
-    const cartItem: CartItem = { ...product, size: selectedSize, quantity }
+    const cartItem: CartItem = { ...clickedOnProduct, size: selectedSize, quantity }
     addToCart(cartItem);
     setQuantity(1);
     setSelectedSize(sizes[0]);

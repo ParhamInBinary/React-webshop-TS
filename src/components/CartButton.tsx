@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { BsFillBasket3Fill } from "react-icons/bs";
 import { Product } from "../../data";
-import { CartContext, totalQuantity } from "../contexts/cartContext";
+import { CartContext } from "../contexts/cartContext";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
 
@@ -10,8 +10,9 @@ export function CartButton() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { cartItems } = useContext(CartContext); //changed here to make the number update
+  const { cartItems, totalCartCount } = useContext(CartContext); //changed here to make the number update
   const [totalCost, setTotalCost] = useState(0);
+  
 
   useEffect(() => {
     setTotalCost(
@@ -60,7 +61,7 @@ export function CartButton() {
             fontSize: "12px",
           }}
         >
-          {totalQuantity}
+          {totalCartCount}
         </div>
       </Button>
       <Offcanvas show={show} onHide={handleClose} placement="start">
