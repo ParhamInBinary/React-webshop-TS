@@ -8,7 +8,7 @@ interface FormFields {
   image: string;
   title: string;
   description: string;
-  price: string;
+  price: number;
 }
 
 export function NewProductForm() {
@@ -21,7 +21,7 @@ export function NewProductForm() {
     image: "",
     title: "",
     description: "",
-    price: "",
+    price: 0,
   });
 
   const handleInputChange = (
@@ -41,7 +41,7 @@ export function NewProductForm() {
       const id = generateId();
       const newProduct = { ...formFields, id };
       updateLocalStorage(newProduct);
-      setFormFields({ image: "", title: "", description: "", price: "" });
+      setFormFields({ image: "", title: "", description: "", price: 0 });
       navigate("/admin");
     }
   };
