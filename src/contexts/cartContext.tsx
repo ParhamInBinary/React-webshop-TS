@@ -11,8 +11,8 @@ interface CartContextValue  {
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
   totalCost: Number;
   totalCartCount: number;
-  quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
+  quantity: number;
 }
 
 export const CartContext = createContext({} as CartContextValue)
@@ -28,7 +28,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
 
 
   function updateTotalQuantity() {
-    let count = 0;
+    let count = 1;
     cartItems.forEach((item) => {
       count += item.quantity;
     });
@@ -36,6 +36,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
   }
   // calculate total quantity
 
+  // calculate total cost
   // calculate total cost
   const totalCost = cartItems.reduce(
     (total, product) => total + product.price * product.quantity,
@@ -46,12 +47,14 @@ export default function CartProvider({ children }: PropsWithChildren) {
     const existingProductIndex = cartItems.findIndex(
       (item) => item.id === cartItem.id
     );
-
+  
     if (existingProductIndex >= 0) {
       const updatedCartItems = [...cartItems];
       // increase the quantity of the existing product
-      // Använd en map,
-      updatedCartItems[existingProductIndex].quantity + cartItem.quantity; // muterar statet
+      updatedCartItems[existingProductIndex] = {
+        ...updatedCartItems[existingProductIndex],
+        quantity: updatedCartItems[existingProductIndex].quantity + cartItem.quantity
+      };
       setCartItems(updatedCartItems);
     } else {
       setCartItems([...cartItems, cartItem]);
@@ -64,6 +67,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
     setCartItems([]);
     updateTotalQuantity();
   };
+
 
   const removeFromCart = () => {
     updateTotalQuantity();

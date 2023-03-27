@@ -12,6 +12,15 @@ export function Home() {
   const [showToast, setShowToast] = useState(false);
   const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
 
+  useEffect(() => {
+  const newProduct = cartItems[cartItems.length - 1];
+     if (newProduct) {
+       setLastAddedProduct(newProduct);
+       setShowToast(true);
+       setTimeout(() => setShowToast(false), 5000);
+     }
+   }, [cartItems]);
+
   return (
     <main>
       <div>

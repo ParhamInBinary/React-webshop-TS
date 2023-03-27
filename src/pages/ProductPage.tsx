@@ -9,12 +9,13 @@ import { SizeSelect } from "../components/SizeSelect";
 import { useProducts } from "../contexts/ProductContext";
 
 interface ProductPageProps {
-  clickedOnProduct: Product;
+  product: Product;
 }
-export function ProductPage({ clickedOnProduct }: ProductPageProps) {
+
+export function ProductPage({ product }: ProductPageProps) {
   const params = useParams();
   const { products } = useProducts();
-  const product = products.find((product) => product.id === params.productid)
+  const productFound = products.find((product) => product.id === params.productid)
   const {addToCart } = useContext(CartContext);//here is where the context is beeing used//dv
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
@@ -22,16 +23,15 @@ export function ProductPage({ clickedOnProduct }: ProductPageProps) {
 
   // const {addToCart} = useContext(CartContext); vårt test
   const handleAddToCart = () => {
-    const cartItem: CartItem = { ...clickedOnProduct, size: selectedSize, quantity }
+    const cartItem: CartItem = { ...product, size: selectedSize, quantity }
     addToCart(cartItem);
     setQuantity(1);
     setSelectedSize(sizes[0]);
   };
-  
-  if (!product) {
+
+  if (!productFound) {
     return <div>404 not found</div>
   }
-
   return (
     <div>
   <Card>
