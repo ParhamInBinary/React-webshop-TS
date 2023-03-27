@@ -10,11 +10,12 @@ interface CartContextValue  {
   showToast: boolean;
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
   totalCost: Number;
-  totalQuantity: number;
+  totalCartCount: number;
+  quantity: number;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const CartContext = createContext({} as CartContextValue)
-export let totalQuantity: 0;
 export function useCart() {
   return useContext(CartContext);
 }
@@ -22,12 +23,16 @@ export function useCart() {
 export default function CartProvider({ children }: PropsWithChildren) {
   const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cart", []);
   const [showToast, setShowToast] = useState(false);
+  const [totalCartCount, setTotalCartCount] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+
 
   function updateTotalQuantity() {
-    cartItems.forEach((CartItem) => {
-      totalQuantity += CartItem.quantity;
+    let count = 0;
+    cartItems.forEach((item) => {
+      count += item.quantity;
     });
-    return totalQuantity;
+    setTotalCartCount(count);
   }
   // calculate total quantity
 
@@ -57,6 +62,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
 
   const clearCart = () => {
     setCartItems([]);
+    updateTotalQuantity();
   };
 
   const removeFromCart = () => {
@@ -75,7 +81,9 @@ export default function CartProvider({ children }: PropsWithChildren) {
       showToast,
       setShowToast,
       totalCost,
-      totalQuantity,
+      totalCartCount,
+      quantity,
+      setQuantity,
     }}>
       {children}
     </CartContext.Provider>
