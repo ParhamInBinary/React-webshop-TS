@@ -23,6 +23,20 @@ const schema = Yup.object().shape({
     .oneOf([true], 'You must click it '),
 });
 
+export type OrderDetails = Yup.InferType<typeof schema>
+
+const initialValues: OrderDetails = {
+  firstName: '',
+  lastName: '',
+  adress: '',
+  city: '',
+  zip: '',
+  email: '',
+  phone: '',
+  terms: false,
+}
+
+
 export function OrderForm() {
   return (
     <>
@@ -31,17 +45,10 @@ export function OrderForm() {
     <StyledFormContainer className="d-flex justify-content-center align-items-center">
       <Formik
         validationSchema={schema}
-        onSubmit={console.log}
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          adress: '',
-          city: '',
-          zip: '',
-          email: '',
-          phone: '',
-          terms: false,
+        onSubmit={(values) => {
+          console.log(values)
         }}
+        initialValues = {initialValues}
       >
         {({
           handleSubmit,

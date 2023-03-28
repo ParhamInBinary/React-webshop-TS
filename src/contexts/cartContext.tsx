@@ -3,13 +3,12 @@ import { CartItem, Product } from "../../data";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface CartContextValue  {
-  cartItems: Product[];
+  cartItems: CartItem[];
   addToCart: (cartItem: CartItem) => void;
   removeFromCart: (product: Product) => void;
-  clearCart: () => void;
   showToast: boolean;
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
-  totalCost: Number;
+  totalCost: number;
   totalCartCount: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   quantity: number;
@@ -63,12 +62,8 @@ export default function CartProvider({ children }: PropsWithChildren) {
     updateTotalQuantity();
   };
 
-  const clearCart = () => {
-    setCartItems([]);
-    updateTotalQuantity();
-  };
-
   const removeFromCart = () => {
+    
     updateTotalQuantity();
     // setCartItems([]);
   };
@@ -80,7 +75,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
       cartItems,
       addToCart,
       removeFromCart,
-      clearCart,
       showToast,
       setShowToast,
       totalCost,

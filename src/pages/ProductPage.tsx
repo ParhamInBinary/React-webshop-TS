@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { useParams } from "react-router-dom";
@@ -7,12 +7,12 @@ import { CartItem, Product } from "../../data";
 import { CartContext } from "../contexts/cartContext";
 import { SizeSelect } from "../components/SizeSelect";
 import { useProducts } from "../contexts/ProductContext";
+import { ToastCart } from "../components/ToastCart";
+import { useCart } from "../contexts/cartContext";
 
-interface ProductPageProps {
-  productObject: Product;
-}
 
-export function ProductPage({ productObject }: ProductPageProps) {
+
+export function ProductPage() {
   const params = useParams();
   const { products } = useProducts();
   const product = products.find((product) => product.id === params.productid)
@@ -20,18 +20,32 @@ export function ProductPage({ productObject }: ProductPageProps) {
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
   const [quantity, setQuantity] = useState(1);
+  const [showToast, setShowToast] = useState(false);
+  const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
+  const { cartItems } = useCart();
+
+
+  useEffect(() => {
+    const newProduct = cartItems[cartItems.length - 1];
+       if (newProduct) {
+         setLastAddedProduct(newProduct);
+         setShowToast(true);
+         setTimeout(() => setShowToast(false), 5000);
+       }
+     }, [cartItems]);
 
   // const {addToCart} = useContext(CartContext); vårt test
+  if (!product) {
+    return <div>404 not found</div>
+  }
+
   const handleAddToCart = () => {
-    const cartItem: CartItem = { ...productObject, size: selectedSize, quantity }
+    const cartItem: CartItem = { ...product, size: selectedSize, quantity }
     addToCart(cartItem);
     setQuantity(1);
     setSelectedSize(sizes[0]);
   };
 
-  if (!product) {
-    return <div>404 not found</div>
-  }
   return (
     <div>
   <Card>
@@ -94,6 +108,14 @@ export function ProductPage({ productObject }: ProductPageProps) {
       </Row>
     </Container>
   </Card>
+
+  {showToast && lastAddedProduct && (
+        <ToastCart
+          product={lastAddedProduct}
+          showToast={showToast}
+          setShowToast={setShowToast}
+        />
+      )}
 </div>
   );
 }

@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
-import { Product, products } from "../data";
 import { EditForm } from "./components/EditForm";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
