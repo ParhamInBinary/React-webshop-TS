@@ -67,8 +67,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     updateTotalQuantity();
     // setCartItems([]);
   };
-
-  console.log(cartItems);
   
   return (
     <CartContext.Provider value={{
