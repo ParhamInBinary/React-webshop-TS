@@ -16,7 +16,7 @@ export function useOrderContext() {
 export function OrderProvider({ children }: PropsWithChildren) {
   const { cartItems } = useCart();
 
-  const [orderDetails] = useState<OrderDetails>({
+  const [orderDetails, updateOrderDetails] = useState<OrderDetails>({
     name: "",
     address: "",
     city: "",
@@ -26,7 +26,10 @@ export function OrderProvider({ children }: PropsWithChildren) {
   });
 
   const setOrderDetails = (values: Partial<OrderDetails>) => {
-    // setOrderDetails({...orderDetails, ...values,})
+    updateOrderDetails((prevOrderDetails) => ({
+      ...prevOrderDetails,
+      ...values,
+    }));
   };
 
   return (
