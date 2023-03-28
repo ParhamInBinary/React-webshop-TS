@@ -15,7 +15,7 @@ export function CartButton() {
   const navigate = useNavigate();
 
   function handleRouteToCart() {
-    navigate("/confirmation");
+    navigate("/cart");
   }
 
   return (
