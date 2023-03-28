@@ -45,7 +45,7 @@ export function OrderForm() {
         validationSchema={schema}
         onSubmit={(values) => {
           setOrderDetails(values);
-          navigate("/confirmationPage");
+          navigate("/confirmation");
         }}
         initialValues = {initialValues}
       >
