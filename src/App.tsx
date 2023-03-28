@@ -33,7 +33,7 @@ export default function App() {
             <Route path="/admin/product/editItem/:productid" element={<EditForm />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/product/:productid" element={<ProductPage />} />
-            <Route path="/checkout" element={<CartPage/>}/>
+            <Route path="/confirmation" element={<CartPage/>}/>
           </Routes>
         </Container>
       </main>
