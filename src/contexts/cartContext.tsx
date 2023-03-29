@@ -4,6 +4,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface CartContextValue  {
   cartItems: CartItem[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   addToCart: (cartItem: CartItem) => void;
   removeFromCart: (product: Product) => void;
   showToast: boolean;
@@ -71,6 +72,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
   return (
     <CartContext.Provider value={{
       cartItems,
+      setCartItems,
       addToCart,
       removeFromCart,
       showToast,
