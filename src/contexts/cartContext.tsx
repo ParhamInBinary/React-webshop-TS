@@ -11,7 +11,8 @@ interface CartContextValue {
   cartItems: CartItem[];
   addToCart: (cartItem: CartItem) => void;
   removeFromCart: (product: Product) => void;
-  UpdateCartItemQuantity: (ProductId: string, quantity: number) => void;
+  updateCartItemQuantity: (ProductId: string, quantity: number) => void;
+  UpdateTotalQuantity: () => void;
   showToast: boolean;
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
   totalCost: number;
@@ -31,7 +32,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
   const [totalCartCount, setTotalCartCount] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  function UpdateCartItemQuantity(ProductId: string, quantity: number): void {
+  function updateCartItemQuantity(ProductId: string, quantity: number): void {
     const cartJson = localStorage.getItem("cart");
   
     if (cartJson) {
@@ -51,7 +52,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
     }
   }
 
-  function updateTotalQuantity() {
+  function UpdateTotalQuantity() {
     let count = 1;
     cartItems.forEach((item) => {
       count += item.quantity;
@@ -85,11 +86,11 @@ export default function CartProvider({ children }: PropsWithChildren) {
       setCartItems([...cartItems, cartItem]);
     }
     setShowToast(true);
-    updateTotalQuantity();
+    UpdateTotalQuantity();
   };
 
   const removeFromCart = () => {
-    updateTotalQuantity();
+    UpdateTotalQuantity();
     // setCartItems([]);
   };
 
@@ -101,7 +102,8 @@ export default function CartProvider({ children }: PropsWithChildren) {
         cartItems,
         addToCart,
         removeFromCart,
-        UpdateCartItemQuantity,
+        updateCartItemQuantity,
+        UpdateTotalQuantity,
         showToast,
         setShowToast,
         totalCost,

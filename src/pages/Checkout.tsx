@@ -3,15 +3,16 @@ import { OrderForm } from "../components/OrderForm";
 import styled from "styled-components";
 import { useCart } from "../contexts/cartContext";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function CartPage() {
-  const { cartItems, totalCost, UpdateCartItemQuantity } = useCart();
+  const { cartItems, totalCost, updateCartItemQuantity } = useCart();
   const handleUpdateQuantity = (productId: string, quantity: number) => {
-    UpdateCartItemQuantity(productId, quantity);
+    updateCartItemQuantity(productId, quantity);
   };
 
   const [quantity, setQuantity] = useState(0);
+  
 
   return (
     <CartContainer>
@@ -44,7 +45,7 @@ export function CartPage() {
                   </Button>
                   <input
                     type="number"
-                    value={quantity || product.quantity} 
+                    value={product.quantity} 
                     onChange={(event) => {
                       const newQuantity = parseInt(event.target.value) || 1;
                       setQuantity(newQuantity);
