@@ -9,6 +9,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface CartContextValue {
   cartItems: CartItem[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   addToCart: (cartItem: CartItem) => void;
   removeFromCart: (product: Product) => void;
   UpdateCartItemQuantity: (ProductId: string, quantity: number) => void;
@@ -93,23 +94,20 @@ export default function CartProvider({ children }: PropsWithChildren) {
     // setCartItems([]);
   };
 
-  console.log(cartItems);
-
   return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        addToCart,
-        removeFromCart,
-        UpdateCartItemQuantity,
-        showToast,
-        setShowToast,
-        totalCost,
-        totalCartCount,
-        quantity,
-        setQuantity,
-      }}
-    >
+    <CartContext.Provider value={{
+      cartItems,
+      setCartItems,
+      addToCart,
+      removeFromCart,
+      UpdateCartItemQuantity,
+      showToast,
+      setShowToast,
+      totalCost,
+      totalCartCount,
+      quantity,
+      setQuantity,
+    }}>
       {children}
     </CartContext.Provider>
   );

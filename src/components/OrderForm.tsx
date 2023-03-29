@@ -1,43 +1,41 @@
-import React from 'react';
+import { Formik } from 'formik';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import * as Yup from 'yup';
+import { useOrderContext } from '../contexts/OrderContext';
 
 const schema = Yup.object().shape({
-  firstName: Yup.string().required(),
-  lastName: Yup.string().required(),
-  adress: Yup.string().required(),
+  name: Yup.string().required(),
+  address: Yup.string().required(),
   city: Yup.string().required(),
   zip: Yup.string().required(),
   email: Yup.string().email('Invalid email address').required(),
   phone: Yup.string()
     .required()
     .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),
-  terms: Yup.bool()
-    .required()
-    .oneOf([true], 'You must click it '),
 });
 
 export type OrderDetails = Yup.InferType<typeof schema>
 
 const initialValues: OrderDetails = {
-  firstName: '',
-  lastName: '',
-  adress: '',
+  name: '',
+  address: '',
   city: '',
   zip: '',
   email: '',
   phone: '',
-  terms: false,
 }
 
 
 export function OrderForm() {
+  const navigate = useNavigate();
+
+  const { setOrderDetails } = useOrderContext();
   return (
     <>
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -46,48 +44,37 @@ export function OrderForm() {
       <Formik
         validationSchema={schema}
         onSubmit={(values) => {
-          console.log(values)
+          setOrderDetails(values);
+          navigate("/confirmation");
         }}
         initialValues = {initialValues}
       >
         {({
           handleSubmit,
           handleChange,
-          handleBlur,
           values,
           touched,
-          isValid,
           errors,
         }) => (
-          <Form data-cy="customer-form" noValidate onSubmit={handleSubmit}>
+          <Form data-cy="customer-form" noValidate onSubmit={handleSubmit} autoComplete="on">
             <Row className="mb-3">
               <Form.Group
                 as={Col}
                 md="4"
                 controlId="validationFormik01"
                 >
-                <Form.Label>First name</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   data-cy="customer-name"
                   type="text"
-                  name="firstName"
-                  value={values.firstName}
+                  name="name"
+                  value={values.name}
                   onChange={handleChange}
-                  isValid={touched.firstName && !errors.firstName}
+                  isValid={touched.name && !errors.name}
+                  isInvalid={!!errors.name}
+                  autoComplete="name"
                 />
-                <Form.Control.Feedback data-cy="customer-name-error">Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="4" controlId="validationFormik02">
-                <Form.Label>Last name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="lastName"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  isValid={touched.lastName && !errors.lastName}
-                />
-
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid" data-cy="customer-name-error">Please enter your name.</Form.Control.Feedback>
               </Form.Group>
               <Form.Group
                 as={Col}
@@ -99,16 +86,16 @@ export function OrderForm() {
                   <Form.Control
                     data-cy="customer-address"
                     type="text"
-                    name="adress"
-                    value={values.adress}
+                    name="address"
+                    value={values.address}
                     onChange={handleChange}
                     placeholder="Adress"
-
-                   
-                  isValid={touched.adress && !errors.adress}
-                />
+                    isValid={touched.address && !errors.address}
+                    isInvalid={!!errors.address}
+                    autoComplete="street-address"
+                    />
                 <Form.Control.Feedback data-cy="customer-address-error" type="invalid">
-                  {errors.adress}
+                  Please enter your adress.
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
@@ -124,6 +111,7 @@ export function OrderForm() {
                 value={values.city}
                 onChange={handleChange}
                 isInvalid={!!errors.city}
+                autoComplete = "address-level2"
               />
 
               <Form.Control.Feedback type="invalid">
@@ -140,6 +128,7 @@ export function OrderForm() {
                 value={values.zip}
                 onChange={handleChange}
                 isInvalid={!!errors.zip}
+                autoComplete = "postal-code"
               />
 
               <Form.Control.Feedback type="invalid">
@@ -156,6 +145,7 @@ export function OrderForm() {
                 value={values.email}
                 onChange={handleChange}
                 isInvalid={!!errors.email}
+                autoComplete = "email"
               />
               <Form.Control.Feedback data-cy="customer-email-error" type="invalid">
                 {errors.email}
@@ -171,6 +161,7 @@ export function OrderForm() {
                 value={values.phone}
                 onChange={handleChange}
                 isInvalid={!!errors.phone}
+                autoComplete = "tel"
               />
 
               <Form.Control.Feedback data-cy="customer-phone-error" type="invalid">
@@ -178,18 +169,6 @@ export function OrderForm() {
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
-          <Form.Group className="mb-3">
-            <Form.Check
-              required
-              name="terms"
-              label="Agree to terms and conditions"
-              onChange={handleChange}
-              isInvalid={!!errors.terms}
-              feedback={errors.terms}
-              feedbackType="invalid"
-              id="validationFormik0"
-            />
-          </Form.Group>
           <Button style={{marginTop: '1rem'}} type="submit">Submit order and pay</Button>
         </Form>
       )}
@@ -203,22 +182,9 @@ const StyledFormContainer = styled.div`
   border-radius: 10px;
   border: 1px solid #000;
   background-color: lightgray;
-  padding: 1rem;
-  height: 70vh;
+  padding: 3rem 1rem;
 
   @media (max-width: 768px) {
     height: 110vh;
   }
 `;
-
-/*x `data-cy="customer-form"` formulär för att fylla i kunduppgifter på checkout-sidan.
---------- `data-cy="customer-name"` kundens namn (som fylls i på checkout-sidan).
----------`data-cy="customer-address"` kundens gatuadress (som fylls i på checkout-sidan).
---------- `data-cy="customer-zipcode"` kundens postnummer (som fylls i på checkout-sidan).
-x `data-cy="customer-city"` kundens stad (som fylls i på checkout-sidan).
-x `data-cy="customer-email"` kundens emailadress (som fylls i på checkout-sidan).
-x `data-cy="customer-phone"` kundens telefonnummer (som fylls i på checkout-sidan).
-x `data-cy="customer-name-error"` felmeddelande vid felaktigt angivet namn.
-x `data-cy="customer-address-error"` felmeddelande vid felaktigt angiven adress.
-x `data-cy="customer-email-error"` felmeddelande vid felaktigt angiven emailadress.
-x `data-cy="customer-phone-error"` felmeddelande vid felaktigt angivet telefonnummer. */

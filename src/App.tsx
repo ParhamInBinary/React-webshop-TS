@@ -4,9 +4,9 @@ import { EditForm } from "./components/EditForm";
 import { Footer } from "./components/footer/Footer";
 import { Navbar } from "./components/Navbar";
 import { NewProductForm } from "./components/NewProductForm";
-import { ToastCart } from "./components/ToastCart";
 import { Admin } from "./pages/Admin";
 import { CartPage } from "./pages/Checkout";
+import { ConfirmationPage } from "./pages/ConfirmationPage";
 import { FAQ } from "./pages/FAQ";
 import { Home } from "./pages/Home";
 import { ProductPage } from "./pages/ProductPage";
@@ -32,7 +32,8 @@ export default function App() {
             <Route path="/admin/product/editItem/:productid" element={<EditForm />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/product/:productid" element={<ProductPage />} />
-            <Route path="/kassa" element={<CartPage/>}/>
+            <Route path="/cart" element={<CartPage/>}/>
+            <Route path="/confirmation" element={<ConfirmationPage />}/>
           </Routes>
         </Container>
       </main>
