@@ -42,6 +42,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
       if (productIndex !== -1) {
         cart[productIndex].quantity = quantity;
         localStorage.setItem("cart", JSON.stringify(cart));
+        return cart[productIndex].quantity
       } else {
         console.log(`Product with ID ${ProductId} not found in cart`);
       }

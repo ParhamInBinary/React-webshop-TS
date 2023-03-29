@@ -21,6 +21,7 @@ export default function App() {
             backgroundColor: "#fff",
             padding: "20px",
             borderRadius: "5px",
+            minHeight: "100vh",//dv pushar ner footer
           }}
           className="mb-4"
         >

@@ -2,12 +2,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { OrderForm } from "../components/OrderForm";
 import styled from "styled-components";
 import { useCart } from "../contexts/cartContext";
+import { Button } from "react-bootstrap";
+import { useState } from "react";
 
 export function CartPage() {
   const { cartItems, totalCost, UpdateCartItemQuantity } = useCart();
   const handleUpdateQuantity = (productId: string, quantity: number) => {
     UpdateCartItemQuantity(productId, quantity);
   };
+
+  const [quantity, setQuantity] = useState(0);
 
   return (
     <CartContainer>
@@ -25,16 +29,41 @@ export function CartPage() {
                 </ProductPrice>
                 <ProductSize>{product.size}</ProductSize>
                 <ProductQuantity data-cy="product-quantity">
+                  <Button
+                    data-cy="decrease-quantity-button"
+                    variant="outline-secondary"
+                    onClick={() => {
+                      const newQuantity = Math.max(quantity - 1, product.quantity);
+                      setQuantity(newQuantity);
+                      handleUpdateQuantity(product.id, newQuantity);
+                    }}
+                    style={{ marginRight: "1rem" }}
+                  >
+                    {" "}
+                    -
+                  </Button>
                   <input
                     type="number"
-                    defaultValue={product.quantity}
-                    onChange={(event) =>
-                      handleUpdateQuantity(
-                        product.id,
-                        parseInt(event.target.value)
-                      )
-                    }
+                    value={quantity || product.quantity} 
+                    onChange={(event) => {
+                      const newQuantity = parseInt(event.target.value) || 1;
+                      setQuantity(newQuantity);
+                      handleUpdateQuantity(product.id, newQuantity);
+                    }}
                   />
+
+                  <Button
+                    data-cy="increase-quantity-button"
+                    variant="outline-secondary"
+                    onClick={() => {
+                      const newQuantity = Math.max(quantity + 1, product.quantity)
+                      setQuantity(newQuantity);
+                      handleUpdateQuantity(product.id, newQuantity);
+                    }}
+                    style={{ marginLeft: "1rem" }}
+                  >
+                    +
+                  </Button>
                 </ProductQuantity>
               </ProductDetails>
             </ProductItem>
