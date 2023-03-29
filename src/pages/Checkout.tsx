@@ -2,9 +2,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { OrderForm } from "../components/OrderForm";
 import styled from "styled-components";
 import { useCart } from "../contexts/cartContext";
+import { Button } from "react-bootstrap";
+import { useState } from "react";
 
 export function CartPage() {
-  const {cartItems, totalCost} = useCart();
+  const { cartItems, totalCost, UpdateCartItemQuantity } = useCart();
+  const handleUpdateQuantity = (productId: string, quantity: number) => {
+    UpdateCartItemQuantity(productId, quantity);
+  };
+
+  const [quantity, setQuantity] = useState(0);
 
   return (
     <CartContainer>
@@ -14,10 +21,50 @@ export function CartPage() {
             <ProductItem data-cy="cart-item" key={product.id}>
               <ProductImage src={product.image} alt={product.title} />
               <ProductDetails>
-                <ProductTitle>{product.title}</ProductTitle>
-                <ProductPrice>{product.price} kr</ProductPrice>
+                <ProductTitle data-cy="product-title">
+                  {product.title}
+                </ProductTitle>
+                <ProductPrice data-cy="product-price">
+                  {product.price * product.quantity} kr
+                </ProductPrice>
                 <ProductSize>{product.size}</ProductSize>
-                <ProductQuantity>{product.quantity}</ProductQuantity>
+                <ProductQuantity data-cy="product-quantity">
+                  <Button
+                    data-cy="decrease-quantity-button"
+                    variant="outline-secondary"
+                    onClick={() => {
+                      const newQuantity = Math.max(quantity - 1, product.quantity);
+                      setQuantity(newQuantity);
+                      handleUpdateQuantity(product.id, newQuantity);
+                    }}
+                    style={{ marginRight: "1rem" }}
+                  >
+                    {" "}
+                    -
+                  </Button>
+                  <input
+                    type="number"
+                    value={quantity || product.quantity} 
+                    onChange={(event) => {
+                      const newQuantity = parseInt(event.target.value) || 1;
+                      setQuantity(newQuantity);
+                      handleUpdateQuantity(product.id, newQuantity);
+                    }}
+                  />
+
+                  <Button
+                    data-cy="increase-quantity-button"
+                    variant="outline-secondary"
+                    onClick={() => {
+                      const newQuantity = Math.max(quantity + 1, product.quantity)
+                      setQuantity(newQuantity);
+                      handleUpdateQuantity(product.id, newQuantity);
+                    }}
+                    style={{ marginLeft: "1rem" }}
+                  >
+                    +
+                  </Button>
+                </ProductQuantity>
               </ProductDetails>
             </ProductItem>
           ))
@@ -31,12 +78,10 @@ export function CartPage() {
   );
 }
 
-
-
-const ProductQuantity = styled.div `
+const ProductQuantity = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
-`
+`;
 const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,7 +139,7 @@ const ProductTitle = styled.div`
   font-weight: bold;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -103,7 +148,7 @@ const ProductPrice = styled.div`
   margin-top: 0.5rem;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -112,7 +157,7 @@ const ProductSize = styled.div`
   margin-top: 0.5rem;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -123,4 +168,3 @@ const TotalPrice = styled.div`
     margin-bottom: 2rem;
   }
 `;
-
