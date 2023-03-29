@@ -6,7 +6,7 @@ export function CartLink() {
   const navigate = useNavigate();
 
   function handleRouteToCart() {
-    navigate("/cart");
+    navigate("/checkout");
   }
 
   return (

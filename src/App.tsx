@@ -32,7 +32,7 @@ export default function App() {
             <Route path="/admin/product/editItem/:productid" element={<EditForm />} />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/product/:productid" element={<ProductPage />} />
-            <Route path="/cart" element={<CartPage/>}/>
+            <Route path="/checkout" element={<CartPage/>}/>
             <Route path="/confirmation" element={<ConfirmationPage />}/>
           </Routes>
         </Container>
