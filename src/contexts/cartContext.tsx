@@ -1,11 +1,17 @@
-import React, { createContext, PropsWithChildren, useContext, useState } from "react";
+import React, {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useState,
+} from "react";
 import { CartItem, Product } from "../../data";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-interface CartContextValue  {
+interface CartContextValue {
   cartItems: CartItem[];
   addToCart: (cartItem: CartItem) => void;
   removeFromCart: (product: Product) => void;
+  UpdateCartItemQuantity: (ProductId: string, quantity: number) => void;
   showToast: boolean;
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
   totalCost: number;
@@ -14,7 +20,7 @@ interface CartContextValue  {
   quantity: number;
 }
 
-export const CartContext = createContext({} as CartContextValue)
+export const CartContext = createContext({} as CartContextValue);
 export function useCart() {
   return useContext(CartContext);
 }
@@ -25,6 +31,24 @@ export default function CartProvider({ children }: PropsWithChildren) {
   const [totalCartCount, setTotalCartCount] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
+  function UpdateCartItemQuantity(ProductId: string, quantity: number): void {
+    const cartJson = localStorage.getItem("cart");
+  
+    if (cartJson) {
+      const cart = JSON.parse(cartJson);
+  
+      const productIndex = cart.findIndex((item: any) => item.id === ProductId);
+  
+      if (productIndex !== -1) {
+        cart[productIndex].quantity = quantity;
+        localStorage.setItem("cart", JSON.stringify(cart));
+      } else {
+        console.log(`Product with ID ${ProductId} not found in cart`);
+      }
+    } else {
+      console.log("Cart not found in local storage");
+    }
+  }
 
   function updateTotalQuantity() {
     let count = 1;
@@ -46,13 +70,14 @@ export default function CartProvider({ children }: PropsWithChildren) {
     const existingProductIndex = cartItems.findIndex(
       (item) => item.id === cartItem.id
     );
-  
+
     if (existingProductIndex >= 0) {
       const updatedCartItems = [...cartItems];
       // increase the quantity of the existing product
       updatedCartItems[existingProductIndex] = {
         ...updatedCartItems[existingProductIndex],
-        quantity: updatedCartItems[existingProductIndex].quantity + cartItem.quantity
+        quantity:
+          updatedCartItems[existingProductIndex].quantity + cartItem.quantity,
       };
       setCartItems(updatedCartItems);
     } else {
@@ -63,25 +88,27 @@ export default function CartProvider({ children }: PropsWithChildren) {
   };
 
   const removeFromCart = () => {
-    
     updateTotalQuantity();
     // setCartItems([]);
   };
 
   console.log(cartItems);
-  
+
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      addToCart,
-      removeFromCart,
-      showToast,
-      setShowToast,
-      totalCost,
-      totalCartCount,
-      quantity,
-      setQuantity,
-    }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        UpdateCartItemQuantity,
+        showToast,
+        setShowToast,
+        totalCost,
+        totalCartCount,
+        quantity,
+        setQuantity,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -4,7 +4,10 @@ import styled from "styled-components";
 import { useCart } from "../contexts/cartContext";
 
 export function CartPage() {
-  const {cartItems, totalCost} = useCart();
+  const { cartItems, totalCost, UpdateCartItemQuantity } = useCart();
+  const handleUpdateQuantity = (productId: string, quantity: number) => {
+    UpdateCartItemQuantity(productId, quantity);
+  };
 
   return (
     <CartContainer>
@@ -14,10 +17,25 @@ export function CartPage() {
             <ProductItem data-cy="cart-item" key={product.id}>
               <ProductImage src={product.image} alt={product.title} />
               <ProductDetails>
-                <ProductTitle>{product.title}</ProductTitle>
-                <ProductPrice>{product.price} kr</ProductPrice>
+                <ProductTitle data-cy="product-title">
+                  {product.title}
+                </ProductTitle>
+                <ProductPrice data-cy="product-price">
+                  {product.price * product.quantity} kr
+                </ProductPrice>
                 <ProductSize>{product.size}</ProductSize>
-                <ProductQuantity>{product.quantity}</ProductQuantity>
+                <ProductQuantity data-cy="product-quantity">
+                  <input
+                    type="number"
+                    defaultValue={product.quantity}
+                    onChange={(event) =>
+                      handleUpdateQuantity(
+                        product.id,
+                        parseInt(event.target.value)
+                      )
+                    }
+                  />
+                </ProductQuantity>
               </ProductDetails>
             </ProductItem>
           ))
@@ -31,12 +49,10 @@ export function CartPage() {
   );
 }
 
-
-
-const ProductQuantity = styled.div `
+const ProductQuantity = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
-`
+`;
 const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,7 +110,7 @@ const ProductTitle = styled.div`
   font-weight: bold;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -103,7 +119,7 @@ const ProductPrice = styled.div`
   margin-top: 0.5rem;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -112,7 +128,7 @@ const ProductSize = styled.div`
   margin-top: 0.5rem;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -123,4 +139,3 @@ const TotalPrice = styled.div`
     margin-bottom: 2rem;
   }
 `;
-
