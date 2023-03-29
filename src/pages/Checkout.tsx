@@ -34,7 +34,7 @@ export function CartPage() {
                     data-cy="decrease-quantity-button"
                     variant="outline-secondary"
                     onClick={() => {
-                      const newQuantity = Math.max(quantity - 1, product.quantity);
+                      const newQuantity = Math.max(quantity - 1, product.quantity - 1);
                       setQuantity(newQuantity);
                       handleUpdateQuantity(product.id, newQuantity);
                     }}
@@ -43,9 +43,9 @@ export function CartPage() {
                     {" "}
                     -
                   </Button>
-                  <input
+                  <InputField
                     type="number"
-                    value={product.quantity} 
+                    value={quantity || product.quantity} 
                     onChange={(event) => {
                       const newQuantity = parseInt(event.target.value) || 1;
                       setQuantity(newQuantity);
@@ -57,7 +57,7 @@ export function CartPage() {
                     data-cy="increase-quantity-button"
                     variant="outline-secondary"
                     onClick={() => {
-                      const newQuantity = Math.max(quantity + 1, product.quantity)
+                      const newQuantity = Math.max(quantity + 1, product.quantity + 1)
                       setQuantity(newQuantity);
                       handleUpdateQuantity(product.id, newQuantity);
                     }}
@@ -79,9 +79,17 @@ export function CartPage() {
   );
 }
 
+
+const InputField = styled.input`
+width: 100%;
+max-width: 50px;
+text-align: center;
+height: 38px;
+`
 const ProductQuantity = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
+  display: flex;
 `;
 const CartContainer = styled.div`
   display: flex;
