@@ -23,7 +23,7 @@ export function CartPage() {
                   {product.price * product.quantity} kr
                 </ProductPrice>
                 <ProductSize>{product.size}</ProductSize>
-                <ProductQuantity data-cy="product-quantity">
+                <ProductQuantity>
                   <Button
                     data-cy="decrease-quantity-button"
                     variant="outline-secondary"
@@ -36,6 +36,7 @@ export function CartPage() {
                     -
                   </Button>
                   <InputField
+                   data-cy="product-quantity"
                     type="number"
                     value={product.quantity}
                   />
