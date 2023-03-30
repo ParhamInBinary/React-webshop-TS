@@ -23,18 +23,19 @@ export function EditForm() {
 
   const navigate = useNavigate();
 
-  const formik = useFormik({
+  const formik = useFormik<Product>({
     initialValues: {
       image: editingItem?.image ?? "",
       title: editingItem?.title ?? "",
       description: editingItem?.description ?? "",
-      price: editingItem?.price ?? 0,
+      price: editingItem?.price ?? "" as any,
+      id: "",
     },
     validationSchema: Yup.object({
-      image: Yup.string().required("Please include a URL-link."),
+      image: Yup.string().url("Please enter a valid URL").required("Please include a URL-link."),
       title: Yup.string().required("Please add a product title."),
       description: Yup.string().required("Please provide a description."),
-      price: Yup.number().required("Please set a price to the item."),
+      price: Yup.number().moreThan(0).required("Please set a price to the item."),
     }),
     onSubmit: (values) => {
       if (!editingItem) return;
@@ -115,7 +116,7 @@ export function EditForm() {
         <Form.Control
           type="text"
           value={formik.values.price}
-          onChange={formik.handleChange}
+          onChange={(e) => formik.setFieldValue("price", Number(e.target.value))}
           onBlur={formik.handleBlur}
           isInvalid={formik.touched.price && !!formik.errors.price}
           data-cy="product-price"
