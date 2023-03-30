@@ -11,12 +11,13 @@ export function NewProductForm() {
   const navigate = useNavigate();
   const { products: items, setProducts: setItems } = useContext(ProductContext);
 
-  const formik = useFormik({
+  const formik = useFormik<Product>({
     initialValues: {
       image: "",
       title: "",
       description: "",
-      price: 0,
+      price: "" as any,
+      id: "",
     },
     validationSchema: Yup.object({
       image: Yup.string()
@@ -24,7 +25,7 @@ export function NewProductForm() {
         .required("Please enter a URL"),
       title: Yup.string().required("Please enter a title"),
       description: Yup.string().required("Please enter a description"),
-      price: Yup.number()
+      price: Yup.number().moreThan(0)
         .typeError("Please enter a number")
         .required("Please enter a price"),
     }),
@@ -61,7 +62,7 @@ export function NewProductForm() {
           {formik.touched.image && formik.errors.image && (
             <Form.Control.Feedback
               type="invalid"
-              data-cy="customer-image-error"
+              data-cy="product-image-error"
             >
               {formik.errors.image}
             </Form.Control.Feedback>
@@ -119,7 +120,7 @@ export function NewProductForm() {
             placeholder="Set a price for the product"
             name="price"
             value={formik.values.price}
-            onChange={formik.handleChange}
+            onChange={(e) => formik.setFieldValue("price", Number(e.target.value))}
             onBlur={formik.handleBlur}
             data-cy="product-price"
             isInvalid={formik.touched.price && !!formik.errors.price}
