@@ -11,9 +11,7 @@ interface CartContextValue {
   cartItems: CartItem[];
   setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   addToCart: (cartItem: CartItem) => void;
-  removeFromCart: (product: Product) => void;
-  updateCartItemQuantity: (ProductId: string, quantity: number) => void;
-  UpdateTotalQuantity: () => void;
+  removeFromCart: (cartItem: CartItem) => void;
   showToast: boolean;
   setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
   totalCost: number;
@@ -30,36 +28,12 @@ export function useCart() {
 export default function CartProvider({ children }: PropsWithChildren) {
   const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cart", []);
   const [showToast, setShowToast] = useState(false);
-  const [totalCartCount, setTotalCartCount] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  function updateCartItemQuantity(ProductId: string, quantity: number): void {
-    const cartJson = localStorage.getItem("cart");
-  
-    if (cartJson) {
-      const cart = JSON.parse(cartJson);
-  
-      const productIndex = cart.findIndex((item: any) => item.id === ProductId);
-  
-      if (productIndex !== -1) {
-        cart[productIndex].quantity = quantity;
-        localStorage.setItem("cart", JSON.stringify(cart));
-        return cart[productIndex].quantity
-      } else {
-        console.log(`Product with ID ${ProductId} not found in cart`);
-      }
-    } else {
-      console.log("Cart not found in local storage");
-    }
-  }
-
-  function UpdateTotalQuantity() {
-    let count = 1;
-    cartItems.forEach((item) => {
-      count += item.quantity;
-    });
-    setTotalCartCount(count);
-  }
+  const totalCartCount = cartItems.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
   // calculate total quantity
 
   // calculate total cost
@@ -87,12 +61,29 @@ export default function CartProvider({ children }: PropsWithChildren) {
       setCartItems([...cartItems, cartItem]);
     }
     setShowToast(true);
-    UpdateTotalQuantity();
   };
 
-  const removeFromCart = () => {
-    UpdateTotalQuantity();
-    // setCartItems([]);
+  const removeFromCart = (cartItem: CartItem) => {
+    const existingProductIndex = cartItems.findIndex(
+      (item) => item.id === cartItem.id
+    );
+  
+    if (existingProductIndex >= 0) {
+      const updatedCartItems = [...cartItems];
+      // decrease the quantity of the existing product by 1
+      updatedCartItems[existingProductIndex] = {
+        ...updatedCartItems[existingProductIndex],
+        quantity: updatedCartItems[existingProductIndex].quantity - 1,
+      };
+  
+      if (updatedCartItems[existingProductIndex].quantity === 0) {
+        // remove the item if the quantity becomes 0
+        updatedCartItems.splice(existingProductIndex, 1);
+      }
+  
+      setCartItems(updatedCartItems);
+      setShowToast(true);
+    }
   };
 
   return (
@@ -101,8 +92,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
       setCartItems,
       addToCart,
       removeFromCart,
-      updateCartItemQuantity,
-      UpdateTotalQuantity,
       showToast,
       setShowToast,
       totalCost,

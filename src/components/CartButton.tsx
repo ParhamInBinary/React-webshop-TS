@@ -10,17 +10,13 @@ export function CartButton() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { cartItems, totalCartCount, totalCost, UpdateTotalQuantity } = useContext(CartContext); //changed here to make the number update
+  const { cartItems, totalCartCount, totalCost } = useContext(CartContext); //changed here to make the number update
 
   const navigate = useNavigate();
 
   function handleRouteToCart() {
     navigate("/checkout");
   }
-
-  useEffect(() => {
-    UpdateTotalQuantity()
-  }, [])
 
   return (
     <>

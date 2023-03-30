@@ -3,15 +3,9 @@ import { OrderForm } from "../components/OrderForm";
 import styled from "styled-components";
 import { useCart } from "../contexts/cartContext";
 import { Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
 
 export function CartPage() {
-  const { cartItems, totalCost, updateCartItemQuantity } = useCart();
-  const handleUpdateQuantity = (productId: string, quantity: number) => {
-    updateCartItemQuantity(productId, quantity);
-  };
-
-  const [quantity, setQuantity] = useState(0);
+  const { cartItems, totalCost, addToCart, removeFromCart} = useCart();
   
 
   return (
@@ -34,9 +28,7 @@ export function CartPage() {
                     data-cy="decrease-quantity-button"
                     variant="outline-secondary"
                     onClick={() => {
-                      const newQuantity = Math.max(quantity - 1, product.quantity - 1);
-                      setQuantity(newQuantity);
-                      handleUpdateQuantity(product.id, newQuantity);
+                      removeFromCart({...product})
                     }}
                     style={{ marginRight: "1rem" }}
                   >
@@ -45,21 +37,14 @@ export function CartPage() {
                   </Button>
                   <InputField
                     type="number"
-                    value={quantity || product.quantity} 
-                    onChange={(event) => {
-                      const newQuantity = parseInt(event.target.value) || 1;
-                      setQuantity(newQuantity);
-                      handleUpdateQuantity(product.id, newQuantity);
-                    }}
+                    value={product.quantity}
                   />
 
                   <Button
                     data-cy="increase-quantity-button"
                     variant="outline-secondary"
                     onClick={() => {
-                      const newQuantity = Math.max(quantity + 1, product.quantity + 1)
-                      setQuantity(newQuantity);
-                      handleUpdateQuantity(product.id, newQuantity);
+                    addToCart({...product, quantity: 1})
                     }}
                     style={{ marginLeft: "1rem" }}
                   >
