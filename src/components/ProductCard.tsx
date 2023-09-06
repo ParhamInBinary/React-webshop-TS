@@ -21,6 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
     navigate(`/product/${product.id}`, { state: { product } });
   };
 
+
   const handleAddToCart = () => {
     const cartItem: CartItem = { ...product, size: selectedSize, quantity }
     addToCart(cartItem);
