@@ -1,42 +1,57 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from "react-bootstrap";
-import { Product } from "../../data";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { OrderForm } from "../components/OrderForm";
 import styled from "styled-components";
+import { useCart } from "../contexts/cartContext";
+import { Button } from "react-bootstrap";
 
 export function CartPage() {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState<[]>([]);
-  const [totalCost, setTotalCost] = useState(0);
-
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
-    setCartItems(items);
-    setTotalCost(
-      items.reduce(
-        (total: number, product: Product) => total + Number(product.price),
-        0
-      )
-    );
-  }, []);
-
+  const { cartItems, totalCost, addToCart, removeFromCart} = useCart();
+  
 
   return (
     <CartContainer>
       <ProductsContainer>
         {cartItems.length > 0 ? (
-          cartItems.map((product: Product) => (
-            <ProductItem key={product.id}>
+          cartItems.map((product) => (
+            <ProductItem data-cy="cart-item" key={product.id}>
               <ProductImage src={product.image} alt={product.title} />
               <ProductDetails>
-                <ProductTitle>{product.title}</ProductTitle>
-                <ProductPrice>{product.price} kr</ProductPrice>
-                <ProductPrice>{product.size} kr</ProductPrice>
+                <ProductTitle data-cy="product-title">
+                  {product.title}
+                </ProductTitle>
+                <ProductPrice data-cy="product-price">
+                  {product.price * product.quantity} kr
+                </ProductPrice>
+                <ProductSize>{product.size}</ProductSize>
+                <ProductQuantity>
+                  <Button
+                    data-cy="decrease-quantity-button"
+                    variant="outline-secondary"
+                    onClick={() => {
+                      removeFromCart({...product})
+                    }}
+                    style={{ marginRight: "1rem" }}
+                  >
+                    {" "}
+                    -
+                  </Button>
+                  <InputField
+                   data-cy="product-quantity"
+                    type="number"
+                    value={product.quantity}
+                  />
+
+                  <Button
+                    data-cy="increase-quantity-button"
+                    variant="outline-secondary"
+                    onClick={() => {
+                    addToCart({...product, quantity: 1})
+                    }}
+                    style={{ marginLeft: "1rem" }}
+                  >
+                    +
+                  </Button>
+                </ProductQuantity>
               </ProductDetails>
             </ProductItem>
           ))
@@ -50,6 +65,18 @@ export function CartPage() {
   );
 }
 
+
+const InputField = styled.input`
+width: 100%;
+max-width: 50px;
+text-align: center;
+height: 38px;
+`
+const ProductQuantity = styled.div`
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+`;
 const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -107,7 +134,7 @@ const ProductTitle = styled.div`
   font-weight: bold;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -116,7 +143,16 @@ const ProductPrice = styled.div`
   margin-top: 0.5rem;
 
   @media (max-width: 520px) {
-    font-size: .8rem;
+    font-size: 0.8rem;
+  }
+`;
+
+const ProductSize = styled.div`
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+
+  @media (max-width: 520px) {
+    font-size: 0.8rem;
   }
 `;
 

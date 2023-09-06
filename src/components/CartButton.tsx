@@ -10,17 +10,7 @@ export function CartButton() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { cartItems } = useContext(CartContext); //changed here to make the number update
-  const [totalCost, setTotalCost] = useState(0);
-
-  useEffect(() => {
-    setTotalCost(
-      cartItems.reduce(
-        (total: number, product: Product) => total + Number(product.price),
-        0
-      )
-    );
-  }, []);
+  const { cartItems, totalCartCount, totalCost } = useContext(CartContext); //changed here to make the number update
 
   const navigate = useNavigate();
 
@@ -60,7 +50,7 @@ export function CartButton() {
             fontSize: "12px",
           }}
         >
-          {cartItems.length}
+          {totalCartCount}
         </div>
       </Button>
       <Offcanvas show={show} onHide={handleClose} placement="start">
@@ -110,7 +100,7 @@ export function CartButton() {
                   <div>
                     <div>{product.title}</div>
                     <div>{product.price} kr</div>
-                    <div>{product.size} kr</div>
+                    <div>{product.size}</div>
 
                   </div>
                 </div>

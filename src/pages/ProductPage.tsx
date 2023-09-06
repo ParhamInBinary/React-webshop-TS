@@ -1,20 +1,48 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import styled from "styled-components";
-import { SizeSelect } from "../components/SizeSelect";
 import Carousel from "react-bootstrap/Carousel";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { CartItem, Product } from "../../data";
+import { CartContext } from "../contexts/cartContext";
+import { SizeSelect } from "../components/SizeSelect";
+import { useProducts } from "../contexts/ProductContext";
+import { ToastCart } from "../components/ToastCart";
+import { useCart } from "../contexts/cartContext";
+
+
 
 export function ProductPage() {
-  const location = useLocation();
-  const { product } = location.state;
+  const params = useParams();
+  const { products } = useProducts();
+  const product = products.find((product) => product.id === params.productid)
+  const {addToCart } = useContext(CartContext);//here is where the context is beeing used//dv
   const sizes = ["37", "38", "39", "40", "41", "42", "43", "44", "45", "46"];
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  const [quantity, setQuantity] = useState(1);
+  const [showToast, setShowToast] = useState(false);
+  const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
+  const { cartItems } = useCart();
+
+
+  useEffect(() => {
+    const newProduct = cartItems[cartItems.length - 1];
+       if (newProduct) {
+         setLastAddedProduct(newProduct);
+         setShowToast(true);
+         setTimeout(() => setShowToast(false), 5000);
+       }
+     }, [cartItems]);
+
+  // const {addToCart} = useContext(CartContext); vårt test
+  if (!product) {
+    return <div>404 not found</div>
+  }
 
   const handleAddToCart = () => {
-    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-    cartItems.push({ ...product, size: selectedSize });
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    const cartItem: CartItem = { ...product, size: selectedSize, quantity }
+    addToCart(cartItem);
+    setQuantity(1);
     setSelectedSize(sizes[0]);
   };
 
@@ -80,6 +108,14 @@ export function ProductPage() {
       </Row>
     </Container>
   </Card>
+
+  {showToast && lastAddedProduct && (
+        <ToastCart
+          product={lastAddedProduct}
+          showToast={showToast}
+          setShowToast={setShowToast}
+        />
+      )}
 </div>
   );
 }

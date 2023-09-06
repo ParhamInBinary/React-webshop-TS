@@ -1,33 +1,36 @@
-import { createContext, PropsWithChildren, useState } from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Product, products } from "../../data";
+import { Product, products as mockedProducts } from "../../data";
 
 interface ProductContextValue {
+    products: Product[]
     handleDelete: (id: string) => void;
     handleEdit: (id: string) => void;
     handleSave: (editedItem: Product) => void;
+
+    // Ta bort...
     editingItem: Product | null
     setEditingItem: React.Dispatch<React.SetStateAction<Product | null>>
-    items: Product[]
-    setItems: React.Dispatch<React.SetStateAction<Product[]>>
+    setProducts: React.Dispatch<React.SetStateAction<Product[]>>
 }
 
 export const ProductContext = createContext({} as ProductContextValue);
+export const useProducts = () => useContext(ProductContext)
 
 export function ProductProvider({ children }: PropsWithChildren) {
   const navigate = useNavigate();
 
   const [editingItem, setEditingItem] = useState<Product | null>(null);
-  const [items, setItems] = useState<Product[]>(products);
+  const [products, setProducts] = useState<Product[]>(mockedProducts);
 
   const handleDelete = (id: string) => {
-    const updatedItems = items.filter((item) => item.id !== id);
-    setItems(updatedItems);
+    const updatedItems = products.filter((item) => item.id !== id);
+    setProducts(updatedItems);
     localStorage.setItem("products", JSON.stringify(updatedItems));
   };
   
   const handleEdit = (id: string) => {
-    const itemToEdit = items.find((item) => item.id === id);
+    const itemToEdit = products.find((item) => item.id === id);
     if (itemToEdit) {
       navigate(`/admin/product/editItem/${itemToEdit.id}`);
       setEditingItem(itemToEdit);
@@ -36,20 +39,21 @@ export function ProductProvider({ children }: PropsWithChildren) {
       setEditingItem(null);
     }
   };
-
+  
   const handleSave = (editedItem: Product) => {
-    const updatedItems = items.map((item) =>
-      item.id === editedItem.id ? editedItem : item
+    const updatedItems = products.map((item) =>
+    item.id === editedItem.id ? editedItem : item
     );
     navigate("/admin");
-    setItems(updatedItems);
+    setProducts(updatedItems);
     setEditingItem(null);
     localStorage.setItem("products", JSON.stringify(updatedItems));
+    localStorage.setItem("selectedItem", JSON.stringify([]));
   };
-
+  
   return (
     <ProductContext.Provider
-      value={{ editingItem, setEditingItem, handleEdit, handleDelete, handleSave, items, setItems }}
+      value={{ editingItem, setEditingItem, handleEdit, handleDelete, handleSave, products, setProducts }}
     >
       {children}
     </ProductContext.Provider>

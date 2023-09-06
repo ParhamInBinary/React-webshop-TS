@@ -1,50 +1,42 @@
-import { useContext, useState } from "react";
+import { useFormik } from "formik";
+import { useContext } from "react";
 import { Button, FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 import { generateId, Product } from "../../data";
 import { ProductContext } from "../contexts/ProductContext";
-interface FormFields {
-  image: string;
-  title: string;
-  description: string;
-  price: string;
-}
 
 export function NewProductForm() {
-
   const navigate = useNavigate();
-  
-  const { items, setItems } = useContext(ProductContext);
-  const [validated, setValidated] = useState(false);
-  const [formFields, setFormFields] = useState<FormFields>({
-    image: "",
-    title: "",
-    description: "",
-    price: "",
-  });
+  const { products: items, setProducts: setItems } = useContext(ProductContext);
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-    setFormFields((prevFormFields) => ({ ...prevFormFields, [name]: value }));
-  };
-
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (!form.checkValidity()) {
-      event.stopPropagation();
-      setValidated(true);
-    } else {
+  const formik = useFormik<Product>({
+    initialValues: {
+      image: "",
+      title: "",
+      description: "",
+      price: "" as any,
+      id: "",
+    },
+    validationSchema: Yup.object({
+      image: Yup.string()
+        .url("Please enter a valid URL")
+        .required("Please enter a URL"),
+      title: Yup.string().required("Please enter a title"),
+      description: Yup.string().required("Please enter a description"),
+      price: Yup.number().moreThan(0)
+        .typeError("Please enter a number")
+        .required("Please enter a price"),
+    }),
+    onSubmit: (values, { resetForm }) => {
       const id = generateId();
-      const newProduct = { ...formFields, id };
+      const newProduct = { ...values, id };
       updateLocalStorage(newProduct);
-      setFormFields({ image: "", title: "", description: "", price: "" });
+      resetForm();
       navigate("/admin");
-    }
-  };
+    },
+  });
 
   const updateLocalStorage = (newProduct: Product) => {
     const updatedProducts = structuredClone(items);
@@ -55,77 +47,95 @@ export function NewProductForm() {
 
   return (
     <>
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleFormSubmit}
-        data-cy="product-form"
-      >
+      <Form noValidate onSubmit={formik.handleSubmit} data-cy="product-form">
         <FloatingLabel controlId="image" label="Image URL" className="mb-3">
           <Form.Control
             type="text"
             placeholder="https://example.jpg"
-            required
             name="image"
-            value={formFields.image}
-            onChange={handleInputChange}
+            value={formik.values.image}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             data-cy="product-image"
+            isInvalid={formik.touched.image && !!formik.errors.image}
           />
-          <Form.Control.Feedback type="invalid" data-cy="product-image-error">
-            Please include a URL-link.
-          </Form.Control.Feedback>
+          {formik.touched.image && formik.errors.image && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-image-error"
+            >
+              {formik.errors.image}
+            </Form.Control.Feedback>
+          )}
         </FloatingLabel>
 
         <FloatingLabel controlId="title" label="Product title" className="mb-3">
           <Form.Control
             type="text"
             placeholder="Example"
-            required
             name="title"
-            value={formFields.title}
-            onChange={handleInputChange}
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             data-cy="product-title"
+            isInvalid={formik.touched.title && !!formik.errors.title}
           />
-          <Form.Control.Feedback type="invalid" data-cy="product-title-error">
-            Please add a product title.
-          </Form.Control.Feedback>
+          {formik.touched.title && formik.errors.title && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-title-error"
+            >
+              {formik.errors.title}
+            </Form.Control.Feedback>
+          )}
         </FloatingLabel>
 
         <FloatingLabel controlId="description" label="Product description">
           <Form.Control
             type="text"
             placeholder="Write a description of the product"
-            required
             name="description"
-            value={formFields.description}
-            onChange={handleInputChange}
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             data-cy="product-description"
+            isInvalid={
+              formik.touched.description && !!formik.errors.description
+            }
           />
-          <Form.Control.Feedback
-            type="invalid"
-            data-cy="product-description-error"
-          >
-            Please provide a description.
-          </Form.Control.Feedback>
+          {formik.touched.description && formik.errors.description && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-description-error"
+            >
+              {formik.errors.description}
+            </Form.Control.Feedback>
+          )}
         </FloatingLabel>
 
-        <FloatingLabel controlId="price" label="Product price" className="mb-3">
+        <FloatingLabel controlId="price" label="Product price">
           <Form.Control
+            style={{ marginTop: '1rem'}}
             type="text"
-            placeholder="Example"
-            required
+            placeholder="Set a price for the product"
             name="price"
-            value={formFields.price}
-            onChange={handleInputChange}
-            style={{ marginTop: "1rem" }}
+            value={formik.values.price}
+            onChange={(e) => formik.setFieldValue("price", Number(e.target.value))}
+            onBlur={formik.handleBlur}
             data-cy="product-price"
+            isInvalid={formik.touched.price && !!formik.errors.price}
           />
-          <Form.Control.Feedback type="invalid" data-cy="product-price-error">
-            Please set a price to the item.
-          </Form.Control.Feedback>
+          {formik.touched.price && formik.errors.price && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-price-error"
+            >
+              {formik.errors.price}
+            </Form.Control.Feedback>
+          )}
         </FloatingLabel>
 
-        <Button type="submit">Create product</Button>
+        <Button type="submit" style={{ marginTop: '1rem'}}>Create product</Button>
       </Form>
     </>
   );

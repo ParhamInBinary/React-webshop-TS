@@ -10,7 +10,7 @@ interface ToastCartProps {
 }
 
 export function ToastCart(props: ToastCartProps) {  
-  const [position, setPosition] = useState<ToastPosition>('top-end');
+  const [position, setPosition] = useState<ToastPosition>('bottom-end');
  
   return (
     <ToastContainer position={position}>

@@ -1,116 +1,136 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../data";
 import { ProductContext } from "../contexts/ProductContext";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export function EditForm() {
-  const { handleSave, setEditingItem, editingItem } =
-    useContext(ProductContext);
+  const { handleSave, setEditingItem, editingItem } = useContext(ProductContext);
 
   useEffect(() => {
     if (!editingItem) {
       const storedItem = localStorage.getItem("selectedItem") ?? "{}";
       const storedObj = JSON.parse(storedItem) as Product;
       setEditingItem(storedObj);
-      setImage(storedObj.image);
-      setTitle(storedObj.title);
-      setDescription(storedObj.description);
-      setPrice(storedObj.price);
+      formik.setFieldValue("image", storedObj.image);
+      formik.setFieldValue("title", storedObj.title);
+      formik.setFieldValue("description", storedObj.description);
+      formik.setFieldValue("price", storedObj.price);
     }
   }, []);
 
-  const [image, setImage] = useState(editingItem?.image ?? "");
-  const [title, setTitle] = useState(editingItem?.title ?? "");
-  const [description, setDescription] = useState(
-    editingItem?.description ?? ""
-  );
-  const [price, setPrice] = useState(editingItem?.price ?? "");
-
-  const [validated, setValidated] = useState(false);
-
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (!form.checkValidity()) {
-      event.stopPropagation();
-      setValidated(true);
-    } else {
+  const formik = useFormik<Product>({
+    initialValues: {
+      image: editingItem?.image ?? "",
+      title: editingItem?.title ?? "",
+      description: editingItem?.description ?? "",
+      price: editingItem?.price ?? "" as any,
+      id: "",
+    },
+    validationSchema: Yup.object({
+      image: Yup.string().url("Please enter a valid URL").required("Please include a URL-link."),
+      title: Yup.string().required("Please add a product title."),
+      description: Yup.string().required("Please provide a description."),
+      price: Yup.number().moreThan(0).required("Please set a price to the item."),
+    }),
+    onSubmit: (values) => {
       if (!editingItem) return;
       handleSave({
         ...editingItem,
-        image,
-        title,
-        description,
-        price,
+        image: values.image,
+        title: values.title,
+        description: values.description,
+        price: values.price,
       });
-    }
-  };
+    },
+  });
 
   return (
-    <Form
-      noValidate
-      validated={validated}
-      onSubmit={handleSubmit}
-      data-cy="product-form"
-    >
+    <Form noValidate onSubmit={formik.handleSubmit} data-cy="product-form">
       <Form.Group controlId="image">
         <Form.Label style={{ marginTop: "1rem" }}>Image</Form.Label>
         <Form.Control
           type="text"
-          value={image}
-          onChange={(event) => setImage(event.target.value)}
-          required
+          value={formik.values.image}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          isInvalid={formik.touched.image && !!formik.errors.image}
           data-cy="product-image"
         />
-        <Form.Control.Feedback type="invalid" data-cy="product-image-error">
-          Please include a URL-link.
-        </Form.Control.Feedback>
+          {formik.touched.image && formik.errors.image && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-image-error"
+            >
+              {formik.errors.image}
+            </Form.Control.Feedback>
+          )}
       </Form.Group>
+
       <Form.Group controlId="title">
         <Form.Label style={{ marginTop: "1rem" }}>Title</Form.Label>
         <Form.Control
           type="text"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          required
+          value={formik.values.title}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          isInvalid={formik.touched.title && !!formik.errors.title}
           data-cy="product-title"
         />
-        <Form.Control.Feedback type="invalid" data-cy="product-title-error">
-          Please add a product title.
-        </Form.Control.Feedback>
+          {formik.touched.title && formik.errors.title && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-title-error"
+            >
+              {formik.errors.title}
+            </Form.Control.Feedback>
+          )}
       </Form.Group>
+      
       <Form.Group controlId="description">
         <Form.Label style={{ marginTop: "1rem" }}>Description</Form.Label>
         <Form.Control
           type="text"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-          required
+          value={formik.values.description}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          isInvalid={formik.touched.description && !!formik.errors.description}
           data-cy="product-description"
         />
-        <Form.Control.Feedback
-          type="invalid"
-          data-cy="product-description-error"
-        >
-          Please provide a description.
-        </Form.Control.Feedback>
+          {formik.touched.description && formik.errors.description && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-description-error"
+            >
+              {formik.errors.description}
+            </Form.Control.Feedback>
+          )}
       </Form.Group>
+      
       <Form.Group controlId="price">
         <Form.Label style={{ marginTop: "1rem" }}>Price</Form.Label>
         <Form.Control
           type="text"
-          value={price}
-          onChange={(event) => setPrice(event.target.value)}
-          required
+          value={formik.values.price}
+          onChange={(e) => formik.setFieldValue("price", Number(e.target.value))}
+          onBlur={formik.handleBlur}
+          isInvalid={formik.touched.price && !!formik.errors.price}
           data-cy="product-price"
         />
-        <Form.Control.Feedback type="invalid" data-cy="product-price-error">
-          Please set a price to the item.
-        </Form.Control.Feedback>
+          {formik.touched.price && formik.errors.price && (
+            <Form.Control.Feedback
+              type="invalid"
+              data-cy="product-price-error"
+            >
+              {formik.errors.price}
+            </Form.Control.Feedback>
+          )}
       </Form.Group>
+
       <Button variant="primary" type="submit" style={{ margin: "1rem" }}>
         Save
       </Button>
