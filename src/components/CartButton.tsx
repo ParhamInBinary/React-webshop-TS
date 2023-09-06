@@ -1,50 +1,125 @@
-import { Button, Dropdown } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import { BsFillBasket3Fill } from "react-icons/bs";
+import { Product } from "../../data";
+import { CartContext } from "../contexts/cartContext";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import { useNavigate } from "react-router-dom";
 
 export function CartButton() {
-  const [cartItems, setCartItems] = useState([]);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const { cartItems, totalCartCount, totalCost } = useContext(CartContext); //changed here to make the number update
+
+  const navigate = useNavigate();
+
+  function handleRouteToCart() {
+    navigate("/checkout");
+  }
 
   return (
     <>
-      <Dropdown>
-        <Dropdown.Toggle
-          variant="outline-primary"
-          className="rounded-circle"
+      <Button
+        variant="outline-primary"
+        onClick={handleShow}
+        style={{
+          width: "3rem",
+          height: "3rem",
+          position: "relative",
+          color: "white",
+        }}
+        className="rounded-circle"
+      >
+        <BsFillBasket3Fill />
+
+        <div
+          data-cy="cart-items-count-badge"
           style={{
-            width: "3rem",
-            height: "3rem",
-            position: "relative",
-            color: "white",
+            position: "absolute",
+            bottom: "-5px",
+            right: "-5px",
+            backgroundColor: "red",
+            borderRadius: "50%",
+            width: "20px",
+            height: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontWeight: "bold",
+            fontSize: "12px",
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
-            <path d="M96 0C107.5 0 117.4 8.19 119.6 19.51L121.1 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H170.7L179.9 336H488C501.3 336 512 346.7 512 360C512 373.3 501.3 384 488 384H159.1C148.5 384 138.6 375.8 136.4 364.5L76.14 48H24C10.75 48 0 37.25 0 24C0 10.75 10.75 0 24 0H96zM128 464C128 437.5 149.5 416 176 416C202.5 416 224 437.5 224 464C224 490.5 202.5 512 176 512C149.5 512 128 490.5 128 464zM512 464C512 490.5 490.5 512 464 512C437.5 512 416 490.5 416 464C416 437.5 437.5 416 464 416C490.5 416 512 437.5 512 464z" />
-          </svg>
+          {totalCartCount}
+        </div>
+      </Button>
+      <Offcanvas show={show} onHide={handleClose} placement="start">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Your cart</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "2rem",
+            backgroundColor: "#f8f9fa",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "flex-end" }}></div>
           <div
-            className="rounded-circle bg-danger d-flex justify-content-center align-items-center"
             style={{
-              color: "white",
-              width: "1.5rem",
-              height: "1.5rem",
-              position: "absolute",
-              bottom: 0,
-              right: 0,
-              transform: "translate(25%, 25%)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "1rem",
             }}
           >
-            {cartItems.length}
+            {cartItems.length > 0 ? (
+              cartItems.map((product: Product) => (
+                <div
+                  key={product.id}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "1rem",
+                    width: "300px",
+                    borderBottom: "1px solid black",
+                  }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    style={{
+                      width: "120px",
+                      height: "100px",
+                      objectFit: "cover",
+                      marginRight: "1rem",
+                    }}
+                  />
+                  <div>
+                    <div>{product.title}</div>
+                    <div>{product.price} kr</div>
+                    <div>{product.size}</div>
+
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>Your cart is empty</div>
+            )}
           </div>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {cartItems.length === 0 ? (
-            <Dropdown.Item disabled>Your cart is empty</Dropdown.Item>
-          ) : (
-            cartItems.map((item, index) => (
-              <Dropdown.Item key={index}>{item}</Dropdown.Item>
-            ))
-          )}
-        </Dropdown.Menu>
-      </Dropdown>
+          <div data-cy="total-price">Total cost: {totalCost} kr</div>
+          <Button
+            data-cy="cart-link"
+            variant="primary"
+            style={{ marginTop: "2rem" }}
+            onClick={handleRouteToCart}
+          >
+            Checkout
+          </Button>
+        </Offcanvas.Body>
+      </Offcanvas>
     </>
   );
 }

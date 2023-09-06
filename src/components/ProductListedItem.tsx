@@ -1,57 +1,127 @@
+import { useContext } from "react";
 import { Button, Col } from "react-bootstrap";
 import styled from "styled-components";
-import { Product } from "../data";
+import { Product } from "../../data";
+import { ProductContext } from "../contexts/ProductContext";
+import { DeleteButton } from "./DeleteButton";
 
-interface Props {
+interface ProductListedItemProps {
   product: Product;
-  onDelete: (id: string) => void;
-  onEdit: (id: string) => void;
 }
 
-export function ProductListedItem({ product, onDelete, onEdit }: Props) {
+export function ProductListedItem({
+  product,
+}: ProductListedItemProps) {
+
+  const { handleEdit } = useContext(ProductContext)
+
   return (
-    <>
-      <Col xs={3}>
-        <TitleContainer>
-          <img src={product.image} />
-          {product.title}
-        </TitleContainer>
-      </Col>
-
-      <Col xs={4}>
-        <DescContainer>
-
-        {product.description}
-        </DescContainer>
+      <Container>
+        <Col xs={12} md={3}>
+          <TitleContainer data-cy="product-title">
+            <img src={product.image} />
+            <p>{product.title}</p>
+          </TitleContainer>
         </Col>
 
-      <Col>
-        <Price>{product.price + " SEK"}</Price>
-      </Col>
+        <Col xs={12} md={4}>
+          <DescContainer data-cy="product-description">
+            {product.description}
+          </DescContainer>
+        </Col>
 
-      <Col>
-        <Button variant="danger" onClick={() => onDelete(product.id)}>
-          Delete
-        </Button>{" "}
-        <Button variant="outline-secondary" onClick={() => onEdit(product.id)}>
-          Edit
-        </Button>
-      </Col>
-    </>
+        <Col>
+          <Price data-cy="product-price">{product.price + " SEK"}</Price>
+        </Col>
+
+        <Col>
+          <ProductID data-cy="product-id" >{product.id}</ProductID>
+        </Col>
+
+        <Col>
+          <BtnContainer>
+            <DeleteButton product={product} />{" "}
+            <Button
+              variant="outline-secondary"
+              onClick={() => {
+                handleEdit(product.id);
+              }}
+              data-cy="admin-edit-product"
+            >
+              Edit
+            </Button>
+          </BtnContainer>
+        </Col>
+      </Container>
   );
 }
 
-const Price = styled.span`
-  margin-left: 1rem;
-  font-weight: bold;
+const Container = styled.div`
+display: flex;
+border-bottom: 1px solid orange;
+font-size: 14px;
+padding: 1rem;
+
+@media (max-width: 768px) {
+  display: block;
+}
+
+& img {
+  width: 3rem;
+  margin: 1rem;
+
+  @media (max-width: 768px) {
+    width: 10rem;
+  }
+}
 `;
 
 const TitleContainer = styled.div`
-  overflow-x: scroll;
   align-items: center;
-  `;
-  
-  const DescContainer = styled.div `
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
+
+const DescContainer = styled.div`
   height: 8rem;
   overflow-y: scroll;
-`
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
+`;
+
+const Price = styled.span`
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+`;
+
+const ProductID = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+  }
+`;

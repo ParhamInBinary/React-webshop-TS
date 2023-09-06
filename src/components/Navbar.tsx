@@ -11,21 +11,21 @@ export function Navbar() {
     <header>
       <NavbarBs sticky="top" className="header shadow-lg mb-4">
         <Container>
-          <Nav className="me-auto">
-          <StyledNavLink to="/" as={NavLink}>
+          <Nav className="me-auto" style={{ alignItems: 'center' }}>
+            <StyledNavLink to="/" as={NavLink}>
               <HomeLogo />
             </StyledNavLink>
             <StyledNavLink to="/" as={NavLink}>
               Home
             </StyledNavLink>
-            <StyledNavLink to="/FAQ" as={NavLink} >
+            <StyledNavLink to="/FAQ" as={NavLink}>
               FAQ
             </StyledNavLink>
           </Nav>
-          <Link to="/Admin" as={NavLink}>
+          <Link data-cy="admin-link" to="/admin" as={NavLink}>
             <AdminButton />
           </Link>
-          <CartButton />
+          <CartButton/>
         </Container>
       </NavbarBs>
     </header>
@@ -33,11 +33,11 @@ export function Navbar() {
 }
 
 const StyledNavLink = styled(NavLink)`
-padding: 0px 10px;
-color: black;
-text-decoration:none;
-font-size: 1.2rem;
-transition: all 0.3s ease;
+  padding: 0px 10px;
+  color: black;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
   &.active {
     color: #fff;
     text-decoration: underline 3px;
@@ -45,5 +45,5 @@ transition: all 0.3s ease;
 `;
 
 const Link = styled(NavLink)`
-padding: 0px 10px;
+  padding: 0px 10px;
 `;
