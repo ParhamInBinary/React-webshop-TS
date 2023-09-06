@@ -1,46 +1,27 @@
-import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
+import { useState } from "react";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer, { ToastPosition } from "react-bootstrap/ToastContainer";
+import { Product } from "../../data";
 
 interface ToastCartProps {
-    onAddToCart: () => void;
-    setShowToast: (value: boolean) => void;
-  }
+  product: Product;
+  showToast: boolean;
+  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  export function ToastCart({ onAddToCart }: ToastCartProps) {
-    const [showToast, setShowToast] = useState(false);
-  
-    const handleAddToCart = () => {
-      console.log("Adding to cart...");
-      onAddToCart();
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 5000);
-      console.log("showToast:", showToast);
-      const [position, setPosition] = useState('top-right');
-    };
-  
-    console.log("Rendering ToastCart...");    
-    
-    
+export function ToastCart(props: ToastCartProps) {  
+  const [position, setPosition] = useState<ToastPosition>('bottom-end');
+ 
   return (
-    <ToastContainer>
-      <Toast show={showToast} onClose={() => setShowToast(false)}>
+    <ToastContainer position={position}>
+      <Toast show={props.showToast} autohide delay={5000} onClose={() => props.setShowToast(false)}>
         <Toast.Header closeButton={true}>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <strong className="me-auto">Bootstrap</strong>
+          <strong className="me-auto">{props.product.title}</strong>
           <small className="text-muted">just now</small>
         </Toast.Header>
-        <Toast.Body>See? Just like this.</Toast.Body>
-      </Toast>
-      <Toast>
-        <Toast.Header>
-          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <strong className="me-auto">Bootstrap</strong>
-          <small className="text-muted">2 seconds ago</small>
-        </Toast.Header>
-        <Toast.Body>Heads up, toasts will stack automatically</Toast.Body>
+        <Toast.Body data-cy="added-to-cart-toast">Har lagts till</Toast.Body>
       </Toast>
     </ToastContainer>
   );
-};
+}

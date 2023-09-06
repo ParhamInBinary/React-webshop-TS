@@ -1,23 +1,40 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Product, products } from "../../data/index";
+import { Product } from "../../data/index";
 import { ProductCard } from "../components/ProductCard";
+import { ToastCart } from "../components/ToastCart";
+import { useCart } from "../contexts/cartContext";
+import { useProducts } from "../contexts/ProductContext";
 
 export function Home() {
-  const [items, setItems] = useState<Product[]>([]);
+  const { cartItems } = useCart();
+  const { products } = useProducts();
+  const [showToast, setShowToast] = useState(false);
+  const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    const storedProducts = JSON.parse(localStorage.getItem("products") ?? "[]");
-    setItems(storedProducts.length > 0 ? storedProducts : products);
-  }, []);
+  const newProduct = cartItems[cartItems.length - 1];
+     if (newProduct) {
+       setLastAddedProduct(newProduct);
+       setShowToast(true);
+       setTimeout(() => setShowToast(false), 5000);
+     }
+   }, [cartItems]);
 
   return (
     <main>
       <div>
         <Heading>PALIMEDA Shoes</Heading>
       </div>
+      {showToast && lastAddedProduct && (
+        <ToastCart
+          product={lastAddedProduct}
+          showToast={showToast}
+          setShowToast={setShowToast}
+        />
+      )}
       <ProductContainer>
-        {items.map((product) => (
+        {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </ProductContainer>
